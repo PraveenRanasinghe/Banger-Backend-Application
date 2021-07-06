@@ -54,28 +54,23 @@ public class userService implements UserDetailsService {
     }
 
 
-    public User userRegistration(userDTO dto) throws ParseException {
+    public User userRegistration(userDTO dto){
         User user = new User();
-//        if (userRepo.findById(dto.getEmail()).isPresent()) {
-//            return null;
-//        }
-//        else
-            if (dto != null) {
             user.setfName(dto.getfName());
             user.setlName(dto.getlName());
             user.setEmail(dto.getEmail());
             user.setContactNum(dto.getContactNum());
             user.setPassword(encoder.encode(dto.getPassword()));
             user.setNicNumber(dto.getNicNumber());
-            user.setUserRole("RegisteredUser");
             user.setIsBlackListed("False");
-//            user.setLicenceImg(dto.getLicenceImg());
-            user.setDOB(new SimpleDateFormat("yyyy-MM-dd").parse(dto.getDob()));
+            user.setUserRole("Customer");
             user.setStatus("Pending");
-        }
+//            user.setDob(new Date(dto.getDob()));
+
         return userRepo.save(user);
     }
 
+    //            user.setDOB(new SimpleDateFormat("yyyy-MM-dd").parse(dto.getDob()));
 
     public User updateUserProfile(userDTO dtoUser) {
         User user = new User();

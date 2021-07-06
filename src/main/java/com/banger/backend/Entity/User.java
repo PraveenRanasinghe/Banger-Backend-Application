@@ -22,7 +22,7 @@ public class User {
     private String lName;
 
     @Column(name = "DOB")
-    private Date DOB;
+    private Date dob;
 
     @Column(name = "password")
     private String password;
@@ -39,7 +39,7 @@ public class User {
     @Column(name = "is_black_listed")
     private String isBlackListed;
 
-    @Column(name = "licence_img", length = 1000)
+    @Column(name = "licence_img")
     private Byte[] licenceImg;
 
     @Column(name = "status")
@@ -49,11 +49,11 @@ public class User {
 
     }
 
-    public User(String email, String fName, String lName, Date DOB, String password, String userRole, String contactNum, String nicNumber, String isBlackListed, Byte[] licenceImg, String status) {
+    public User(String email, String fName, String lName, Date dob, String password, String userRole, String contactNum, String nicNumber, String isBlackListed, Byte[] licenceImg, String status) {
         this.email = email;
         this.fName = fName;
         this.lName = lName;
-        this.DOB = DOB;
+        this.dob = dob;
         this.password = password;
         this.userRole = userRole;
         this.contactNum = contactNum;
@@ -87,12 +87,12 @@ public class User {
         this.lName = lName;
     }
 
-    public Date getDOB() {
-        return DOB;
+    public Date getDob() {
+        return dob;
     }
 
-    public void setDOB(Date DOB) {
-        this.DOB = DOB;
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 
     public String getPassword() {
