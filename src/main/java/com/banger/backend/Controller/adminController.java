@@ -1,7 +1,6 @@
 package com.banger.backend.Controller;
 
 import com.banger.backend.DTO.equipmentDTO;
-import com.banger.backend.DTO.inquiryDTO;
 import com.banger.backend.DTO.userDTO;
 import com.banger.backend.DTO.vehicleDTO;
 import com.banger.backend.Entity.*;
@@ -53,9 +52,20 @@ public class adminController {
         return inqService.getAllInquiries();
     }
 
+    @GetMapping("/getSingleInquiry/{inquiryId}")
+    public Inquiry getInquirtById(@PathVariable(value = "inquiryId") Integer inquiryId ){
+        return inqService.getInquiryById(inquiryId);
+    }
+
     @GetMapping("/viewAllVehicles")
     public List<Vehicle> viewAllVehicles(){
         return vehicleService.getAllVehicles();
+    }
+
+
+    @GetMapping("/viewPendingUsers")
+    public List<userDTO> viewPendingUsers(){
+        return userService.getAllPendingUsersToList();
     }
 
     @GetMapping("/viewAllUsers")

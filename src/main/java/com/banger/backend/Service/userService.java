@@ -91,7 +91,7 @@ public class userService implements UserDetailsService {
     public List<userDTO> getAllPendingUsersToList() {
         List<userDTO> list = new ArrayList<>();
         for (User user : userRepo.findAll()) {
-            if (user.getUserRole().equals("RegisteredUser") && user.getStatus().equals("Pending")) {
+            if (user.getUserRole().equals("Customer") && user.getStatus().equals("Pending")) {
                 userDTO dto = new userDTO();
                 dto.setUserRole(user.getUserRole());
                 dto.setEmail(user.getEmail());
@@ -122,7 +122,7 @@ public class userService implements UserDetailsService {
     public List<userDTO> getAllUsersToList() {
         List<userDTO> list = new ArrayList<>();
         for (User user : userRepo.findAll()) {
-            if (user.getUserRole().equals("RegisteredUser") && user.getStatus().equals("Accepted")) {
+            if (user.getUserRole().equals("Customer") ) {
                 userDTO dto = new userDTO();
                 dto.setUserRole(user.getUserRole());
                 dto.setEmail(user.getEmail());
@@ -135,6 +135,7 @@ public class userService implements UserDetailsService {
         }
         return list;
     }
+
 
 
     public void removeUser(User user) {
