@@ -32,6 +32,9 @@ public class bookingService {
 
     public Booking makeBooking(bookingDTO dto) {
         Booking booking = new Booking();
+//        if(booking.setUser(dto.getUser().getStatus().equals("Accepted") && dto.getUser().getIsBlackListed().equals("False") )){
+//
+//        }
         booking.setBookingId(dto.getBookingId());
         booking.setPickupDate(dto.getPickupDate());
         booking.setReturnDate(dto.getReturnDate());

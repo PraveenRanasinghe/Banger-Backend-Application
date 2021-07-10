@@ -2,6 +2,7 @@ package com.banger.backend.Controller;
 
 
 import com.banger.backend.Config.JwtTokenUtil;
+import com.banger.backend.Entity.User;
 import com.banger.backend.ReqResp.JwtRequest;
 import com.banger.backend.ReqResp.JwtResponse;
 import com.banger.backend.Service.userService;
@@ -38,9 +39,11 @@ public class authenticationController {
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
 
+        User user = userDetailsService.getUserByID(authenticationRequest.getUsername());
+
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token));
+        return ResponseEntity.ok(new JwtResponse(token,user.getUserRole()));
     }
 
 

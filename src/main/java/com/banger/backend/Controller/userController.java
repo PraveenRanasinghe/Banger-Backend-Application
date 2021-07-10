@@ -6,15 +6,18 @@ import com.banger.backend.DTO.userDTO;
 import com.banger.backend.Entity.Booking;
 import com.banger.backend.Entity.Inquiry;
 import com.banger.backend.Entity.User;
+import com.banger.backend.Entity.Vehicle;
 import com.banger.backend.Service.bookingService;
 import com.banger.backend.Service.inquiryService;
 import com.banger.backend.Service.userService;
+import com.banger.backend.Service.vehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -31,6 +34,10 @@ public class userController {
 
     @Autowired
     private inquiryService inqService;
+
+    @Autowired
+    private vehicleService vehicleService;
+
 
     @PostMapping("/addInq")
     @PreAuthorize("permitAll()")
@@ -62,6 +69,11 @@ public class userController {
     public ResponseEntity<bookingDTO> updateBooking(@RequestBody bookingDTO dto) {
         Booking updateBooking = this.bookingService.updateBooking(dto);
         return new ResponseEntity(updateBooking, OK);
+    }
+
+    @GetMapping("/viewAllVehicles")
+    public List<Vehicle> viewAllVehicles(){
+        return vehicleService.getAllVehicles();
     }
 
 }

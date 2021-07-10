@@ -23,12 +23,6 @@ public class inquiryService {
 
         Inquiry inquiry = new Inquiry();
 
-        System.out.println(dtoInq.getInquiryId());
-        System.out.println(dtoInq.getInquirerName());
-        System.out.println(dtoInq.getInquirerEmail());
-        System.out.println(dtoInq.getContactNum());
-        System.out.println(dtoInq.getMessage());
-
         inquiry.setInquiryId(dtoInq.getInquiryId());
         inquiry.setInquirerName(dtoInq.getInquirerName());
         inquiry.setInquirerEmail(dtoInq.getInquirerEmail());

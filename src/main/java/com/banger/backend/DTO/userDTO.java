@@ -12,6 +12,7 @@ public class userDTO {
     private String isBlackListed;
     private String nicNumber;
     private Byte[] licenceImg;
+    private Byte[] utilityBill;
     private String status;
 
 
@@ -98,6 +99,14 @@ public class userDTO {
 
     public void setLicenceImg(Byte[] licenceImg) {
         this.licenceImg = licenceImg;
+    }
+
+    public Byte[] getUtilityBill() {
+        return utilityBill;
+    }
+
+    public void setUtilityBill(Byte[] utilityBill) {
+        this.utilityBill = utilityBill;
     }
 
     public String getStatus() {

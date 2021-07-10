@@ -72,4 +72,37 @@ public class emailService {
         }
     }
 
+
+    public void EmailToNotifyAdminInNewUserRegistration(String adminEmail) {
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(companyEmail));
+            message.setRecipients(
+                    Message.RecipientType.TO, InternetAddress.parse(adminEmail));
+            message.setSubject("----------" +
+                    "New User Registration On System !" +
+                    "----------");
+
+            String msg = "Dear Administrator,<br/><br/>" +
+
+                    "There is a new Registration on our Banger & Co Organization.<br/>" +
+                    "Please check the validity of the account and Accept the Account. <br/>" +
+
+                    "----------------------------------------------------------------<br/><br/>" +
+                    "Best Regards,<br/>" +
+                    "Development Team";
+
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(msg, "text/html");
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mimeBodyPart);
+            message.setContent(multipart);
+            Transport.send(message);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Error");
+        }
+    }
+
 }

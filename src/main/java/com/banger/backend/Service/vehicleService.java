@@ -17,7 +17,7 @@ public class vehicleService {
     private VehicleRepo vehicleRepo;
 
 
-    public Vehicle getVehicleByID(String vId) {
+    public Vehicle getVehicleByID(Integer vId) {
         Optional<Vehicle> vehicle = vehicleRepo.findById(vId);
         Vehicle v = null;
         if (vehicle.isPresent()) {

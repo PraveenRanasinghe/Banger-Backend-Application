@@ -54,7 +54,7 @@ public class userService implements UserDetailsService {
     }
 
 
-    public User userRegistration(userDTO dto){
+    public User userRegistration(userDTO dto) throws ParseException {
         User user = new User();
             user.setfName(dto.getfName());
             user.setlName(dto.getlName());
@@ -65,8 +65,8 @@ public class userService implements UserDetailsService {
             user.setIsBlackListed("False");
             user.setUserRole("Customer");
             user.setStatus("Pending");
-//            user.setDob(new Date(dto.getDob()));
-
+            user.setDob(new SimpleDateFormat("yyyy-MM-dd").parse(dto.getDob()));
+//            emailService.EmailToNotifyAdminInNewUserRegistration("systemAdmin@gmail.com");
         return userRepo.save(user);
     }
 
@@ -110,8 +110,8 @@ public class userService implements UserDetailsService {
     public User acceptUserAccount(userDTO dto) {
         User user = new User();
         if (dto != null) {
-            user.setEmail(dto.getEmail());
-            user.setStatus(dto.getStatus());
+
+            user.setStatus("Accepted");
         }
 //        emailService.EmailForAccountAcceptance(dto.getEmail());
         return userRepo.save(user);
