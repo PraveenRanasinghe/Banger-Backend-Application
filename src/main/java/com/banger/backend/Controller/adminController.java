@@ -34,12 +34,12 @@ public class adminController {
     private inquiryService inqService;
 
 
-
     @PostMapping("/addVehicle")
     public ResponseEntity<vehicleDTO> addVehicle(@RequestBody vehicleDTO dto){
         Vehicle addedVehicle= this.vehicleService.addVehicle(dto);
         return new ResponseEntity(addedVehicle, CREATED);
     }
+
 
     @PostMapping("/addEquipment")
     public ResponseEntity<equipmentDTO> addEquipments(@RequestBody equipmentDTO dto){
@@ -53,7 +53,7 @@ public class adminController {
     }
 
     @GetMapping("/getSingleInquiry/{inquiryId}")
-    public Inquiry getInquirtById(@PathVariable(value = "inquiryId") Integer inquiryId ){
+    public Inquiry getInquiryById(@PathVariable(value = "inquiryId") Integer inquiryId ){
         return inqService.getInquiryById(inquiryId);
     }
 
