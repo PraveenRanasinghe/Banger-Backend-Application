@@ -53,8 +53,13 @@ public class adminController {
     }
 
     @GetMapping("/getSingleInquiry/{inquiryId}")
-    public Inquiry getInquiryById(@PathVariable(value = "inquiryId") Integer inquiryId ){
+    public Inquiry getInquiryById(@PathVariable(value = "inquiryId") int inquiryId ){
         return inqService.getInquiryById(inquiryId);
+    }
+
+    @RequestMapping("removeInquiry/{inquiryId}")
+    public void removeInquiry(@PathVariable(name = "inquiryId") Inquiry inquiry){
+        inqService.deleteInquiry(inquiry);
     }
 
     @GetMapping("/viewAllVehicles")
@@ -62,6 +67,10 @@ public class adminController {
         return vehicleService.getAllVehicles();
     }
 
+    @GetMapping("getSingleVehicle/{vehicleId}")
+    public Vehicle getVehicleById(@PathVariable(value = "vehicleId") int vehicleId){
+        return vehicleService.getVehicleByID(vehicleId);
+    }
 
     @GetMapping("/viewPendingUsers")
     public List<userDTO> viewPendingUsers(){
@@ -73,9 +82,19 @@ public class adminController {
         return userService.getAllUsersToList();
     }
 
+    @GetMapping("/getSingleUser/{email}")
+    public User getUserById(@PathVariable(value = "email") String userEmail){
+        return userService.getUserByID(userEmail);
+    }
+
     @GetMapping("/viewEquipments")
     public List<Equipment>viewAllEquipments(){
         return equipService.getAllEquipments();
+    }
+
+    @GetMapping("getSingleEquipment/{equipId}")
+    public Equipment getEquipmentById(@PathVariable(name = "equipId") int equipId){
+        return equipService.getEquipmentById(equipId);
     }
 
     @GetMapping("/viewAllBookings")
