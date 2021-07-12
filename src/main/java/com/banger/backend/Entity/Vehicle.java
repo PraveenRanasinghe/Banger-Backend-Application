@@ -37,14 +37,14 @@ public class Vehicle {
     private String ac;
 
     @Column(name = "vehicle_img")
-    private Byte[] vehicleImg;
+    private byte[] vehicleImg;
 
     public Vehicle(){
 
     }
 
 
-    public Vehicle(int vehicleId, String vehicleType, String vehicleModel, Integer numOfSeats, String fuelType, String pricePerDay, String transmissionType, String airBag, String ac, Byte[] vehicleImg) {
+    public Vehicle(int vehicleId, String vehicleType, String vehicleModel, Integer numOfSeats, String fuelType, String pricePerDay, String transmissionType, String airBag, String ac, byte[] vehicleImg) {
         this.vehicleId = vehicleId;
         this.vehicleType = vehicleType;
         this.vehicleModel = vehicleModel;
@@ -129,11 +129,11 @@ public class Vehicle {
         this.ac = ac;
     }
 
-    public Byte[] getVehicleImg() {
+    public byte[] getVehicleImg() {
         return vehicleImg;
     }
 
-    public void setVehicleImg(Byte[] vehicleImg) {
+    public void setVehicleImg(byte[] vehicleImg) {
         this.vehicleImg = vehicleImg;
     }
 }

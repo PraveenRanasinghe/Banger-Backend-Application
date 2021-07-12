@@ -66,6 +66,8 @@ public class userService implements UserDetailsService {
             user.setUserRole("Customer");
             user.setStatus("Pending");
             user.setDob(new SimpleDateFormat("yyyy-MM-dd").parse(dto.getDob()));
+            user.setLicenceImg(dto.getLicenceImg());
+            user.setProfileImage(dto.getProfileImage());
 //            emailService.EmailToNotifyAdminInNewUserRegistration("systemAdmin@gmail.com");
         return userRepo.save(user);
     }

@@ -3,6 +3,7 @@ package com.banger.backend.Controller;
 import com.banger.backend.DTO.bookingDTO;
 import com.banger.backend.DTO.inquiryDTO;
 import com.banger.backend.DTO.userDTO;
+import com.banger.backend.DTO.vehicleDTO;
 import com.banger.backend.Entity.Booking;
 import com.banger.backend.Entity.Inquiry;
 import com.banger.backend.Entity.User;
@@ -11,11 +12,14 @@ import com.banger.backend.Service.bookingService;
 import com.banger.backend.Service.inquiryService;
 import com.banger.backend.Service.userService;
 import com.banger.backend.Service.vehicleService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -46,11 +50,24 @@ public class userController {
         return new ResponseEntity(addInq, OK);
     }
 
+//    @PostMapping("/addVehicle")
+//    public ResponseEntity<?>  uploadImage(@RequestParam("vehicleInfo")String vehicleInfo, @RequestParam("vehicleImage") MultipartFile file) throws IOException {
+//        ObjectMapper mp = new ObjectMapper();
+//        vehicleDTO dtoVehicle = mp.readValue(vehicleInfo, vehicleDTO.class);
+//        dtoVehicle.setVehicleImg(file.getBytes());
+//        vehicleService.addVehicle(dtoVehicle);
+//        return new ResponseEntity(CREATED);
+//    }
+
     @PostMapping("/createAccount")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<userDTO> registerUser(@RequestBody userDTO dto) throws ParseException {
-        User addedUser = this.userService.userRegistration(dto);
-        return new ResponseEntity(addedUser, CREATED);
+    public ResponseEntity<?> registerUser(@RequestParam("signUpInfo") String signUpInfo, @RequestParam("licenceImg")MultipartFile licence,@RequestParam("profileImage") MultipartFile profileImg) throws IOException, ParseException {
+        ObjectMapper mp = new ObjectMapper();
+        userDTO dtoUser= mp.readValue(signUpInfo,userDTO.class);
+        dtoUser.setProfileImage(profileImg.getBytes());
+        dtoUser.setLicenceImg(licence.getBytes());
+        userService.userRegistration(dtoUser);
+        return new ResponseEntity(CREATED);
     }
 
     @PostMapping("/userUpdateProfile")

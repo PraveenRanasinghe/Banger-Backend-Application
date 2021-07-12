@@ -5,10 +5,16 @@ import com.banger.backend.DTO.userDTO;
 import com.banger.backend.DTO.vehicleDTO;
 import com.banger.backend.Entity.*;
 import com.banger.backend.Service.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -34,10 +40,19 @@ public class adminController {
     private inquiryService inqService;
 
 
+//    @PostMapping("/addVehicle")
+//    public ResponseEntity<vehicleDTO> addVehicle(@RequestBody vehicleDTO dto){
+//        Vehicle addedVehicle= this.vehicleService.addVehicle(dto);
+//        return new ResponseEntity(addedVehicle, CREATED);
+//    }
+
     @PostMapping("/addVehicle")
-    public ResponseEntity<vehicleDTO> addVehicle(@RequestBody vehicleDTO dto){
-        Vehicle addedVehicle= this.vehicleService.addVehicle(dto);
-        return new ResponseEntity(addedVehicle, CREATED);
+    public ResponseEntity<?>  uploadImage(@RequestParam("vehicleInfo")String vehicleInfo, @RequestParam("vehicleImage")MultipartFile file) throws IOException {
+        ObjectMapper mp = new ObjectMapper();
+        vehicleDTO dtoVehicle = mp.readValue(vehicleInfo, vehicleDTO.class);
+        dtoVehicle.setVehicleImg(file.getBytes());
+        vehicleService.addVehicle(dtoVehicle);
+        return new ResponseEntity(CREATED);
     }
 
 

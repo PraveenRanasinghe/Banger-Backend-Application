@@ -40,10 +40,13 @@ public class User {
     private String isBlackListed;
 
     @Column(name = "licence_img")
-    private Byte[] licenceImg;
+    private byte[] licenceImg;
 
     @Column(name = "utility_bill")
-    private Byte[] utilityBill;
+    private byte[] utilityBill;
+
+    @Column(name = "profile_image")
+    private byte[] profileImage;
 
     @Column(name = "status")
     private String status;
@@ -52,7 +55,7 @@ public class User {
 
     }
 
-    public User(String email, String fName, String lName, Date dob, String password, String userRole, String contactNum, String nicNumber, String isBlackListed, Byte[] licenceImg, Byte[] utilityBill, String status) {
+    public User(String email, String fName, String lName, Date dob, String password, String userRole, String contactNum, String nicNumber, String isBlackListed, byte[] licenceImg, byte[] utilityBill, byte[] profileImage, String status) {
         this.email = email;
         this.fName = fName;
         this.lName = lName;
@@ -64,6 +67,7 @@ public class User {
         this.isBlackListed = isBlackListed;
         this.licenceImg = licenceImg;
         this.utilityBill = utilityBill;
+        this.profileImage = profileImage;
         this.status = status;
     }
 
@@ -139,20 +143,28 @@ public class User {
         this.isBlackListed = isBlackListed;
     }
 
-    public Byte[] getLicenceImg() {
+    public byte[] getLicenceImg() {
         return licenceImg;
     }
 
-    public void setLicenceImg(Byte[] licenceImg) {
+    public void setLicenceImg(byte[] licenceImg) {
         this.licenceImg = licenceImg;
     }
 
-    public Byte[] getUtilityBill() {
+    public byte[] getUtilityBill() {
         return utilityBill;
     }
 
-    public void setUtilityBill(Byte[] utilityBill) {
+    public void setUtilityBill(byte[] utilityBill) {
         this.utilityBill = utilityBill;
+    }
+
+    public byte[] getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
     }
 
     public String getStatus() {

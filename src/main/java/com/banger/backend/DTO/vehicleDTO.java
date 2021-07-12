@@ -13,20 +13,20 @@ public class vehicleDTO {
     private String transmissionType;
     private String airBag;
     private String ac;
-    private Byte[] vehicleImg;
+    private byte[] vehicleImage;
 
-    public vehicleDTO(int vehicleId, String vehicleType, String vehicleModel, Integer numOfSeats, String fuelType, String pricePerDay, String transmissionType, String airBag, String ac, Byte[] vehicleImg) {
-        this.vehicleId = vehicleId;
-        this.vehicleType = vehicleType;
-        this.vehicleModel = vehicleModel;
-        this.numOfSeats = numOfSeats;
-        this.fuelType = fuelType;
-        this.pricePerDay = pricePerDay;
-        this.transmissionType = transmissionType;
-        this.airBag = airBag;
-        this.ac = ac;
-        this.vehicleImg = vehicleImg;
-    }
+//    public vehicleDTO(int vehicleId, String vehicleType, String vehicleModel, Integer numOfSeats, String fuelType, String pricePerDay, String transmissionType, String airBag, String ac, byte[] vehicleImage) {
+//        this.vehicleId = vehicleId;
+//        this.vehicleType = vehicleType;
+//        this.vehicleModel = vehicleModel;
+//        this.numOfSeats = numOfSeats;
+//        this.fuelType = fuelType;
+//        this.pricePerDay = pricePerDay;
+//        this.transmissionType = transmissionType;
+//        this.airBag = airBag;
+//        this.ac = ac;
+//        this.vehicleImage = vehicleImage;
+//    }
 
     public vehicleDTO() {
     }
@@ -103,11 +103,11 @@ public class vehicleDTO {
         this.ac = ac;
     }
 
-    public Byte[] getVehicleImg() {
-        return vehicleImg;
+    public byte[] getVehicleImg() {
+        return vehicleImage;
     }
 
-    public void setVehicleImg(Byte[] vehicleImg) {
-        this.vehicleImg = vehicleImg;
+    public void setVehicleImg(byte[] vehicleImage) {
+        this.vehicleImage = vehicleImage;
     }
 }

@@ -42,7 +42,7 @@ public class vehicleService {
         vehicle.setNumOfSeats(dtoVehicle.getNumOfSeats());
         vehicle.setPricePerDay(dtoVehicle.getPricePerDay());
         vehicle.setTransmissionType(dtoVehicle.getTransmissionType());
-
+        vehicle.setVehicleImg(dtoVehicle.getVehicleImg());
         return vehicleRepo.save(vehicle);
     }
 
