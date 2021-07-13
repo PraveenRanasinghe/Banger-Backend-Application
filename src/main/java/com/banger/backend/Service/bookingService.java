@@ -43,7 +43,8 @@ public class bookingService {
         booking.setVehicle(dto.getVehicle());
         booking.setEquipments(dto.getEquipments());
         booking.setUser(dto.getUser());
-
+        booking.setBookingStatus("Pending");
+        booking.setUtilityBill(dto.getUtilityBill());
         return bookingRepo.save(booking);
     }
 

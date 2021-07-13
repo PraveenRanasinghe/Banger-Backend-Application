@@ -1,17 +1,8 @@
 package com.banger.backend.Controller;
 
-import com.banger.backend.DTO.bookingDTO;
-import com.banger.backend.DTO.inquiryDTO;
-import com.banger.backend.DTO.userDTO;
-import com.banger.backend.DTO.vehicleDTO;
-import com.banger.backend.Entity.Booking;
-import com.banger.backend.Entity.Inquiry;
-import com.banger.backend.Entity.User;
-import com.banger.backend.Entity.Vehicle;
-import com.banger.backend.Service.bookingService;
-import com.banger.backend.Service.inquiryService;
-import com.banger.backend.Service.userService;
-import com.banger.backend.Service.vehicleService;
+import com.banger.backend.DTO.*;
+import com.banger.backend.Entity.*;
+import com.banger.backend.Service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +33,9 @@ public class userController {
     @Autowired
     private vehicleService vehicleService;
 
+    @Autowired
+    private equipmentService equipmentService;
+
 
     @PostMapping("/addInq")
     @PreAuthorize("permitAll()")
@@ -50,14 +44,6 @@ public class userController {
         return new ResponseEntity(addInq, OK);
     }
 
-//    @PostMapping("/addVehicle")
-//    public ResponseEntity<?>  uploadImage(@RequestParam("vehicleInfo")String vehicleInfo, @RequestParam("vehicleImage") MultipartFile file) throws IOException {
-//        ObjectMapper mp = new ObjectMapper();
-//        vehicleDTO dtoVehicle = mp.readValue(vehicleInfo, vehicleDTO.class);
-//        dtoVehicle.setVehicleImg(file.getBytes());
-//        vehicleService.addVehicle(dtoVehicle);
-//        return new ResponseEntity(CREATED);
-//    }
 
     @PostMapping("/createAccount")
     @PreAuthorize("permitAll()")
@@ -79,9 +65,13 @@ public class userController {
     @PostMapping("/makeBooking")
     public ResponseEntity<bookingDTO> makeBooking(@RequestBody bookingDTO dto) {
         Booking makeBooking = this.bookingService.makeBooking(dto);
-        return new ResponseEntity(makeBooking, OK);
+        return new ResponseEntity(makeBooking,OK);
     }
 
+    @GetMapping("/getEquipmentList")
+    public List<equipmentDTO> viewEquipmentList(){
+        return equipmentService.getEquipmentsToList();
+    }
     @PostMapping("/updateBooking")
     public ResponseEntity<bookingDTO> updateBooking(@RequestBody bookingDTO dto) {
         Booking updateBooking = this.bookingService.updateBooking(dto);

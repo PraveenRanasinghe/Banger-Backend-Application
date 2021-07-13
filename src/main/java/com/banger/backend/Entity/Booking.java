@@ -35,6 +35,11 @@ public class Booking {
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
+    @Column(name = "utility_bill")
+    private byte[] utilityBill;
+
+    @Column(name = "booking_status")
+    private String bookingStatus;
 
     @ManyToMany
     @JoinTable(
@@ -45,7 +50,7 @@ public class Booking {
 
     private List<Equipment> equipments;
 
-    public Booking(int bookingId, Date pickupDate, Date returnDate, LocalTime pickupTime, LocalTime returnTime, User user, Vehicle vehicle, List<Equipment> equipments) {
+    public Booking(int bookingId, Date pickupDate, Date returnDate, LocalTime pickupTime, LocalTime returnTime, User user, Vehicle vehicle, byte[] utilityBill, String bookingStatus, List<Equipment> equipments) {
         this.bookingId = bookingId;
         this.pickupDate = pickupDate;
         this.returnDate = returnDate;
@@ -53,6 +58,8 @@ public class Booking {
         this.returnTime = returnTime;
         this.user = user;
         this.vehicle = vehicle;
+        this.utilityBill = utilityBill;
+        this.bookingStatus = bookingStatus;
         this.equipments = equipments;
     }
 
@@ -113,6 +120,22 @@ public class Booking {
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+    }
+
+    public byte[] getUtilityBill() {
+        return utilityBill;
+    }
+
+    public void setUtilityBill(byte[] utilityBill) {
+        this.utilityBill = utilityBill;
+    }
+
+    public String getBookingStatus() {
+        return bookingStatus;
+    }
+
+    public void setBookingStatus(String bookingStatus) {
+        this.bookingStatus = bookingStatus;
     }
 
     public List<Equipment> getEquipments() {

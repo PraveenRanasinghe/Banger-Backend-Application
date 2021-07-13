@@ -92,6 +92,16 @@ public class adminController {
         return userService.getAllPendingUsersToList();
     }
 
+    @PostMapping("acceptUser/{email}")
+    public User AcceptUser(@PathVariable(value = "email") userDTO dtoUser){
+        return userService.acceptUserAccount(dtoUser);
+    }
+
+    @PutMapping("updateVehicle/{vehicleId}")
+    public Vehicle updateVehicle(@PathVariable(value = "vehicleId") vehicleDTO vehicle){
+        return vehicleService.updateVehicleInfo(vehicle);
+    }
+
     @GetMapping("/viewAllUsers")
     public List<userDTO> viewAllUsers(){
         return userService.getAllUsersToList();

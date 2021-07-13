@@ -5,6 +5,7 @@ import com.banger.backend.Entity.User;
 import com.banger.backend.Entity.Vehicle;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
@@ -28,16 +29,10 @@ public class bookingDTO {
     private User user;
     private Vehicle vehicle;
     private List<Equipment> equipments;
+    private byte[] utilityBill;
+    private String bookingStatus;
 
-    public bookingDTO(int bookingId, Date pickupDate, Date returnDate, String pickupTime, String returnTime, User user, Vehicle vehicle, List<Equipment> equipments) {
-        this.bookingId = bookingId;
-        this.pickupDate = pickupDate;
-        this.returnDate = returnDate;
-        this.pickupTime = pickupTime;
-        this.returnTime = returnTime;
-        this.user = user;
-        this.vehicle = vehicle;
-        this.equipments = equipments;
+    public bookingDTO() {
     }
 
     public int getBookingId() {
@@ -102,5 +97,21 @@ public class bookingDTO {
 
     public void setEquipments(List<Equipment> equipments) {
         this.equipments = equipments;
+    }
+
+    public byte[] getUtilityBill() {
+        return utilityBill;
+    }
+
+    public void setUtilityBill(byte[] utilityBill) {
+        this.utilityBill = utilityBill;
+    }
+
+    public String getBookingStatus() {
+        return bookingStatus;
+    }
+
+    public void setBookingStatus(String bookingStatus) {
+        this.bookingStatus = bookingStatus;
     }
 }

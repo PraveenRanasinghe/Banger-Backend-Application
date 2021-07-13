@@ -7,6 +7,7 @@ import com.banger.backend.Repositary.EquipmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,18 @@ public class equipmentService {
         }
         return equip;
     }
+
+
+    public List<equipmentDTO> getEquipmentsToList(){
+        List <equipmentDTO> list= new ArrayList<>();
+        for(Equipment equipment:equipmentRepo.findAll()){
+            equipmentDTO dtoEq= new equipmentDTO();
+            dtoEq.setItemName(equipment.getItemName());
+            dtoEq.setPricePerDayEQ(equipment.getPricePerDayEQ());
+        }
+        return list;
+    }
+
 
     public List<Equipment> getAllEquipments(){
         return equipmentRepo.findAll();

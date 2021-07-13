@@ -47,17 +47,14 @@ public class vehicleService {
     }
 
     public Vehicle updateVehicleInfo(vehicleDTO dtoVehicle){
-        Vehicle vehicle= new Vehicle();
-        vehicle.setVehicleId(dtoVehicle.getVehicleId());
-        vehicle.setVehicleImg(dtoVehicle.getVehicleImg());
-        vehicle.setVehicleModel(dtoVehicle.getVehicleModel());
-        vehicle.setVehicleType(dtoVehicle.getVehicleType());
-        vehicle.setAc(dtoVehicle.getAc());
-        vehicle.setAirBag(dtoVehicle.getAirBag());
+
+        Vehicle vehicle = vehicleRepo.findById(dtoVehicle.getVehicleId()).get();
+
         vehicle.setFuelType(dtoVehicle.getFuelType());
-        vehicle.setNumOfSeats(dtoVehicle.getNumOfSeats());
         vehicle.setPricePerDay(dtoVehicle.getPricePerDay());
         vehicle.setTransmissionType(dtoVehicle.getTransmissionType());
+        vehicle.setAirBag(dtoVehicle.getAirBag());
+        vehicle.setAc(dtoVehicle.getAc());
 
         return vehicleRepo.save(vehicle);
     }
