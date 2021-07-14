@@ -15,18 +15,6 @@ public class vehicleDTO {
     private String ac;
     private byte[] vehicleImage;
 
-//    public vehicleDTO(int vehicleId, String vehicleType, String vehicleModel, Integer numOfSeats, String fuelType, String pricePerDay, String transmissionType, String airBag, String ac, byte[] vehicleImage) {
-//        this.vehicleId = vehicleId;
-//        this.vehicleType = vehicleType;
-//        this.vehicleModel = vehicleModel;
-//        this.numOfSeats = numOfSeats;
-//        this.fuelType = fuelType;
-//        this.pricePerDay = pricePerDay;
-//        this.transmissionType = transmissionType;
-//        this.airBag = airBag;
-//        this.ac = ac;
-//        this.vehicleImage = vehicleImage;
-//    }
 
     public vehicleDTO() {
     }

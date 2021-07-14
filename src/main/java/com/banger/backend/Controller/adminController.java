@@ -47,7 +47,7 @@ public class adminController {
 //    }
 
     @PostMapping("/addVehicle")
-    public ResponseEntity<?>  uploadImage(@RequestParam("vehicleInfo")String vehicleInfo, @RequestParam("vehicleImage")MultipartFile file) throws IOException {
+    public ResponseEntity<?> uploadImage(@RequestParam("vehicleInfo") String vehicleInfo, @RequestParam("vehicleImage") MultipartFile file) throws IOException {
         ObjectMapper mp = new ObjectMapper();
         vehicleDTO dtoVehicle = mp.readValue(vehicleInfo, vehicleDTO.class);
         dtoVehicle.setVehicleImg(file.getBytes());
@@ -57,73 +57,73 @@ public class adminController {
 
 
     @PostMapping("/addEquipment")
-    public ResponseEntity<equipmentDTO> addEquipments(@RequestBody equipmentDTO dto){
-       Equipment addedEquip= this.equipService.addEquipments(dto);
+    public ResponseEntity<equipmentDTO> addEquipments(@RequestBody equipmentDTO dto) {
+        Equipment addedEquip = this.equipService.addEquipments(dto);
         return new ResponseEntity(addedEquip, CREATED);
     }
 
     @GetMapping("/viewInquiries")
-    public List<Inquiry> viewAllInquiries(){
+    public List<Inquiry> viewAllInquiries() {
         return inqService.getAllInquiries();
     }
 
     @GetMapping("/getSingleInquiry/{inquiryId}")
-    public Inquiry getInquiryById(@PathVariable(value = "inquiryId") int inquiryId ){
+    public Inquiry getInquiryById(@PathVariable(value = "inquiryId") int inquiryId) {
         return inqService.getInquiryById(inquiryId);
     }
 
     @RequestMapping("removeInquiry/{inquiryId}")
-    public void removeInquiry(@PathVariable(name = "inquiryId") Inquiry inquiry){
+    public void removeInquiry(@PathVariable(name = "inquiryId") Inquiry inquiry) {
         inqService.deleteInquiry(inquiry);
     }
 
     @GetMapping("/viewAllVehicles")
-    public List<Vehicle> viewAllVehicles(){
+    public List<Vehicle> viewAllVehicles() {
         return vehicleService.getAllVehicles();
     }
 
     @GetMapping("getSingleVehicle/{vehicleId}")
-    public Vehicle getVehicleById(@PathVariable(value = "vehicleId") int vehicleId){
+    public Vehicle getVehicleById(@PathVariable(value = "vehicleId") int vehicleId) {
         return vehicleService.getVehicleByID(vehicleId);
     }
 
     @GetMapping("/viewPendingUsers")
-    public List<userDTO> viewPendingUsers(){
+    public List<userDTO> viewPendingUsers() {
         return userService.getAllPendingUsersToList();
     }
 
     @PostMapping("acceptUser/{email}")
-    public User AcceptUser(@PathVariable(value = "email") userDTO dtoUser){
+    public User AcceptUser(@PathVariable(value = "email") userDTO dtoUser) {
         return userService.acceptUserAccount(dtoUser);
     }
 
     @PutMapping("updateVehicle/{vehicleId}")
-    public Vehicle updateVehicle(@PathVariable(value = "vehicleId") vehicleDTO vehicle){
+    public Vehicle updateVehicle(@PathVariable(value = "vehicleId") int vehicleId, @RequestBody vehicleDTO vehicle) {
         return vehicleService.updateVehicleInfo(vehicle);
     }
 
     @GetMapping("/viewAllUsers")
-    public List<userDTO> viewAllUsers(){
+    public List<userDTO> viewAllUsers() {
         return userService.getAllUsersToList();
     }
 
     @GetMapping("/getSingleUser/{email}")
-    public User getUserById(@PathVariable(value = "email") String userEmail){
+    public User getUserById(@PathVariable(value = "email") String userEmail) {
         return userService.getUserByID(userEmail);
     }
 
     @GetMapping("/viewEquipments")
-    public List<Equipment>viewAllEquipments(){
+    public List<Equipment> viewAllEquipments() {
         return equipService.getAllEquipments();
     }
 
     @GetMapping("getSingleEquipment/{equipId}")
-    public Equipment getEquipmentById(@PathVariable(name = "equipId") int equipId){
+    public Equipment getEquipmentById(@PathVariable(name = "equipId") int equipId) {
         return equipService.getEquipmentById(equipId);
     }
 
     @GetMapping("/viewAllBookings")
-    public List<Booking> viewAllBookings(){
+    public List<Booking> viewAllBookings() {
         return bookingService.getAllBookingsToList();
     }
 
