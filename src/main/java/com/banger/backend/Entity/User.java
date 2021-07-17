@@ -45,6 +45,9 @@ public class User {
     @Column(name = "profile_image")
     private byte[] profileImage;
 
+    @Column(name = "utility_bill")
+    private byte[] utilityBill;
+
     @Column(name = "status")
     private String status;
 
@@ -52,7 +55,7 @@ public class User {
 
     }
 
-    public User(String email, String fName, String lName, Date dob, String password, String userRole, String contactNum, String nicNumber, String isBlackListed, byte[] licenceImg, byte[] profileImage, String status) {
+    public User(String email, String fName, String lName, Date dob, String password, String userRole, String contactNum, String nicNumber, String isBlackListed, byte[] licenceImg, byte[] profileImage, byte[] utilityBill, String status) {
         this.email = email;
         this.fName = fName;
         this.lName = lName;
@@ -64,6 +67,7 @@ public class User {
         this.isBlackListed = isBlackListed;
         this.licenceImg = licenceImg;
         this.profileImage = profileImage;
+        this.utilityBill = utilityBill;
         this.status = status;
     }
 
@@ -154,6 +158,14 @@ public class User {
 
     public void setProfileImage(byte[] profileImage) {
         this.profileImage = profileImage;
+    }
+
+    public byte[] getUtilityBill() {
+        return utilityBill;
+    }
+
+    public void setUtilityBill(byte[] utilityBill) {
+        this.utilityBill = utilityBill;
     }
 
     public String getStatus() {

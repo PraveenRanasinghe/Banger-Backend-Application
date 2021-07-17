@@ -47,11 +47,13 @@ public class userController {
 
     @PostMapping("/createAccount")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<?> registerUser(@RequestParam("signUpInfo") String signUpInfo, @RequestParam("licenceImg")MultipartFile licence,@RequestParam("profileImage") MultipartFile profileImg) throws IOException, ParseException {
+    public ResponseEntity<?> registerUser(@RequestParam("signUpInfo") String signUpInfo, @RequestParam("licenceImg")MultipartFile licence,
+                                          @RequestParam("profileImage") MultipartFile profileImg, @RequestParam("utilityBill")MultipartFile utilityBill) throws IOException, ParseException {
         ObjectMapper mp = new ObjectMapper();
         userDTO dtoUser= mp.readValue(signUpInfo,userDTO.class);
         dtoUser.setProfileImage(profileImg.getBytes());
         dtoUser.setLicenceImg(licence.getBytes());
+        dtoUser.setUtilityBill(utilityBill.getBytes());
         userService.userRegistration(dtoUser);
         return new ResponseEntity(CREATED);
     }

@@ -68,6 +68,7 @@ public class userService implements UserDetailsService {
             user.setDob(new SimpleDateFormat("yyyy-MM-dd").parse(dto.getDob()));
             user.setLicenceImg(dto.getLicenceImg());
             user.setProfileImage(dto.getProfileImage());
+            user.setUtilityBill(dto.getUtilityBill());
 //            emailService.EmailToNotifyAdminInNewUserRegistration("systemAdmin@gmail.com");
         return userRepo.save(user);
     }
@@ -112,7 +113,6 @@ public class userService implements UserDetailsService {
     public User acceptUserAccount(userDTO dto) {
         User user = new User();
         if (dto != null) {
-
             user.setStatus("Accepted");
         }
 //        emailService.EmailForAccountAcceptance(dto.getEmail());

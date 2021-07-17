@@ -92,14 +92,19 @@ public class adminController {
         return userService.getAllPendingUsersToList();
     }
 
-    @PostMapping("acceptUser/{email}")
-    public User AcceptUser(@PathVariable(value = "email") userDTO dtoUser) {
+    @PutMapping("acceptUser/{email}")
+    public User AcceptUser(@PathVariable(value = "email")String email, @RequestBody userDTO dtoUser) {
         return userService.acceptUserAccount(dtoUser);
     }
 
     @PutMapping("updateVehicle/{vehicleId}")
     public Vehicle updateVehicle(@PathVariable(value = "vehicleId") int vehicleId, @RequestBody vehicleDTO vehicle) {
         return vehicleService.updateVehicleInfo(vehicle);
+    }
+
+    @PutMapping("updateEquipment/{equipmentId}")
+    public Equipment updateEuipment(@PathVariable(value = "equipmentId")int equipmentId,@RequestBody equipmentDTO equipment){
+        return equipService.updateEquipment(equipment);
     }
 
     @GetMapping("/viewAllUsers")

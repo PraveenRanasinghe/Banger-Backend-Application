@@ -55,11 +55,7 @@ public class equipmentService {
     }
 
     public Equipment updateEquipment(equipmentDTO dto){
-        Equipment equipment= new Equipment();
-
-        equipment.setEquipmentId(dto.getEquipmentId());
-        equipment.setEquipImg(dto.getEquipImg());
-        equipment.setItemName(dto.getItemName());
+        Equipment equipment=  equipmentRepo.findById(dto.getEquipmentId()).get();
         equipment.setItemDescription(dto.getItemDescription());
         equipment.setPricePerDayEQ(dto.getPricePerDayEQ());
         return equipmentRepo.save(equipment);

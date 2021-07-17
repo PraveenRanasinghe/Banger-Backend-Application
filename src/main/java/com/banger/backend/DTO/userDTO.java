@@ -13,12 +13,12 @@ public class userDTO {
     private String nicNumber;
     private byte[] licenceImg;
     private byte[] profileImage;
+    private byte[] utilityBill;
     private String status;
 
 
     public userDTO() {
     }
-
 
 
     public String getEmail() {
@@ -107,6 +107,14 @@ public class userDTO {
 
     public void setProfileImage(byte[] profileImage) {
         this.profileImage = profileImage;
+    }
+
+    public byte[] getUtilityBill() {
+        return utilityBill;
+    }
+
+    public void setUtilityBill(byte[] utilityBill) {
+        this.utilityBill = utilityBill;
     }
 
     public String getStatus() {
