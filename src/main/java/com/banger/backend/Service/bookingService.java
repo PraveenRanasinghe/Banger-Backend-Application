@@ -44,7 +44,6 @@ public class bookingService {
         booking.setEquipments(dto.getEquipments());
         booking.setUser(dto.getUser());
         booking.setBookingStatus("Pending");
-        booking.setUtilityBill(dto.getUtilityBill());
         return bookingRepo.save(booking);
     }
 
@@ -55,8 +54,7 @@ public class bookingService {
 //    }
 
     public Booking updateBooking(bookingDTO dto) {
-        Booking booking = new Booking();
-        booking.setBookingId(dto.getBookingId());
+        Booking booking = bookingRepo.findById(dto.getBookingId()).get();
         booking.setPickupDate(dto.getPickupDate());
         booking.setReturnDate(dto.getReturnDate());
         booking.setPickupTime(LocalTime.parse(dto.getPickupTime()));

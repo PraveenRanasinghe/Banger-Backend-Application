@@ -23,7 +23,6 @@ public class Booking {
     @Column(name = "pickup_time")
     private LocalTime pickupTime;
 
-
     @Column(name = "return_time")
     private LocalTime returnTime;
 

@@ -40,11 +40,6 @@ public class adminController {
     private inquiryService inqService;
 
 
-//    @PostMapping("/addVehicle")
-//    public ResponseEntity<vehicleDTO> addVehicle(@RequestBody vehicleDTO dto){
-//        Vehicle addedVehicle= this.vehicleService.addVehicle(dto);
-//        return new ResponseEntity(addedVehicle, CREATED);
-//    }
 
     @PostMapping("/addVehicle")
     public ResponseEntity<?> uploadImage(@RequestParam("vehicleInfo") String vehicleInfo, @RequestParam("vehicleImage") MultipartFile file) throws IOException {

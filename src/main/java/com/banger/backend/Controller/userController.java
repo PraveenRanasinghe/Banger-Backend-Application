@@ -64,8 +64,8 @@ public class userController {
         return new ResponseEntity(updateUser, OK);
     }
 
-    @PostMapping("/makeBooking")
-    public ResponseEntity<bookingDTO> makeBooking(@RequestBody bookingDTO dto) {
+    @PostMapping("makeBooking/{vehicleId}")
+    public ResponseEntity<bookingDTO> makeBooking(@PathVariable(name = "vehicleId")int vehicleId, @RequestBody bookingDTO dto) {
         Booking makeBooking = this.bookingService.makeBooking(dto);
         return new ResponseEntity(makeBooking,OK);
     }
