@@ -1,6 +1,7 @@
 package com.banger.backend.Entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
@@ -14,17 +15,11 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int bookingId;
 
-    @Column(name = "pickup_date")
-    private Date pickupDate;
-
-    @Column(name = "return_date")
-    private Date returnDate;
-
     @Column(name = "pickup_time")
-    private LocalTime pickupTime;
+    private LocalDateTime pickupTime;
 
     @Column(name = "return_time")
-    private LocalTime returnTime;
+    private LocalDateTime returnTime;
 
     @ManyToOne
     @JoinColumn(name = "email")
@@ -49,10 +44,8 @@ public class Booking {
 
     private List<Equipment> equipments;
 
-    public Booking(int bookingId, Date pickupDate, Date returnDate, LocalTime pickupTime, LocalTime returnTime, User user, Vehicle vehicle, byte[] utilityBill, String bookingStatus, List<Equipment> equipments) {
+    public Booking(int bookingId, LocalDateTime pickupTime, LocalDateTime returnTime, User user, Vehicle vehicle, byte[] utilityBill, String bookingStatus, List<Equipment> equipments) {
         this.bookingId = bookingId;
-        this.pickupDate = pickupDate;
-        this.returnDate = returnDate;
         this.pickupTime = pickupTime;
         this.returnTime = returnTime;
         this.user = user;
@@ -73,35 +66,19 @@ public class Booking {
         this.bookingId = bookingId;
     }
 
-    public Date getPickupDate() {
-        return pickupDate;
-    }
-
-    public void setPickupDate(Date pickupDate) {
-        this.pickupDate = pickupDate;
-    }
-
-    public Date getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(Date returnDate) {
-        this.returnDate = returnDate;
-    }
-
-    public LocalTime getPickupTime() {
+    public LocalDateTime getPickupTime() {
         return pickupTime;
     }
 
-    public void setPickupTime(LocalTime pickupTime) {
+    public void setPickupTime(LocalDateTime pickupTime) {
         this.pickupTime = pickupTime;
     }
 
-    public LocalTime getReturnTime() {
+    public LocalDateTime getReturnTime() {
         return returnTime;
     }
 
-    public void setReturnTime(LocalTime returnTime) {
+    public void setReturnTime(LocalDateTime returnTime) {
         this.returnTime = returnTime;
     }
 

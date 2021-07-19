@@ -5,6 +5,7 @@ public class userDTO {
     private String email;
     private String fName;
     private String lName;
+
     private String dob;
     private String password;
     private String userRole;

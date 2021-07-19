@@ -13,19 +13,8 @@ import java.util.List;
 public class bookingDTO {
 
     private int bookingId;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private java.util.Date pickupDate;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private java.util.Date returnDate;
-
-    @DateTimeFormat(pattern = "HH:mm:ss")
     private String pickupTime;
-
-    @DateTimeFormat(pattern = "HH:mm:ss")
     private String returnTime;
-
     private User user;
     private Vehicle vehicle;
     private List<Equipment> equipments;
@@ -41,22 +30,6 @@ public class bookingDTO {
 
     public void setBookingId(int bookingId) {
         this.bookingId = bookingId;
-    }
-
-    public Date getPickupDate() {
-        return pickupDate;
-    }
-
-    public void setPickupDate(Date pickupDate) {
-        this.pickupDate = pickupDate;
-    }
-
-    public Date getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(Date returnDate) {
-        this.returnDate = returnDate;
     }
 
     public String getPickupTime() {

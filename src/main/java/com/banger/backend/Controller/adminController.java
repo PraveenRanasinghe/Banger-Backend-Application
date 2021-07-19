@@ -98,7 +98,7 @@ public class adminController {
     }
 
     @PutMapping("updateEquipment/{equipmentId}")
-    public Equipment updateEuipment(@PathVariable(value = "equipmentId")int equipmentId,@RequestBody equipmentDTO equipment){
+    public Equipment updateEquipment(@PathVariable(value = "equipmentId")int equipmentId,@RequestBody equipmentDTO equipment){
         return equipService.updateEquipment(equipment);
     }
 

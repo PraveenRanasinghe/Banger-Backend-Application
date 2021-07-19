@@ -4,10 +4,15 @@ import com.banger.backend.DTO.bookingDTO;
 import com.banger.backend.Entity.Booking;
 import com.banger.backend.Entity.Equipment;
 import com.banger.backend.Repositary.BookingRepo;
+import com.banger.backend.Repositary.EquipmentRepo;
+import com.banger.backend.Repositary.UserRepo;
+import com.banger.backend.Repositary.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +21,16 @@ public class bookingService {
 
     @Autowired
     private BookingRepo bookingRepo;
+
+    @Autowired
+    private VehicleRepo vehicleRepo;
+
+    @Autowired
+    private EquipmentRepo equipmentRepo;
+
+    @Autowired
+    private UserRepo userRepo;
+
 
     public Booking getBookingById(Integer bookingId) {
         Optional<Booking> bookings = bookingRepo.findById(bookingId);
@@ -32,33 +47,28 @@ public class bookingService {
 
     public Booking makeBooking(bookingDTO dto) {
         Booking booking = new Booking();
-//        if(booking.setUser(dto.getUser().getStatus().equals("Accepted") && dto.getUser().getIsBlackListed().equals("False") )){
-//
-//        }
+        List<Equipment> equipmentList= new ArrayList<>();
+
+        booking.setVehicle(vehicleRepo.getOne(dto.getVehicle().getVehicleId()));
         booking.setBookingId(dto.getBookingId());
-        booking.setPickupDate(dto.getPickupDate());
-        booking.setReturnDate(dto.getReturnDate());
-        booking.setPickupTime(LocalTime.parse(dto.getPickupTime()));
-        booking.setReturnTime(LocalTime.parse(dto.getReturnTime()));
-        booking.setVehicle(dto.getVehicle());
-        booking.setEquipments(dto.getEquipments());
-        booking.setUser(dto.getUser());
+        booking.setPickupTime(LocalDateTime.parse(dto.getPickupTime()));
+        booking.setReturnTime(LocalDateTime.parse(dto.getReturnTime()));
+
+        for(Equipment equipments:dto.getEquipments()){
+            equipmentList.add(equipmentRepo.findById(equipments.getEquipmentId()).get());
+        }
+        booking.setEquipments(equipmentList);
+        booking.setUser(userRepo.getOne(dto.getUser().getEmail()));
         booking.setBookingStatus("Pending");
+
         return bookingRepo.save(booking);
     }
 
-//    public Booking addEquipmentToBooking(bookingDTO dto) {
-//        Booking booking = new Booking();
-//        booking.setEquipments(dto.getEquipments());
-//        return bookingRepo.save(booking);
-//    }
 
     public Booking updateBooking(bookingDTO dto) {
         Booking booking = bookingRepo.findById(dto.getBookingId()).get();
-        booking.setPickupDate(dto.getPickupDate());
-        booking.setReturnDate(dto.getReturnDate());
-        booking.setPickupTime(LocalTime.parse(dto.getPickupTime()));
-        booking.setReturnTime(LocalTime.parse(dto.getReturnTime()));
+        booking.setPickupTime(LocalDateTime.parse(dto.getPickupTime()));
+        booking.setReturnTime(LocalDateTime.parse(dto.getReturnTime()));
         booking.setVehicle(dto.getVehicle());
         booking.setEquipments(dto.getEquipments());
         booking.setUser(dto.getUser());
