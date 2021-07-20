@@ -1,5 +1,6 @@
 package com.banger.backend.Controller;
 
+import com.banger.backend.DTO.acceptUserDTO;
 import com.banger.backend.DTO.equipmentDTO;
 import com.banger.backend.DTO.userDTO;
 import com.banger.backend.DTO.vehicleDTO;
@@ -86,8 +87,10 @@ public class adminController {
         return userService.getAllPendingUsersToList();
     }
 
+
+
     @PutMapping("acceptUser/{email}")
-    public User AcceptUser(@PathVariable(value = "email") String email, @RequestBody userDTO dtoUser) {
+    public User AcceptUser(@PathVariable(value = "email") String email, @RequestBody acceptUserDTO dtoUser) {
         return userService.acceptUserAccount(dtoUser);
     }
 
@@ -103,7 +106,7 @@ public class adminController {
 
     @GetMapping("/viewAllUsers")
     public List<userDTO> viewAllUsers() {
-        return userService.getAllUsersToList();
+        return userService.getAllAcceptedUsersToList();
     }
 
     @GetMapping("/getSingleUser/{email}")
@@ -120,7 +123,6 @@ public class adminController {
     public Equipment getEquipmentById(@PathVariable(name = "equipId") int equipId) {
         return equipService.getEquipmentById(equipId);
     }
-
     @GetMapping("/viewAllBookings")
     public List<Booking> viewAllBookings() {
         return bookingService.getAllBookingsToList();

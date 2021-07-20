@@ -1,6 +1,7 @@
 package com.banger.backend.Service;
 
 import com.banger.backend.Config.ApplicationUser;
+import com.banger.backend.DTO.acceptUserDTO;
 import com.banger.backend.DTO.userDTO;
 import com.banger.backend.Entity.User;
 import com.banger.backend.Repositary.UserRepo;
@@ -81,7 +82,6 @@ public class userService implements UserDetailsService {
             user.setfName(dtoUser.getfName());
             user.setlName(dtoUser.getlName());
             user.setEmail(dtoUser.getEmail());
-//            user.setDOB(dtoUser.getDob());
             user.setContactNum(dtoUser.getContactNum());
             user.setPassword(encoder.encode(dtoUser.getPassword()));
             user.setNicNumber(dtoUser.getNicNumber());
@@ -100,7 +100,6 @@ public class userService implements UserDetailsService {
                 dto.setEmail(user.getEmail());
                 dto.setfName(user.getfName());
                 dto.setlName(user.getlName());
-//                dto.setDob(user.getDOB());
                 dto.setContactNum(user.getContactNum());
                 dto.setLicenceImg(user.getLicenceImg());
                 list.add(dto);
@@ -110,27 +109,23 @@ public class userService implements UserDetailsService {
     }
 
 
-    public User acceptUserAccount(userDTO dto) {
-        User user = new User();
-        if (dto != null) {
-            user.setStatus("Accepted");
-        }
-//        emailService.EmailForAccountAcceptance(dto.getEmail());
+    public User acceptUserAccount(acceptUserDTO dto) {
+        User user = userRepo.findUserByEmail(dto.getEmail());
+        user.setStatus("Accepted");
         return userRepo.save(user);
     }
 
 
     //Get All Registered Users In the System
-    public List<userDTO> getAllUsersToList() {
+    public List<userDTO> getAllAcceptedUsersToList() {
         List<userDTO> list = new ArrayList<>();
         for (User user : userRepo.findAll()) {
-            if (user.getUserRole().equals("Customer") ) {
+            if (user.getUserRole().equals("Customer") && user.getStatus().equals("Accepted") ) {
                 userDTO dto = new userDTO();
                 dto.setUserRole(user.getUserRole());
                 dto.setEmail(user.getEmail());
                 dto.setfName(user.getfName());
                 dto.setlName(user.getlName());
-//                dto.setDob(user.getDOB());
                 dto.setContactNum(user.getContactNum());
                 list.add(dto);
             }
