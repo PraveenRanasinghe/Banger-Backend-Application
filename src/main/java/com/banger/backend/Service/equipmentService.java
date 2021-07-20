@@ -17,7 +17,7 @@ public class equipmentService {
     @Autowired
     private EquipmentRepo equipmentRepo;
 
-    public Equipment getEquipmentById(Integer equipId){
+    public Equipment getEquipmentById(Integer equipId) {
         Optional<Equipment> equipment = equipmentRepo.findById(equipId);
         Equipment equip = null;
         if (equipment.isPresent()) {
@@ -27,10 +27,10 @@ public class equipmentService {
     }
 
 
-    public List<equipmentDTO> getEquipmentsToList(){
-        List <equipmentDTO> list= new ArrayList<>();
-        for(Equipment equipment:equipmentRepo.findAll()){
-            equipmentDTO dtoEq= new equipmentDTO();
+    public List<equipmentDTO> getEquipmentsToList() {
+        List<equipmentDTO> list = new ArrayList<>();
+        for (Equipment equipment : equipmentRepo.findAll()) {
+            equipmentDTO dtoEq = new equipmentDTO();
             dtoEq.setItemName(equipment.getItemName());
             dtoEq.setPricePerDayEQ(equipment.getPricePerDayEQ());
         }
@@ -38,13 +38,13 @@ public class equipmentService {
     }
 
 
-    public List<Equipment> getAllEquipments(){
+    public List<Equipment> getAllEquipments() {
         return equipmentRepo.findAll();
     }
 
-    public Equipment addEquipments(equipmentDTO dto){
+    public Equipment addEquipments(equipmentDTO dto) {
 
-        Equipment equipment= new Equipment();
+        Equipment equipment = new Equipment();
 
         equipment.setEquipmentId(dto.getEquipmentId());
 //        equipment.setEquipImg(dto.getEquipImg());
@@ -54,14 +54,16 @@ public class equipmentService {
         return equipmentRepo.save(equipment);
     }
 
-    public Equipment updateEquipment(equipmentDTO dto){
-        Equipment equipment=  equipmentRepo.findById(dto.getEquipmentId()).get();
+    public Equipment updateEquipment(equipmentDTO dto) throws Exception {
+        Equipment equipment = equipmentRepo.findById(dto.getEquipmentId()).orElseThrow(
+                () -> new Exception("Resource Not Found")
+        );
         equipment.setItemDescription(dto.getItemDescription());
         equipment.setPricePerDayEQ(dto.getPricePerDayEQ());
         return equipmentRepo.save(equipment);
     }
 
-    public void removeEquipment(Equipment equipment){
+    public void removeEquipment(Equipment equipment) {
         equipmentRepo.delete(equipment);
     }
 

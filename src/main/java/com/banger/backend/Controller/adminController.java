@@ -40,7 +40,6 @@ public class adminController {
     private inquiryService inqService;
 
 
-
     @PostMapping("/addVehicle")
     public ResponseEntity<?> uploadImage(@RequestParam("vehicleInfo") String vehicleInfo, @RequestParam("vehicleImage") MultipartFile file) throws IOException {
         ObjectMapper mp = new ObjectMapper();
@@ -88,7 +87,7 @@ public class adminController {
     }
 
     @PutMapping("acceptUser/{email}")
-    public User AcceptUser(@PathVariable(value = "email")String email, @RequestBody userDTO dtoUser) {
+    public User AcceptUser(@PathVariable(value = "email") String email, @RequestBody userDTO dtoUser) {
         return userService.acceptUserAccount(dtoUser);
     }
 
@@ -98,7 +97,7 @@ public class adminController {
     }
 
     @PutMapping("updateEquipment/{equipmentId}")
-    public Equipment updateEquipment(@PathVariable(value = "equipmentId")int equipmentId,@RequestBody equipmentDTO equipment){
+    public Equipment updateEquipment(@PathVariable(value = "equipmentId") int equipmentId, @RequestBody equipmentDTO equipment) throws Exception {
         return equipService.updateEquipment(equipment);
     }
 
