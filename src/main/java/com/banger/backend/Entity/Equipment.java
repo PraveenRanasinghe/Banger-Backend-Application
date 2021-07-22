@@ -22,6 +22,9 @@ public class Equipment {
     @Column(name = "price_per_day_eq")
     private String pricePerDayEQ;
 
+    @Column(name = "quantity")
+    private int quantity;
+
     @Column(name = "equip_img")
     private Byte[] equipImg;
 
@@ -38,11 +41,12 @@ public class Equipment {
 
     }
 
-    public Equipment(int equipmentId, String itemName, String itemDescription, String pricePerDayEQ, Byte[] equipImg, List<Booking> bookings) {
+    public Equipment(int equipmentId, String itemName, String itemDescription, String pricePerDayEQ, int quantity, Byte[] equipImg, List<Booking> bookings) {
         this.equipmentId = equipmentId;
         this.itemName = itemName;
         this.itemDescription = itemDescription;
         this.pricePerDayEQ = pricePerDayEQ;
+        this.quantity = quantity;
         this.equipImg = equipImg;
         this.bookings = bookings;
     }
@@ -69,6 +73,14 @@ public class Equipment {
 
     public void setItemDescription(String itemDescription) {
         this.itemDescription = itemDescription;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getPricePerDayEQ() {

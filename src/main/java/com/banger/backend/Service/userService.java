@@ -112,6 +112,7 @@ public class userService implements UserDetailsService {
     public User acceptUserAccount(acceptUserDTO dto) {
         User user = userRepo.findUserByEmail(dto.getEmail());
         user.setStatus("Accepted");
+//        emailService.EmailForAccountAcceptance(dto.getEmail());
         return userRepo.save(user);
     }
 

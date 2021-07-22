@@ -21,6 +21,9 @@ public class Booking {
     @Column(name = "return_time")
     private LocalDateTime returnTime;
 
+    @Column(name = "is_late_return")
+    private String isLateReturn;
+
     @ManyToOne
     @JoinColumn(name = "email")
     private User user;
@@ -28,9 +31,6 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
-
-    @Column(name = "utility_bill")
-    private byte[] utilityBill;
 
     @Column(name = "booking_status")
     private String bookingStatus;
@@ -41,16 +41,16 @@ public class Booking {
             joinColumns = @JoinColumn(name = "booking_id"),
             inverseJoinColumns = @JoinColumn(name = "equipment_id")
     )
-
     private List<Equipment> equipments;
 
-    public Booking(int bookingId, LocalDateTime pickupTime, LocalDateTime returnTime, User user, Vehicle vehicle, byte[] utilityBill, String bookingStatus, List<Equipment> equipments) {
+
+    public Booking(int bookingId, LocalDateTime pickupTime, LocalDateTime returnTime, String isLateReturn, User user, Vehicle vehicle, String bookingStatus, List<Equipment> equipments) {
         this.bookingId = bookingId;
         this.pickupTime = pickupTime;
         this.returnTime = returnTime;
+        this.isLateReturn = isLateReturn;
         this.user = user;
         this.vehicle = vehicle;
-        this.utilityBill = utilityBill;
         this.bookingStatus = bookingStatus;
         this.equipments = equipments;
     }
@@ -82,6 +82,14 @@ public class Booking {
         this.returnTime = returnTime;
     }
 
+    public String getIsLateReturn() {
+        return isLateReturn;
+    }
+
+    public void setIsLateReturn(String isLateReturn) {
+        this.isLateReturn = isLateReturn;
+    }
+
     public User getUser() {
         return user;
     }
@@ -96,14 +104,6 @@ public class Booking {
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
-    }
-
-    public byte[] getUtilityBill() {
-        return utilityBill;
-    }
-
-    public void setUtilityBill(byte[] utilityBill) {
-        this.utilityBill = utilityBill;
     }
 
     public String getBookingStatus() {

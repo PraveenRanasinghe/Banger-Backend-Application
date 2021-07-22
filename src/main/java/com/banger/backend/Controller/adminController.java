@@ -123,6 +123,7 @@ public class adminController {
     public Equipment getEquipmentById(@PathVariable(name = "equipId") int equipId) {
         return equipService.getEquipmentById(equipId);
     }
+
     @GetMapping("/viewAllBookings")
     public List<Booking> viewAllBookings() {
         return bookingService.getAllBookingsToList();

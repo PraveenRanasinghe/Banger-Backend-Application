@@ -11,7 +11,7 @@ import java.util.Properties;
 public class emailService {
 
     private final String companyEmail = "bangerco480@gmail.com";
-    private final String password = "A*19*8*l*s";
+    private final String password = "Ac1918@lms";
     private final String Host = "smtp.gmail.com";
     private Properties property;
     private Session session;
@@ -50,7 +50,7 @@ public class emailService {
             String msg = "Dear Customer,<br/><br/>" +
 
                     "Your Account has been Approved by our Team!.<br/>" +
-                    "Now you have the access to our Website.<br/>" +
+                    "Now you have the access to make bookings in our Organization.<br/>" +
                     "Now you can login to your account using your email and created password.<br/>" +
                     "If you want any clarification please contact your team.<br/><br/>" +
                     "+94112-5889874 <br/><br/><br/>" +

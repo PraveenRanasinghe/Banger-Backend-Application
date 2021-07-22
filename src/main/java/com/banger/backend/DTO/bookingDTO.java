@@ -15,10 +15,10 @@ public class bookingDTO {
     private int bookingId;
     private String pickupTime;
     private String returnTime;
+    private String isLateReturn;
     private User user;
     private Vehicle vehicle;
     private List<Equipment> equipments;
-    private byte[] utilityBill;
     private String bookingStatus;
 
     public bookingDTO() {
@@ -48,6 +48,14 @@ public class bookingDTO {
         this.returnTime = returnTime;
     }
 
+    public String getIsLateReturn() {
+        return isLateReturn;
+    }
+
+    public void setIsLateReturn(String isLateReturn) {
+        this.isLateReturn = isLateReturn;
+    }
+
     public User getUser() {
         return user;
     }
@@ -70,14 +78,6 @@ public class bookingDTO {
 
     public void setEquipments(List<Equipment> equipments) {
         this.equipments = equipments;
-    }
-
-    public byte[] getUtilityBill() {
-        return utilityBill;
-    }
-
-    public void setUtilityBill(byte[] utilityBill) {
-        this.utilityBill = utilityBill;
     }
 
     public String getBookingStatus() {

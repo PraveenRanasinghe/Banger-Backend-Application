@@ -10,17 +10,10 @@ public class equipmentDTO {
     private String itemName;
     private String itemDescription;
     private String pricePerDayEQ;
+    private int quantity;
     private Byte[] equipImg;
     private List<Booking> bookings;
 
-    public equipmentDTO(int equipmentId, String itemName, String itemDescription, String pricePerDayEQ, Byte[] equipImg, List<Booking> bookings) {
-        this.equipmentId = equipmentId;
-        this.itemName = itemName;
-        this.itemDescription = itemDescription;
-        this.pricePerDayEQ = pricePerDayEQ;
-        this.equipImg = equipImg;
-        this.bookings = bookings;
-    }
 
     public equipmentDTO() {
     }
@@ -47,6 +40,14 @@ public class equipmentDTO {
 
     public void setItemDescription(String itemDescription) {
         this.itemDescription = itemDescription;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getPricePerDayEQ() {

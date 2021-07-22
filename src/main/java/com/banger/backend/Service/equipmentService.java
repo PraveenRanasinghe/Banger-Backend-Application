@@ -46,8 +46,8 @@ public class equipmentService {
 
         Equipment equipment = new Equipment();
 
-        equipment.setEquipmentId(dto.getEquipmentId());
-//        equipment.setEquipImg(dto.getEquipImg());
+//        equipment.setEquipmentId(dto.getEquipmentId());
+        equipment.setQuantity(dto.getQuantity());
         equipment.setItemName(dto.getItemName());
         equipment.setItemDescription(dto.getItemDescription());
         equipment.setPricePerDayEQ(dto.getPricePerDayEQ());
