@@ -42,8 +42,8 @@ public class inquiryService {
     }
 
 
-    public void deleteInquiry(Inquiry inquiry){
-        inquiryRepo.delete(inquiry);
+    public void deleteInquiry(int inquiry){
+        inquiryRepo.deleteById(inquiry);
     }
 
 

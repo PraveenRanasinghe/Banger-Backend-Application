@@ -67,9 +67,9 @@ public class adminController {
         return inqService.getInquiryById(inquiryId);
     }
 
-    @RequestMapping("removeInquiry/{inquiryId}")
-    public void removeInquiry(@PathVariable(name = "inquiryId") Inquiry inquiry) {
-        inqService.deleteInquiry(inquiry);
+    @DeleteMapping("removeInquiry/{inquiryId}")
+    public void removeInquiry(@PathVariable(name = "inquiryId") int inquiryId) {
+        inqService.deleteInquiry(inquiryId);
     }
 
     @GetMapping("/viewAllVehicles")
