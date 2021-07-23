@@ -63,8 +63,8 @@ public class equipmentService {
         return equipmentRepo.save(equipment);
     }
 
-    public void removeEquipment(Equipment equipment) {
-        equipmentRepo.delete(equipment);
+    public void removeEquipment(int equipment) {
+        equipmentRepo.deleteById(equipment);
     }
 
 
