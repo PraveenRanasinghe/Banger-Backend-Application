@@ -58,6 +58,8 @@ public class userController {
         return new ResponseEntity(CREATED);
     }
 
+
+
     @PostMapping("/userUpdateProfile")
     public ResponseEntity<userDTO> updateProfile(@RequestBody userDTO dto) {
         User updateUser = this.userService.updateUserProfile(dto);
@@ -74,10 +76,17 @@ public class userController {
     public List<equipmentDTO> viewEquipmentList(){
         return equipmentService.getEquipmentsToList();
     }
+
+
     @PostMapping("/updateBooking")
     public ResponseEntity<bookingDTO> updateBooking(@RequestBody bookingDTO dto) {
         Booking updateBooking = this.bookingService.updateBooking(dto);
         return new ResponseEntity(updateBooking, OK);
+    }
+
+    @GetMapping("/getLoggedInUser/{email}")
+    public User getLoggedInUser(@PathVariable(value = "email")String email){
+        return userService.getUserByID(email);
     }
 
     @GetMapping("/viewAllVehicles")

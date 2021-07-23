@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors(Customizer.withDefaults());
 
         httpSecurity.authorizeRequests()
-                .antMatchers("/authenticate", "/createAccount", "/guestAddInq", "/customer/addInq","/guestViewVehicles").permitAll()
+                .antMatchers("/authenticate", "/customer/createAccount", "/guestAddInq", "/customer/addInq","/guestViewVehicles").permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .anyRequest().authenticated()
                 .and()

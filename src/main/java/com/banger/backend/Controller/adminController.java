@@ -129,4 +129,14 @@ public class adminController {
         return bookingService.getAllBookingsToList();
     }
 
+    @GetMapping("/viewSingleBooking/{bookingId}")
+    public Booking getSingleBooking(@PathVariable (name = "bookingId") int bookingId){
+        return bookingService.getBookingById(bookingId);
+    }
+
+    @GetMapping("/getLoggedInUser/{email}")
+    public User getLoggedInUser(@PathVariable(value = "email")String email){
+        return userService.getUserByID(email);
+    }
+
 }
