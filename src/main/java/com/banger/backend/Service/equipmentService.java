@@ -60,6 +60,7 @@ public class equipmentService {
         );
         equipment.setItemDescription(dto.getItemDescription());
         equipment.setPricePerDayEQ(dto.getPricePerDayEQ());
+        equipment.setQuantity(dto.getQuantity());
         return equipmentRepo.save(equipment);
     }
 
