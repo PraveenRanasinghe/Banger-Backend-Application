@@ -22,7 +22,6 @@ public class inquiryService {
     public Inquiry addInquiry(inquiryDTO dtoInq){
 
         Inquiry inquiry = new Inquiry();
-
         inquiry.setInquiryId(dtoInq.getInquiryId());
         inquiry.setInquirerName(dtoInq.getInquirerName());
         inquiry.setInquirerEmail(dtoInq.getInquirerEmail());
