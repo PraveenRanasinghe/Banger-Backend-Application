@@ -49,8 +49,7 @@ public class bookingService {
         Booking booking = new Booking();
         List<Equipment> equipmentList= new ArrayList<>();
 
-        booking.setVehicle(vehicleRepo.getOne(dto.getVehicle().getVehicleId()));
-        booking.setBookingId(dto.getBookingId());
+        booking.setVehicle(vehicleRepo.getOne(dto.getVehicleId()));
         booking.setPickupTime(LocalDateTime.parse(dto.getPickupTime()));
         booking.setReturnTime(LocalDateTime.parse(dto.getReturnTime()));
 
@@ -58,7 +57,8 @@ public class bookingService {
 //            equipmentList.add(equipmentRepo.findById(equipments.getEquipmentId()).get());
 //        }
 //        booking.setEquipments(equipmentList);
-        booking.setUser(userRepo.getOne(dto.getUser().getEmail()));
+
+        booking.setUser(userRepo.getOne(dto.getEmail()));
         booking.setBookingStatus("Pending");
 
         return bookingRepo.save(booking);

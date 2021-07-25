@@ -18,6 +18,8 @@ public class bookingDTO {
     private String isLateReturn;
     private User user;
     private Vehicle vehicle;
+    private int vehicleId;
+    private String email;
     private List<Equipment> equipments;
     private String bookingStatus;
 
@@ -86,5 +88,21 @@ public class bookingDTO {
 
     public void setBookingStatus(String bookingStatus) {
         this.bookingStatus = bookingStatus;
+    }
+
+    public int getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
