@@ -1,8 +1,10 @@
 package com.banger.backend.Service;
 
 import com.banger.backend.DTO.bookingDTO;
+import com.banger.backend.DTO.userDTO;
 import com.banger.backend.Entity.Booking;
 import com.banger.backend.Entity.Equipment;
+import com.banger.backend.Entity.User;
 import com.banger.backend.Repositary.BookingRepo;
 import com.banger.backend.Repositary.EquipmentRepo;
 import com.banger.backend.Repositary.UserRepo;
@@ -60,6 +62,7 @@ public class bookingService {
 
         booking.setUser(userRepo.getOne(dto.getEmail()));
         booking.setBookingStatus("Pending");
+        booking.setIsLateReturn("False");
 
         return bookingRepo.save(booking);
     }
@@ -78,5 +81,20 @@ public class bookingService {
 
     public void removeBookings(Booking booking){
         bookingRepo.delete(booking);
+    }
+
+    public List<bookingDTO> getAllPendingBookingsToList(){
+        List<bookingDTO> list = new ArrayList<>();
+        for(Booking booking:bookingRepo.findAll()){
+            if(booking.getBookingStatus().equals("Pending") && booking.getIsLateReturn().equals("False")){
+                bookingDTO dto = new bookingDTO();
+                dto.setBookingId(booking.getBookingId());
+                dto.setEmail(booking.getUser().getEmail());
+                dto.setPickupTime(booking.getPickupTime().toString());
+                dto.setReturnTime(booking.getReturnTime().toString());
+                list.add(dto);
+            }
+        }
+        return list;
     }
 }

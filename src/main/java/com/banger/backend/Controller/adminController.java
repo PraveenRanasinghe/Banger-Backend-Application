@@ -1,9 +1,6 @@
 package com.banger.backend.Controller;
 
-import com.banger.backend.DTO.acceptUserDTO;
-import com.banger.backend.DTO.equipmentDTO;
-import com.banger.backend.DTO.userDTO;
-import com.banger.backend.DTO.vehicleDTO;
+import com.banger.backend.DTO.*;
 import com.banger.backend.Entity.*;
 import com.banger.backend.Service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
