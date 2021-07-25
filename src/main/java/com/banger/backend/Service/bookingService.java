@@ -54,10 +54,10 @@ public class bookingService {
         booking.setPickupTime(LocalDateTime.parse(dto.getPickupTime()));
         booking.setReturnTime(LocalDateTime.parse(dto.getReturnTime()));
 
-        for(Equipment equipments:dto.getEquipments()){
-            equipmentList.add(equipmentRepo.findById(equipments.getEquipmentId()).get());
-        }
-        booking.setEquipments(equipmentList);
+//        for(Equipment equipments:dto.getEquipments()){
+//            equipmentList.add(equipmentRepo.findById(equipments.getEquipmentId()).get());
+//        }
+//        booking.setEquipments(equipmentList);
         booking.setUser(userRepo.getOne(dto.getUser().getEmail()));
         booking.setBookingStatus("Pending");
 
