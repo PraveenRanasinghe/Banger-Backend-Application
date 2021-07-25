@@ -77,6 +77,11 @@ public class userController {
         return equipmentService.getEquipmentsToList();
     }
 
+    @GetMapping("getSingleVehicle/{vehicleId}")
+    public Vehicle getVehicleById(@PathVariable(value = "vehicleId") int vehicleId) {
+        return vehicleService.getVehicleByID(vehicleId);
+    }
+
 
     @PostMapping("/updateBooking")
     public ResponseEntity<bookingDTO> updateBooking(@RequestBody bookingDTO dto) {
