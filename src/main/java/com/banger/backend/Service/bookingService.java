@@ -100,5 +100,19 @@ public class bookingService {
         return list;
     }
 
+    public List<bookingDTO> getAcceptedBookings(){
+        List<bookingDTO> list = new ArrayList<>();
+        for(Booking booking:bookingRepo.findAll()){
+            if(booking.getBookingStatus().equals("Accepted") && booking.getIsLateReturn().equals("False")){
+                bookingDTO dto = new bookingDTO();
+                dto.setBookingId(booking.getBookingId());
+                dto.setEmail(booking.getUser().getEmail());
+                dto.setPickupTime(booking.getPickupTime().toString());
+                dto.setReturnTime(booking.getReturnTime().toString());
+                list.add(dto);
+            }
+        }
+        return list;
+    }
 
 }

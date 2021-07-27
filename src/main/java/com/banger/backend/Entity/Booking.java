@@ -35,6 +35,9 @@ public class Booking {
     @Column(name = "booking_status")
     private String bookingStatus;
 
+    @Column(name = "price")
+    private String price;
+
     @ManyToMany
     @JoinTable(
             name = "booking_equipment",
@@ -44,7 +47,7 @@ public class Booking {
     private List<Equipment> equipments;
 
 
-    public Booking(int bookingId, LocalDateTime pickupTime, LocalDateTime returnTime, String isLateReturn, User user, Vehicle vehicle, String bookingStatus, List<Equipment> equipments) {
+    public Booking(int bookingId, LocalDateTime pickupTime, LocalDateTime returnTime, String isLateReturn, User user, Vehicle vehicle, String bookingStatus, String price, List<Equipment> equipments) {
         this.bookingId = bookingId;
         this.pickupTime = pickupTime;
         this.returnTime = returnTime;
@@ -52,6 +55,7 @@ public class Booking {
         this.user = user;
         this.vehicle = vehicle;
         this.bookingStatus = bookingStatus;
+        this.price = price;
         this.equipments = equipments;
     }
 
@@ -112,6 +116,14 @@ public class Booking {
 
     public void setBookingStatus(String bookingStatus) {
         this.bookingStatus = bookingStatus;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public List<Equipment> getEquipments() {

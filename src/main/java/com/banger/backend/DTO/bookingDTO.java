@@ -22,6 +22,7 @@ public class bookingDTO {
     private String email;
     private List<Equipment> equipments;
     private String bookingStatus;
+    private String price;
 
     public bookingDTO() {
     }
@@ -104,5 +105,13 @@ public class bookingDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }
