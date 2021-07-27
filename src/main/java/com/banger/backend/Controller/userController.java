@@ -59,12 +59,19 @@ public class userController {
     }
 
 
-
-    @PostMapping("/userUpdateProfile")
-    public ResponseEntity<userDTO> updateProfile(@RequestBody userDTO dto) {
-        User updateUser = this.userService.updateUserProfile(dto);
-        return new ResponseEntity(updateUser, OK);
+    @PutMapping("userUpdateProfile/{email}")
+    public ResponseEntity<?> updateProfile(@PathVariable(value = "email") String email, @RequestParam("updatedInfo") String updatedInfo, @RequestParam("licenceImg")MultipartFile licence,
+                                           @RequestParam("profileImage") MultipartFile profileImg,
+                                           @RequestParam("utilityBill")MultipartFile utilityBill) throws IOException, ParseException{
+        ObjectMapper mp = new ObjectMapper();
+        userDTO dtoUser= mp.readValue(updatedInfo,userDTO.class);
+        dtoUser.setProfileImage(profileImg.getBytes());
+        dtoUser.setLicenceImg(licence.getBytes());
+        dtoUser.setUtilityBill(utilityBill.getBytes());
+        userService.updateUserProfile(dtoUser);
+        return new ResponseEntity(CREATED);
     }
+
 
     @PostMapping("makeBooking/")
     public ResponseEntity<bookingDTO> makeBooking(@RequestBody bookingDTO dto) {

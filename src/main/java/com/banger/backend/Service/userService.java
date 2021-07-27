@@ -3,7 +3,9 @@ package com.banger.backend.Service;
 import com.banger.backend.Config.ApplicationUser;
 import com.banger.backend.DTO.acceptUserDTO;
 import com.banger.backend.DTO.userDTO;
+import com.banger.backend.DTO.vehicleDTO;
 import com.banger.backend.Entity.User;
+import com.banger.backend.Entity.Vehicle;
 import com.banger.backend.Repositary.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -74,19 +76,15 @@ public class userService implements UserDetailsService {
         return userRepo.save(user);
     }
 
-    //            user.setDOB(new SimpleDateFormat("yyyy-MM-dd").parse(dto.getDob()));
 
     public User updateUserProfile(userDTO dtoUser) {
-        User user = new User();
-        if (dtoUser != null) {
-            user.setfName(dtoUser.getfName());
-            user.setlName(dtoUser.getlName());
-            user.setEmail(dtoUser.getEmail());
-            user.setContactNum(dtoUser.getContactNum());
-            user.setPassword(encoder.encode(dtoUser.getPassword()));
-            user.setNicNumber(dtoUser.getNicNumber());
-            user.setLicenceImg(dtoUser.getLicenceImg());
-        }
+        User user= userRepo.findUserByEmail(dtoUser.getEmail());
+        user.setfName(dtoUser.getfName());
+        user.setlName(dtoUser.getlName());
+        user.setContactNum(dtoUser.getContactNum());
+        user.setNicNumber(dtoUser.getNicNumber());
+        user.setLicenceImg(dtoUser.getLicenceImg());
+        user.setUtilityBill(dtoUser.getUtilityBill());
         return userRepo.save(user);
     }
 

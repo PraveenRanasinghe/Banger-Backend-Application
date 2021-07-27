@@ -40,7 +40,7 @@ public class adminController {
 
 
     @PostMapping("/addVehicle")
-    public ResponseEntity<?> uploadImage(@RequestParam("vehicleInfo") String vehicleInfo, @RequestParam("vehicleImage") MultipartFile file) throws IOException {
+    public ResponseEntity<?> addVehicle(@RequestParam("vehicleInfo") String vehicleInfo, @RequestParam("vehicleImage") MultipartFile file) throws IOException {
         ObjectMapper mp = new ObjectMapper();
         vehicleDTO dtoVehicle = mp.readValue(vehicleInfo, vehicleDTO.class);
         dtoVehicle.setVehicleImg(file.getBytes());
