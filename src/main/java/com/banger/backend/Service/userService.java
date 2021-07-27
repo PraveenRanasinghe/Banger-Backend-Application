@@ -65,7 +65,7 @@ public class userService implements UserDetailsService {
             user.setNicNumber(dto.getNicNumber());
             user.setIsBlackListed("False");
             user.setUserRole("Customer");
-            user.setStatus("Pending");
+            user.setStatus("Accepted");
             user.setDob(new SimpleDateFormat("yyyy-MM-dd").parse(dto.getDob()));
             user.setLicenceImg(dto.getLicenceImg());
             user.setProfileImage(dto.getProfileImage());
