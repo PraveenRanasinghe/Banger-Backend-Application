@@ -47,10 +47,10 @@ public class userController {
 
     @PostMapping("/createAccount")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<?> registerUser(@RequestParam("signUpInfo") String signUpInfo, @RequestParam("licenceImg")MultipartFile licence,
-                                          @RequestParam("profileImage") MultipartFile profileImg, @RequestParam("utilityBill")MultipartFile utilityBill) throws IOException, ParseException {
+    public ResponseEntity<?> registerUser(@RequestParam("signUpInfo") String signUpInfo, @RequestParam("licenceImg") MultipartFile licence,
+                                          @RequestParam("profileImage") MultipartFile profileImg, @RequestParam("utilityBill") MultipartFile utilityBill) throws IOException, ParseException {
         ObjectMapper mp = new ObjectMapper();
-        userDTO dtoUser= mp.readValue(signUpInfo,userDTO.class);
+        userDTO dtoUser = mp.readValue(signUpInfo, userDTO.class);
         dtoUser.setProfileImage(profileImg.getBytes());
         dtoUser.setLicenceImg(licence.getBytes());
         dtoUser.setUtilityBill(utilityBill.getBytes());
@@ -60,11 +60,11 @@ public class userController {
 
 
     @PutMapping("userUpdateProfile/{email}")
-    public ResponseEntity<?> updateProfile(@PathVariable(value = "email") String email, @RequestParam("updatedInfo") String updatedInfo, @RequestParam("licenceImg")MultipartFile licence,
+    public ResponseEntity<?> updateProfile(@PathVariable(value = "email") String email, @RequestParam("updatedInfo") String updatedInfo, @RequestParam("licenceImg") MultipartFile licence,
                                            @RequestParam("profileImage") MultipartFile profileImg,
-                                           @RequestParam("utilityBill")MultipartFile utilityBill) throws IOException, ParseException{
+                                           @RequestParam("utilityBill") MultipartFile utilityBill) throws IOException, ParseException {
         ObjectMapper mp = new ObjectMapper();
-        userDTO dtoUser= mp.readValue(updatedInfo,userDTO.class);
+        userDTO dtoUser = mp.readValue(updatedInfo, userDTO.class);
         dtoUser.setProfileImage(profileImg.getBytes());
         dtoUser.setLicenceImg(licence.getBytes());
         dtoUser.setUtilityBill(utilityBill.getBytes());
@@ -74,13 +74,13 @@ public class userController {
 
 
     @PostMapping("makeBooking/")
-    public ResponseEntity<bookingDTO> makeBooking(@RequestBody bookingDTO dto) {
-        Booking makeBooking = this.bookingService.makeBooking(dto);
-        return new ResponseEntity(makeBooking,OK);
+    public ResponseEntity<String> makeBooking(@RequestBody bookingDTO dto) {
+        this.bookingService.makeBooking(dto);
+        return new ResponseEntity("Saved Successfully...", OK);
     }
 
     @GetMapping("/getEquipmentList")
-    public List<equipmentDTO> viewEquipmentList(){
+    public List<equipmentDTO> viewEquipmentList() {
         return equipmentService.getEquipmentsToList();
     }
 
@@ -97,12 +97,12 @@ public class userController {
     }
 
     @GetMapping("/getLoggedInUser/{email}")
-    public User getLoggedInUser(@PathVariable(value = "email")String email){
+    public User getLoggedInUser(@PathVariable(value = "email") String email) {
         return userService.getUserByID(email);
     }
 
     @GetMapping("/viewAllVehicles")
-    public List<Vehicle> viewAllVehicles(){
+    public List<Vehicle> viewAllVehicles() {
         return vehicleService.getAllVehicles();
     }
 

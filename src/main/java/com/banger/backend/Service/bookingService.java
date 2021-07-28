@@ -45,11 +45,28 @@ public class bookingService {
         return booking;
     }
 
-    public List<Booking> getAllBookingsToList() {
-        return bookingRepo.findAll();
+
+    public List<bookingDTO> getAllBookingsToList() {
+         List<Booking> bookingList =  bookingRepo.findAll();
+         List<bookingDTO> dtoList = new ArrayList<>();
+
+         for(Booking bookings: bookingList){
+             bookingDTO dto= new bookingDTO();
+             dto.setEmail(bookings.getUser().getEmail());
+             dto.setBookingId(bookings.getBookingId());
+             dto.setReturnTime(bookings.getReturnTime().toString());
+             dto.setPickupTime(bookings.getPickupTime().toString());
+             dto.setEquipments(bookings.getEquipments());
+             dto.setVehicle(bookings.getVehicle());
+
+             dtoList.add(dto);
+         }
+         return dtoList;
     }
 
-    public Booking makeBooking(bookingDTO dto) {
+
+
+    public void makeBooking(bookingDTO dto) {
         Booking booking = new Booking();
         List<Equipment> equipmentList= new ArrayList<>();
 
@@ -66,7 +83,7 @@ public class bookingService {
         booking.setBookingStatus("Pending");
         booking.setIsLateReturn("False");
 
-        return bookingRepo.save(booking);
+        bookingRepo.save(booking);
     }
 
 
@@ -85,46 +102,74 @@ public class bookingService {
         bookingRepo.delete(booking);
     }
 
-    public List<bookingDTO> getAllPendingBookingsToList(){
-        List<bookingDTO> list = new ArrayList<>();
-        for(Booking booking:bookingRepo.findAll()){
-                booking.getBookingStatus().equals("Pending");
-                bookingDTO dto = new bookingDTO();
-                dto.setBookingId(booking.getBookingId());
-                dto.setEmail(booking.getUser().getEmail());
-                dto.setPickupTime(booking.getPickupTime().toString());
-                dto.setReturnTime(booking.getReturnTime().toString());
-                list.add(dto);
-        }
-        return list;
-    }
 
-    public List<bookingDTO> getAcceptedBookings(){
-        List<bookingDTO> list = new ArrayList<>();
-        for(Booking booking:bookingRepo.findAll()){
-            if(booking.getBookingStatus().equals("Accepted") && booking.getIsLateReturn().equals("False")){
+    public List<bookingDTO> getAllPendingBookings() {
+        List<Booking> bookingList = bookingRepo.findAll();
+        List<bookingDTO> dtoList = new ArrayList<>();
+        for (Booking bookings : bookingList) {
+            if(bookings.getBookingStatus().equals("Pending")){
                 bookingDTO dto = new bookingDTO();
-                dto.setBookingId(booking.getBookingId());
-                dto.setEmail(booking.getUser().getEmail());
-                dto.setPickupTime(booking.getPickupTime().toString());
-                dto.setReturnTime(booking.getReturnTime().toString());
-                list.add(dto);
+                dto.setEmail(bookings.getUser().getEmail());
+                dto.setBookingId(bookings.getBookingId());
+                dto.setReturnTime(bookings.getReturnTime().toString());
+                dto.setPickupTime(bookings.getPickupTime().toString());
+                dto.setEquipments(bookings.getEquipments());
+                dto.setVehicle(bookings.getVehicle());
+
+                dtoList.add(dto);
             }
         }
-        return list;
+        return dtoList;
     }
 
-//    public User acceptUserAccount(acceptUserDTO dto) {
-//        User user = userRepo.findUserByEmail(dto.getEmail());
-//        user.setStatus("Accepted");
-////        emailService.EmailForAccountAcceptance(dto.getEmail());
-//        return userRepo.save(user);
-//    }
+    public List<bookingDTO> getAllAcceptedBookings() {
+        List<Booking> bookingList = bookingRepo.findAll();
+        List<bookingDTO> dtoList = new ArrayList<>();
+        for (Booking bookings : bookingList) {
+            if(bookings.getBookingStatus().equals("Accepted")){
+                bookingDTO dto = new bookingDTO();
+                dto.setEmail(bookings.getUser().getEmail());
+                dto.setBookingId(bookings.getBookingId());
+                dto.setReturnTime(bookings.getReturnTime().toString());
+                dto.setPickupTime(bookings.getPickupTime().toString());
+                dto.setEquipments(bookings.getEquipments());
+                dto.setVehicle(bookings.getVehicle());
 
-    public Booking acceptBooking(acceptBookingDTO dto){
-        Booking booking= bookingRepo.findById(dto.getBookingId());
-
+                dtoList.add(dto);
+            }
+        }
+        return dtoList;
     }
 
+    public List<bookingDTO> getAllRejectedBookings() {
+        List<Booking> bookingList = bookingRepo.findAll();
+        List<bookingDTO> dtoList = new ArrayList<>();
+        for (Booking bookings : bookingList) {
+            if(bookings.getBookingStatus().equals("Rejected")){
+                bookingDTO dto = new bookingDTO();
+                dto.setEmail(bookings.getUser().getEmail());
+                dto.setBookingId(bookings.getBookingId());
+                dto.setReturnTime(bookings.getReturnTime().toString());
+                dto.setPickupTime(bookings.getPickupTime().toString());
+                dto.setEquipments(bookings.getEquipments());
+                dto.setVehicle(bookings.getVehicle());
+
+                dtoList.add(dto);
+            }
+        }
+        return dtoList;
+    }
+
+    public Booking acceptBooking(acceptBookingDTO dto) {
+        Booking booking = bookingRepo.findBookingByBookingId(dto.getBookingId());
+        booking.setBookingStatus("Accepted");
+        return bookingRepo.save(booking);
+    }
+
+    public Booking rejectBooking(acceptBookingDTO dto){
+        Booking booking = bookingRepo.findBookingByBookingId(dto.getBookingId());
+        booking.setBookingStatus("Rejected");
+        return bookingRepo.save(booking);
+    }
 
 }

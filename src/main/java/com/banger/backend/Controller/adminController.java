@@ -97,6 +97,23 @@ public class adminController {
         return userService.acceptUserAccount(dtoUser);
     }
 
+    @GetMapping("getBooking/{bookingId}")
+    public Booking getBookingById(@PathVariable(value = "bookingId") int bookingId) {
+        return bookingService.getBookingById(bookingId);
+    }
+
+    @PutMapping("acceptBooing/{bookingId}")
+    public Booking AcceptBooking(@PathVariable(value = "bookingId") int bookingId, @RequestBody acceptBookingDTO bookingDTO){
+        return bookingService.acceptBooking(bookingDTO);
+    }
+
+
+    @PutMapping("rejectBooing/{bookingId}")
+    public Booking RejectBooking(@PathVariable(value = "bookingId") int bookingId, @RequestBody acceptBookingDTO bookingDTO){
+        return bookingService.rejectBooking(bookingDTO);
+    }
+
+
     @PutMapping("updateVehicle/{vehicleId}")
     public Vehicle updateVehicle(@PathVariable(value = "vehicleId") int vehicleId, @RequestBody vehicleDTO vehicle) {
         return vehicleService.updateVehicleInfo(vehicle);
@@ -128,8 +145,18 @@ public class adminController {
     }
 
     @GetMapping("/viewAllBookings")
-    public List<Booking> viewAllBookings() {
-        return bookingService.getAllBookingsToList();
+    public List<bookingDTO> viewPendingBookings() {
+        return bookingService.getAllPendingBookings();
+    }
+
+    @GetMapping("/viewAcceptedBookings")
+    public List<bookingDTO> viewAcceptedBookings() {
+        return bookingService.getAllAcceptedBookings();
+    }
+
+    @GetMapping("/viewRejectedBookings")
+    public List<bookingDTO> viewRejectedBookings() {
+        return bookingService.getAllRejectedBookings();
     }
 
     @GetMapping("/viewSingleBooking/{bookingId}")

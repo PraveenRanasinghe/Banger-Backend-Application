@@ -24,7 +24,7 @@ public class Booking {
     @Column(name = "is_late_return")
     private String isLateReturn;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "email")
     private User user;
 
@@ -59,9 +59,10 @@ public class Booking {
         this.equipments = equipments;
     }
 
-    public Booking(){
+    public Booking() {
 
     }
+
     public int getBookingId() {
         return bookingId;
     }
