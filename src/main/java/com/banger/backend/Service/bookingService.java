@@ -88,14 +88,13 @@ public class bookingService {
     public List<bookingDTO> getAllPendingBookingsToList(){
         List<bookingDTO> list = new ArrayList<>();
         for(Booking booking:bookingRepo.findAll()){
-            if(booking.getBookingStatus().equals("Pending") && booking.getIsLateReturn().equals("False")){
+                booking.getBookingStatus().equals("Pending");
                 bookingDTO dto = new bookingDTO();
                 dto.setBookingId(booking.getBookingId());
                 dto.setEmail(booking.getUser().getEmail());
                 dto.setPickupTime(booking.getPickupTime().toString());
                 dto.setReturnTime(booking.getReturnTime().toString());
                 list.add(dto);
-            }
         }
         return list;
     }
@@ -114,5 +113,18 @@ public class bookingService {
         }
         return list;
     }
+
+//    public User acceptUserAccount(acceptUserDTO dto) {
+//        User user = userRepo.findUserByEmail(dto.getEmail());
+//        user.setStatus("Accepted");
+////        emailService.EmailForAccountAcceptance(dto.getEmail());
+//        return userRepo.save(user);
+//    }
+
+    public Booking acceptBooking(acceptBookingDTO dto){
+        Booking booking= bookingRepo.findById(dto.getBookingId());
+
+    }
+
 
 }
