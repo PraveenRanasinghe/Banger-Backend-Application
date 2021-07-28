@@ -59,8 +59,8 @@ public class vehicleService {
         return vehicleRepo.save(vehicle);
     }
 
-    public void deleteVehicle(Vehicle vehicle){
-        vehicleRepo.delete(vehicle);
+    public void deleteVehicle(int vehicleId){
+        vehicleRepo.deleteById(vehicleId);
     }
 
     

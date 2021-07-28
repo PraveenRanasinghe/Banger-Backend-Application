@@ -75,6 +75,16 @@ public class adminController {
         equipService.removeEquipment(equipId);
     }
 
+    @DeleteMapping("removeVehicle/{vehicleId}")
+    public void removeVehicle(@PathVariable(name = "vehicleId") int vehicleId){
+        vehicleService.deleteVehicle(vehicleId);
+    }
+
+    @DeleteMapping("removeUser/{email}")
+    public void removeUser(@PathVariable(name = "email") String email){
+        userService.removeUser(email);
+    }
+
     @GetMapping("/viewAllVehicles")
     public List<Vehicle> viewAllVehicles() {
         return vehicleService.getAllVehicles();

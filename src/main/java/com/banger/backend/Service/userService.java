@@ -134,8 +134,8 @@ public class userService implements UserDetailsService {
 
 
 
-    public void removeUser(User user) {
-        userRepo.delete(user);
+    public void removeUser(String email){
+        userRepo.deleteById(email);
     }
 
 

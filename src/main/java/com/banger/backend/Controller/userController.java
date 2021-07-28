@@ -74,7 +74,7 @@ public class userController {
 
 
     @PostMapping("makeBooking/")
-    public ResponseEntity<String> makeBooking(@RequestBody bookingDTO dto) {
+    public ResponseEntity<String> makeBooking(@RequestBody bookingDTO dto) throws Exception {
         this.bookingService.makeBooking(dto);
         return new ResponseEntity("Saved Successfully...", OK);
     }
