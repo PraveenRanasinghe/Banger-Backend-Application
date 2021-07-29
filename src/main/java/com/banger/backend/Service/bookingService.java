@@ -68,10 +68,7 @@ public class bookingService {
 
     public void makeBooking(bookingDTO dto) throws Exception {
         Booking booking = new Booking();
-        List<Equipment> equipmentList= new ArrayList<>();
-//        List<Booking> bookingList= bookingRepo.findBookingByPickupTimeAndReturnTime(dto.getPickupTime(), dto.getReturnTime());
-
-
+//        List<Equipment> equipmentList= new ArrayList<>();
 
         booking.setVehicle(vehicleRepo.getOne(dto.getVehicleId()));
         booking.setPickupTime(LocalDateTime.parse(dto.getPickupTime()));
@@ -80,18 +77,23 @@ public class bookingService {
 //        for(Equipment equipments:dto.getEquipments()){
 //            equipmentList.add(equipmentRepo.findById(equipments.getEquipmentId()).get());
 //        }
-
 //        booking.setEquipments(equipmentList);
-//        for(Booking bookingInfo: bookingList){
-//            if((LocalDateTime.parse((dto.getPickupTime())).isAfter(bookingInfo.getPickupTime()))
-//                    && (LocalDateTime.parse((dto.getPickupTime())).isBefore(bookingInfo.getReturnTime()))){
-//                throw new Exception("You cannot Make the Booking at this moment.Because this vehicle is Already booked for selected Time Period!");
-//            }
-//            else if((LocalDateTime.parse((dto.getPickupTime())).isAfter(bookingInfo.getPickupTime()))
-//                    && (LocalDateTime.parse((dto.getReturnTime())).isBefore(bookingInfo.getReturnTime()))){
-//                throw new Exception("You cannot Make the Booking at this moment.Because this vehicle is Already booked for selected Time Period!");
-//            }
-//        }
+
+        System.out.println("Hello " + dto.getPickupTime());
+        List<Booking> bookingList= bookingRepo.findBookingByPickupTimeAndReturnTime(LocalDateTime.parse(dto.getPickupTime()),
+                LocalDateTime.parse(dto.getReturnTime()));
+
+
+        for(Booking bookingInfo: bookingList){
+            if((LocalDateTime.parse((dto.getPickupTime())).isAfter(bookingInfo.getPickupTime()))
+                    && (LocalDateTime.parse((dto.getPickupTime())).isBefore(bookingInfo.getReturnTime()))){
+                throw new Exception("You cannot Make the Booking at this moment.Because this vehicle is Already booked for selected Time Period!");
+            }
+            else if((LocalDateTime.parse((dto.getPickupTime())).isAfter(bookingInfo.getPickupTime()))
+                    && (LocalDateTime.parse((dto.getReturnTime())).isBefore(bookingInfo.getReturnTime()))){
+                throw new Exception("You cannot Make the Booking at this moment.Because this vehicle is Already booked for selected Time Period!");
+            }
+        }
         booking.setUser(userRepo.getOne(dto.getEmail()));
         booking.setBookingStatus("Pending");
         booking.setIsLateReturn("False");

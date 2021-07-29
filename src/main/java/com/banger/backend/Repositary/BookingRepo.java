@@ -14,5 +14,5 @@ public interface BookingRepo extends JpaRepository<Booking,Integer> {
 
 //    List<Booking> findBookingByPickupTimeAndReturnTime(LocalDateTime dateTime);
 
-    List<Booking> findBookingByPickupTimeAndReturnTime(String pickupTime, String returnTime);
+    List<Booking> findBookingByPickupTimeAndReturnTime(LocalDateTime pickupTime, LocalDateTime returnTime);
 }

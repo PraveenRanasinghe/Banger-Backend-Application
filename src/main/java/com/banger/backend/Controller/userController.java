@@ -73,9 +73,12 @@ public class userController {
     }
 
 
-    @PostMapping("makeBooking/")
+    @PostMapping("/makeBooking")
     public ResponseEntity<String> makeBooking(@RequestBody bookingDTO dto) throws Exception {
         this.bookingService.makeBooking(dto);
+        System.out.println(dto.getPickupTime());
+        System.out.println(dto.getReturnTime());
+        System.out.println(dto.getEmail());
         return new ResponseEntity("Saved Successfully...", OK);
     }
 
