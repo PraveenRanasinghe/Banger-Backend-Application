@@ -114,4 +114,10 @@ public class userController {
         return vehicleService.getAllVehicles();
     }
 
+
+    @GetMapping("/viewMyBookings/{email}")
+    public List<bookingDTO> getMyBookings(@PathVariable(value = "email")String email){
+        return bookingService.getBookingsByUserEmail(email);
+    }
+
 }

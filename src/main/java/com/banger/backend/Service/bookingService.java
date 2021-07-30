@@ -64,6 +64,23 @@ public class bookingService {
          return dtoList;
     }
 
+    public List<bookingDTO> getBookingsByUserEmail(String email){
+        List<Booking> bookingList = bookingRepo.findBookingsByUserEmail(email);
+        List<bookingDTO> dtoList= new ArrayList<>();
+
+        for(Booking bookings : bookingList){
+            bookingDTO dto = new bookingDTO();
+            dto.setBookingId(bookings.getBookingId());
+            dto.setReturnTime(bookings.getReturnTime().toString());
+            dto.setPickupTime(bookings.getPickupTime().toString());
+            dto.setEquipments(bookings.getEquipments());
+            dto.setVehicle(bookings.getVehicle());
+            dto.setBookingStatus(bookings.getBookingStatus());
+
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
 
 
     public void makeBooking(bookingDTO dto) throws Exception {
@@ -195,4 +212,6 @@ public class bookingService {
         }
         return "Id Not Found";
     }
+
+
 }
