@@ -112,14 +112,14 @@ public class adminController {
         return bookingService.getBookingById(bookingId);
     }
 
-    @PutMapping("acceptBooing/{bookingId}")
-    public Booking AcceptBooking(@PathVariable(value = "bookingId") int bookingId, @RequestBody acceptBookingDTO bookingDTO){
+    @PostMapping("/acceptBooking")
+    public String AcceptBooking(@RequestBody acceptBookingDTO bookingDTO){
         return bookingService.acceptBooking(bookingDTO);
     }
 
 
-    @PutMapping("rejectBooing/{bookingId}")
-    public Booking RejectBooking(@PathVariable(value = "bookingId") int bookingId, @RequestBody acceptBookingDTO bookingDTO){
+    @PostMapping("/rejectBooing")
+    public String RejectBooking(@RequestBody acceptBookingDTO bookingDTO){
         return bookingService.rejectBooking(bookingDTO);
     }
 

@@ -33,7 +33,6 @@ public class vehicleService {
     public Vehicle addVehicle(vehicleDTO dtoVehicle){
         Vehicle vehicle= new Vehicle();
         vehicle.setVehicleId(dtoVehicle.getVehicleId());
-//        vehicle.setVehicleImg(dtoVehicle.getVehicleImg());
         vehicle.setVehicleModel(dtoVehicle.getVehicleModel());
         vehicle.setVehicleType(dtoVehicle.getVehicleType());
         vehicle.setAc(dtoVehicle.getAc());

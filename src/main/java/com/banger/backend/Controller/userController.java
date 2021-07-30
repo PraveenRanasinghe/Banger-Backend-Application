@@ -104,6 +104,11 @@ public class userController {
         return userService.getUserByID(email);
     }
 
+    @GetMapping("/getEquipment/{equipmentId}")
+    public Equipment getSelectedEquipment(@PathVariable(value = "equipmentId") int equipmentId){
+        return equipmentService.getEquipmentById(equipmentId);
+    }
+
     @GetMapping("/viewAllVehicles")
     public List<Vehicle> viewAllVehicles() {
         return vehicleService.getAllVehicles();

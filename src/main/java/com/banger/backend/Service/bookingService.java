@@ -79,10 +79,9 @@ public class bookingService {
 //        }
 //        booking.setEquipments(equipmentList);
 
-        System.out.println("Hello " + dto.getPickupTime());
+
         List<Booking> bookingList= bookingRepo.findBookingByPickupTimeAndReturnTime(LocalDateTime.parse(dto.getPickupTime()),
                 LocalDateTime.parse(dto.getReturnTime()));
-
 
         for(Booking bookingInfo: bookingList){
             if((LocalDateTime.parse((dto.getPickupTime())).isAfter(bookingInfo.getPickupTime()))
@@ -175,16 +174,25 @@ public class bookingService {
         return dtoList;
     }
 
-    public Booking acceptBooking(acceptBookingDTO dto) {
-        Booking booking = bookingRepo.findBookingByBookingId(dto.getBookingId());
-        booking.setBookingStatus("Accepted");
-        return bookingRepo.save(booking);
+    public String acceptBooking(acceptBookingDTO dto) {
+        Optional<Booking> booking = bookingRepo.findById(dto.getBookingId());
+         if(booking.isPresent()) {
+             Booking book = booking.get();
+             book.setBookingStatus("Accepted");
+             bookingRepo.save(book);
+             return "Booking Accepted";
+         }
+         return "Id Not Found";
     }
 
-    public Booking rejectBooking(acceptBookingDTO dto){
-        Booking booking = bookingRepo.findBookingByBookingId(dto.getBookingId());
-        booking.setBookingStatus("Rejected");
-        return bookingRepo.save(booking);
+    public String rejectBooking(acceptBookingDTO dto) {
+        Optional<Booking> booking = bookingRepo.findById(dto.getBookingId());
+        if(booking.isPresent()) {
+            Booking book = booking.get();
+            book.setBookingStatus("Rejected");
+            bookingRepo.save(book);
+            return "Booking Rejected";
+        }
+        return "Id Not Found";
     }
-
 }
