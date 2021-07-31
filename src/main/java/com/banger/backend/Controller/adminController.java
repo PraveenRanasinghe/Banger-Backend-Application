@@ -142,6 +142,11 @@ public class adminController {
         return equipService.updateEquipment(equipment);
     }
 
+    @PutMapping("updateBookingStatus")
+    public Booking updateBookingStatus(@RequestBody bookingDTO dto)throws Exception{
+        return bookingService.updateBookingStatus(dto);
+    }
+
     @GetMapping("/viewAllUsers")
     public List<userDTO> viewAllUsers() {
         return userService.getAllAcceptedUsersToList();

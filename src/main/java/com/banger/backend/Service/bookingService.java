@@ -1,9 +1,6 @@
 package com.banger.backend.Service;
 
-import com.banger.backend.DTO.acceptBookingDTO;
-import com.banger.backend.DTO.acceptUserDTO;
-import com.banger.backend.DTO.bookingDTO;
-import com.banger.backend.DTO.userDTO;
+import com.banger.backend.DTO.*;
 import com.banger.backend.Entity.Booking;
 import com.banger.backend.Entity.Equipment;
 import com.banger.backend.Entity.User;
@@ -164,6 +161,7 @@ public class bookingService {
         for (Booking bookings : bookingList) {
             if(bookings.getBookingStatus().equals("Accepted")){
                 bookingDTO dto = new bookingDTO();
+                dto.setBookingStatus(bookings.getBookingStatus());
                 dto.setEmail(bookings.getUser().getEmail());
                 dto.setBookingId(bookings.getBookingId());
                 dto.setReturnTime(bookings.getReturnTime().toString());
@@ -220,5 +218,12 @@ public class bookingService {
         return "Id Not Found";
     }
 
+    public Booking updateBookingStatus(bookingDTO dto) throws Exception{
+        Booking booking = bookingRepo.findById(dto.getBookingId()).orElseThrow(
+                ()->new Exception("Resource Not Found")
+        );
+        booking.setBookingStatus(dto.getBookingStatus());
+        return bookingRepo.save(booking);
+    }
 
 }
