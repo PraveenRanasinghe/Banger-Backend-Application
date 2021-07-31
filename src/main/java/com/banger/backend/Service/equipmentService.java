@@ -3,6 +3,7 @@ package com.banger.backend.Service;
 import com.banger.backend.DTO.equipmentDTO;
 import com.banger.backend.Entity.Equipment;
 import com.banger.backend.Entity.Inquiry;
+import com.banger.backend.Exception.EquipNameExistsException;
 import com.banger.backend.Repositary.EquipmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,15 +44,19 @@ public class equipmentService {
         return equipmentRepo.findAll();
     }
 
-    public Equipment addEquipments(equipmentDTO dto) {
+    public Equipment addEquipments(equipmentDTO dto) throws EquipNameExistsException {
 
         Equipment equipment = new Equipment();
+        if(equipmentRepo.findByItemName(dto.getItemName()).isPresent()){
+            throw new EquipNameExistsException("Equipment Name is Already Exists! Please Update the Quantity!");
+        }
+        else{
+            equipment.setQuantity(dto.getQuantity());
+            equipment.setItemName(dto.getItemName());
+            equipment.setItemDescription(dto.getItemDescription());
+            equipment.setPricePerDayEQ(dto.getPricePerDayEQ());
+        }
 
-//        equipment.setEquipmentId(dto.getEquipmentId());
-        equipment.setQuantity(dto.getQuantity());
-        equipment.setItemName(dto.getItemName());
-        equipment.setItemDescription(dto.getItemDescription());
-        equipment.setPricePerDayEQ(dto.getPricePerDayEQ());
         return equipmentRepo.save(equipment);
     }
 

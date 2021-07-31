@@ -2,6 +2,7 @@ package com.banger.backend.Controller;
 
 import com.banger.backend.DTO.*;
 import com.banger.backend.Entity.*;
+import com.banger.backend.Exception.EquipNameExistsException;
 import com.banger.backend.Service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,9 +51,16 @@ public class adminController {
 
 
     @PostMapping("/addEquipment")
-    public ResponseEntity<equipmentDTO> addEquipments(@RequestBody equipmentDTO dto) {
-        Equipment addedEquip = this.equipService.addEquipments(dto);
-        return new ResponseEntity(addedEquip, CREATED);
+    public ResponseEntity<?> addEquipments(@RequestBody equipmentDTO dto) {
+        try{
+            Equipment addedEquip = equipService.addEquipments(dto);
+            return new ResponseEntity(addedEquip, CREATED);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @GetMapping("/viewInquiries")
