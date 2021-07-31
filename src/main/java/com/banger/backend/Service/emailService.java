@@ -37,21 +37,21 @@ public class emailService {
         session = Session.getDefaultInstance(prop, theAuthenticator);
     }
 
-    public void EmailForAccountAcceptance(String recipientEmail) {
+    public void EmailForRejectBooking(String recipientEmail) {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(companyEmail));
             message.setRecipients(
                     Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
             message.setSubject("----------" +
-                    "Congratulations !" +
+                    "Oops !" +
                     "----------");
 
-            String msg = "Dear Customer,<br/><br/>" +
+            String msg = "Dear Valuable Customer,<br/><br/>" +
 
-                    "Your Account has been Approved by our Team!.<br/>" +
-                    "Now you have the access to make bookings in our Organization.<br/>" +
-                    "Now you can login to your account using your email and created password.<br/>" +
+                    "Your Booking has been Rejected by our Team!.<br/>" +
+                    "Please Check whether your Utility and Other Details are upto date.<br/>" +
+                    "If you are Upto-Date you can make bookings!<br/>" +
                     "If you want any clarification please contact your team.<br/><br/>" +
                     "+94112-5889874 <br/><br/><br/>" +
 

@@ -35,6 +35,8 @@ public class bookingService {
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private emailService emailService;
 
     public Booking getBookingById(Integer bookingId) {
         Optional<Booking> bookings = bookingRepo.findById(bookingId);
@@ -69,15 +71,18 @@ public class bookingService {
         List<bookingDTO> dtoList= new ArrayList<>();
 
         for(Booking bookings : bookingList){
-            bookingDTO dto = new bookingDTO();
-            dto.setBookingId(bookings.getBookingId());
-            dto.setReturnTime(bookings.getReturnTime().toString());
-            dto.setPickupTime(bookings.getPickupTime().toString());
-            dto.setEquipments(bookings.getEquipments());
-            dto.setVehicle(bookings.getVehicle());
-            dto.setBookingStatus(bookings.getBookingStatus());
+            if(bookings.getBookingStatus().equals("Accepted")){
+                bookingDTO dto = new bookingDTO();
+                dto.setBookingId(bookings.getBookingId());
+                dto.setReturnTime(bookings.getReturnTime().toString());
+                dto.setPickupTime(bookings.getPickupTime().toString());
+                dto.setEquipments(bookings.getEquipments());
+                dto.setVehicle(bookings.getVehicle());
+                dto.setBookingStatus(bookings.getBookingStatus());
 
-            dtoList.add(dto);
+                dtoList.add(dto);
+            }
+
         }
         return dtoList;
     }
@@ -207,7 +212,9 @@ public class bookingService {
         if(booking.isPresent()) {
             Booking book = booking.get();
             book.setBookingStatus("Rejected");
+            System.out.println(userRepo.findUserByEmail(dto.getEmail()));
             bookingRepo.save(book);
+//            emailService.EmailForRejectBooking(dto.getEmail());
             return "Booking Rejected";
         }
         return "Id Not Found";
