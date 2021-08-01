@@ -117,4 +117,10 @@ public class userController {
         return bookingService.getBookingsByUserEmail(email);
     }
 
+    @GetMapping("/viewMyPreviousBookings/{email}")
+    public List<bookingDTO> getMyPreviousBookings(@PathVariable(value = "email")String email){
+        return bookingService.getCompletedBookingsByUserEmail(email);
+    }
+
+
 }
