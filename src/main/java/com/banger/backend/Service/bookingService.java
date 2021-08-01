@@ -194,6 +194,44 @@ public class bookingService {
         return dtoList;
     }
 
+    public List<bookingDTO> getAllCollectedBookings() {
+        List<Booking> bookingList = bookingRepo.findAll();
+        List<bookingDTO> dtoList = new ArrayList<>();
+        for (Booking bookings : bookingList) {
+            if(bookings.getBookingStatus().equals("Collected")){
+                bookingDTO dto = new bookingDTO();
+                dto.setEmail(bookings.getUser().getEmail());
+                dto.setBookingId(bookings.getBookingId());
+                dto.setReturnTime(bookings.getReturnTime().toString());
+                dto.setPickupTime(bookings.getPickupTime().toString());
+                dto.setEquipments(bookings.getEquipments());
+                dto.setVehicle(bookings.getVehicle());
+
+                dtoList.add(dto);
+            }
+        }
+        return dtoList;
+    }
+
+    public List<bookingDTO> getAllCompletedBookings() {
+        List<Booking> bookingList = bookingRepo.findAll();
+        List<bookingDTO> dtoList = new ArrayList<>();
+        for (Booking bookings : bookingList) {
+            if(bookings.getBookingStatus().equals("Completed")){
+                bookingDTO dto = new bookingDTO();
+                dto.setEmail(bookings.getUser().getEmail());
+                dto.setBookingId(bookings.getBookingId());
+                dto.setReturnTime(bookings.getReturnTime().toString());
+                dto.setPickupTime(bookings.getPickupTime().toString());
+                dto.setEquipments(bookings.getEquipments());
+                dto.setVehicle(bookings.getVehicle());
+
+                dtoList.add(dto);
+            }
+        }
+        return dtoList;
+    }
+
     public String acceptBooking(acceptBookingDTO dto) {
         Optional<Booking> booking = bookingRepo.findById(dto.getBookingId());
          if(booking.isPresent()) {
@@ -218,12 +256,12 @@ public class bookingService {
         return "Id Not Found";
     }
 
-    public Booking updateBookingStatus(bookingDTO dto) throws Exception{
+    public void updateBookingStatus(acceptBookingDTO dto) throws Exception{
         Booking booking = bookingRepo.findById(dto.getBookingId()).orElseThrow(
                 ()->new Exception("Resource Not Found")
         );
-        booking.setBookingStatus(dto.getBookingStatus());
-        return bookingRepo.save(booking);
+        booking.setBookingStatus(dto.getStatus());
+        bookingRepo.save(booking);
     }
 
 }

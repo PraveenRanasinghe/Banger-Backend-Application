@@ -52,13 +52,12 @@ public class adminController {
 
     @PostMapping("/addEquipment")
     public ResponseEntity<?> addEquipments(@RequestBody equipmentDTO dto) {
-        try{
+        try {
             Equipment addedEquip = equipService.addEquipments(dto);
             return new ResponseEntity(addedEquip, CREATED);
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex);
-            return new ResponseEntity<>(ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -79,17 +78,17 @@ public class adminController {
     }
 
     @DeleteMapping("removeEquipment/{equipId}")
-    public void removeEquipment(@PathVariable(name = "equipId") int equipId){
+    public void removeEquipment(@PathVariable(name = "equipId") int equipId) {
         equipService.removeEquipment(equipId);
     }
 
     @DeleteMapping("removeVehicle/{vehicleId}")
-    public void removeVehicle(@PathVariable(name = "vehicleId") int vehicleId){
+    public void removeVehicle(@PathVariable(name = "vehicleId") int vehicleId) {
         vehicleService.deleteVehicle(vehicleId);
     }
 
     @DeleteMapping("removeUser/{email}")
-    public void removeUser(@PathVariable(name = "email") String email){
+    public void removeUser(@PathVariable(name = "email") String email) {
         userService.removeUser(email);
     }
 
@@ -109,7 +108,6 @@ public class adminController {
     }
 
 
-
     @PutMapping("acceptUser/{email}")
     public User AcceptUser(@PathVariable(value = "email") String email, @RequestBody acceptUserDTO dtoUser) {
         return userService.acceptUserAccount(dtoUser);
@@ -121,13 +119,13 @@ public class adminController {
     }
 
     @PostMapping("/acceptBooking")
-    public String AcceptBooking(@RequestBody acceptBookingDTO bookingDTO){
+    public String AcceptBooking(@RequestBody acceptBookingDTO bookingDTO) {
         return bookingService.acceptBooking(bookingDTO);
     }
 
 
     @PostMapping("/rejectBooing")
-    public String RejectBooking(@RequestBody acceptBookingDTO bookingDTO){
+    public String RejectBooking(@RequestBody acceptBookingDTO bookingDTO) {
         return bookingService.rejectBooking(bookingDTO);
     }
 
@@ -142,10 +140,12 @@ public class adminController {
         return equipService.updateEquipment(equipment);
     }
 
+
     @PutMapping("updateBookingStatus")
-    public Booking updateBookingStatus(@RequestBody bookingDTO dto)throws Exception{
-        return bookingService.updateBookingStatus(dto);
+    public void updateBookingStatus(@RequestBody acceptBookingDTO dto) throws Exception {
+        bookingService.updateBookingStatus(dto);
     }
+
 
     @GetMapping("/viewAllUsers")
     public List<userDTO> viewAllUsers() {
@@ -177,18 +177,31 @@ public class adminController {
         return bookingService.getAllAcceptedBookings();
     }
 
+
+    @GetMapping("/viewCollectedBookings")
+    public List<bookingDTO> viewCollectedBookings() {
+        return bookingService.getAllCollectedBookings();
+    }
+
+
+    @GetMapping("/viewCompletedBookings")
+    public List<bookingDTO> viewCompletedBookings() {
+        return bookingService.getAllCompletedBookings();
+    }
+
+
     @GetMapping("/viewRejectedBookings")
     public List<bookingDTO> viewRejectedBookings() {
         return bookingService.getAllRejectedBookings();
     }
 
     @GetMapping("/viewSingleBooking/{bookingId}")
-    public Booking getSingleBooking(@PathVariable (name = "bookingId") int bookingId){
+    public Booking getSingleBooking(@PathVariable(name = "bookingId") int bookingId) {
         return bookingService.getBookingById(bookingId);
     }
 
     @GetMapping("/getLoggedInUser/{email}")
-    public User getLoggedInUser(@PathVariable(value = "email")String email){
+    public User getLoggedInUser(@PathVariable(value = "email") String email) {
         return userService.getUserByID(email);
     }
 
