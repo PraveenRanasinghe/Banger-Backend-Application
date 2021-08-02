@@ -184,6 +184,9 @@ public class adminController {
     }
 
 
+    @GetMapping("/viewExtendRequestedBookings")
+    public List<bookingDTO> viewExtendRequestedBookings(){return bookingService.getAllExtendRequestedBookings();}
+
     @GetMapping("/viewCompletedBookings")
     public List<bookingDTO> viewCompletedBookings() {
         return bookingService.getAllCompletedBookings();
