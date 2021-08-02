@@ -98,6 +98,12 @@ public class userController {
         return new ResponseEntity(updateBooking, OK);
     }
 
+
+    @PutMapping("requestLateReturn")
+    public void requestLateReturn(@RequestBody acceptBookingDTO dto) throws Exception{
+        bookingService.requestLateReturn(dto);
+    }
+
     @GetMapping("/getLoggedInUser/{email}")
     public User getLoggedInUser(@PathVariable(value = "email") String email) {
         return userService.getUserByID(email);

@@ -4,6 +4,7 @@ public class acceptBookingDTO {
     private int bookingId;
     private String status;
     private String email;
+    private String isLateReturn;
 
     public acceptBookingDTO() {
     }
@@ -30,5 +31,13 @@ public class acceptBookingDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getIsLateReturn() {
+        return isLateReturn;
+    }
+
+    public void setIsLateReturn(String isLateReturn) {
+        this.isLateReturn = isLateReturn;
     }
 }

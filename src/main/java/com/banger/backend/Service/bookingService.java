@@ -287,6 +287,14 @@ public class bookingService {
         bookingRepo.save(booking);
     }
 
+    public void requestLateReturn(acceptBookingDTO dto) throws Exception{
+        Booking booking = bookingRepo.findById(dto.getBookingId()).orElseThrow(
+                ()-> new Exception("Booking Id Not Found")
+        );
+        booking.setIsLateReturn("True");
+        bookingRepo.save(booking);
+    }
+
 
 
 }
