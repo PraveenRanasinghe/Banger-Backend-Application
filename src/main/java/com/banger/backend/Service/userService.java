@@ -1,11 +1,12 @@
 package com.banger.backend.Service;
 
 import com.banger.backend.Config.ApplicationUser;
-import com.banger.backend.DTO.acceptUserDTO;
-import com.banger.backend.DTO.userDTO;
-import com.banger.backend.DTO.vehicleDTO;
+import com.banger.backend.DTO.*;
+import com.banger.backend.Entity.Booking;
+import com.banger.backend.Entity.Equipment;
 import com.banger.backend.Entity.User;
 import com.banger.backend.Entity.Vehicle;
+import com.banger.backend.Repositary.BookingRepo;
 import com.banger.backend.Repositary.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,6 +26,9 @@ public class userService implements UserDetailsService {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private BookingRepo bookingRepo;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -77,12 +81,14 @@ public class userService implements UserDetailsService {
     }
 
 
-    public User updateUserProfile(userDTO dtoUser) {
-        User user= userRepo.findUserByEmail(dtoUser.getEmail());
+
+    public User updateUserProfile(userDTO dtoUser) throws Exception{
+        User user= userRepo.findById(dtoUser.getEmail()).orElseThrow(
+                ()-> new Exception("User Not Found")
+        );
         user.setfName(dtoUser.getfName());
         user.setlName(dtoUser.getlName());
         user.setContactNum(dtoUser.getContactNum());
-        user.setNicNumber(dtoUser.getNicNumber());
         user.setLicenceImg(dtoUser.getLicenceImg());
         user.setUtilityBill(dtoUser.getUtilityBill());
         return userRepo.save(user);
@@ -138,5 +144,14 @@ public class userService implements UserDetailsService {
         userRepo.deleteById(email);
     }
 
+
+
+    public void blackListUser(acceptUserDTO dto)throws Exception{
+         User user= userRepo.findById(dto.getEmail()).orElseThrow(
+                 ()->new Exception("User Not Found!")
+         );
+         user.setIsBlackListed("True");
+         userRepo.save(user);
+    }
 
 }

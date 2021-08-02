@@ -61,10 +61,12 @@ public class userController {
 
     @PutMapping("/userUpdateProfile")
     public ResponseEntity<?> updateProfile(@RequestParam("updatedInfo") String updatedInfo,
-                                           @RequestParam("utilityBill") MultipartFile utilityBill) throws IOException, ParseException {
+                                           @RequestParam("utilityBill") MultipartFile utilityBill,
+                                           @RequestParam("licenceImg") MultipartFile licenceImg ) throws Exception {
         ObjectMapper mp = new ObjectMapper();
         userDTO dtoUser = mp.readValue(updatedInfo, userDTO.class);
         dtoUser.setUtilityBill(utilityBill.getBytes());
+        dtoUser.setLicenceImg(licenceImg.getBytes());
         userService.updateUserProfile(dtoUser);
         return new ResponseEntity(CREATED);
     }
