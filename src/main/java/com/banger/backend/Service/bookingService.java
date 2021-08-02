@@ -110,17 +110,16 @@ public class bookingService {
 
     public void makeBooking(bookingDTO dto) throws Exception {
         Booking booking = new Booking();
-//        List<Equipment> equipmentList= new ArrayList<>();
+        List<Equipment> equipmentList= new ArrayList<>();
 
         booking.setVehicle(vehicleRepo.getOne(dto.getVehicleId()));
         booking.setPickupTime(LocalDateTime.parse(dto.getPickupTime()));
         booking.setReturnTime(LocalDateTime.parse(dto.getReturnTime()));
-
-//        for(Equipment equipments:dto.getEquipments()){
-//            equipmentList.add(equipmentRepo.findById(equipments.getEquipmentId()).get());
-//        }
-//        booking.setEquipments(equipmentList);
-
+        dto.getEquipments();
+        for(Equipment equipments:dto.getEquipments()){
+            equipmentList.add(equipmentRepo.findById(equipments.getEquipmentId()).get());
+        }
+        booking.setEquipments(equipmentList);
 
         List<Booking> bookingList= bookingRepo.findBookingByPickupTimeAndReturnTime(LocalDateTime.parse(dto.getPickupTime()),
                 LocalDateTime.parse(dto.getReturnTime()));
@@ -169,7 +168,7 @@ public class bookingService {
                 dto.setBookingId(bookings.getBookingId());
                 dto.setReturnTime(bookings.getReturnTime().toString());
                 dto.setPickupTime(bookings.getPickupTime().toString());
-                dto.setEquipments(bookings.getEquipments());
+//                dto.setEquipments(bookings.getEquipments());
                 dto.setVehicle(bookings.getVehicle());
 
                 dtoList.add(dto);
@@ -189,7 +188,7 @@ public class bookingService {
                 dto.setBookingId(bookings.getBookingId());
                 dto.setReturnTime(bookings.getReturnTime().toString());
                 dto.setPickupTime(bookings.getPickupTime().toString());
-                dto.setEquipments(bookings.getEquipments());
+//                dto.setEquipments(bookings.getEquipments());
                 dto.setVehicle(bookings.getVehicle());
 
                 dtoList.add(dto);
@@ -208,7 +207,7 @@ public class bookingService {
                 dto.setBookingId(bookings.getBookingId());
                 dto.setReturnTime(bookings.getReturnTime().toString());
                 dto.setPickupTime(bookings.getPickupTime().toString());
-                dto.setEquipments(bookings.getEquipments());
+//                dto.setEquipments(bookings.getEquipments());
                 dto.setVehicle(bookings.getVehicle());
 
                 dtoList.add(dto);
@@ -227,7 +226,7 @@ public class bookingService {
                 dto.setBookingId(bookings.getBookingId());
                 dto.setReturnTime(bookings.getReturnTime().toString());
                 dto.setPickupTime(bookings.getPickupTime().toString());
-                dto.setEquipments(bookings.getEquipments());
+//                dto.setEquipments(bookings.getEquipments());
                 dto.setVehicle(bookings.getVehicle());
 
                 dtoList.add(dto);
@@ -246,7 +245,7 @@ public class bookingService {
                 dto.setBookingId(bookings.getBookingId());
                 dto.setReturnTime(bookings.getReturnTime().toString());
                 dto.setPickupTime(bookings.getPickupTime().toString());
-                dto.setEquipments(bookings.getEquipments());
+//                dto.setEquipments(bookings.getEquipments());
                 dto.setVehicle(bookings.getVehicle());
 
                 dtoList.add(dto);

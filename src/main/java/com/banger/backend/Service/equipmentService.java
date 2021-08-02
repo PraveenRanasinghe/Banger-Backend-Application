@@ -32,6 +32,7 @@ public class equipmentService {
         List<equipmentDTO> list = new ArrayList<>();
         for (Equipment equipment : equipmentRepo.findAll()) {
             equipmentDTO dtoEq = new equipmentDTO();
+            dtoEq.setEquipmentId(equipment.getEquipmentId());
             dtoEq.setItemName(equipment.getItemName());
             dtoEq.setPricePerDayEQ(equipment.getPricePerDayEQ());
             list.add(dtoEq);
