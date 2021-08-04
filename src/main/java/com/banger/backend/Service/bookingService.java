@@ -73,7 +73,7 @@ public class bookingService {
                 dto.setBookingId(bookings.getBookingId());
                 dto.setReturnTime(bookings.getReturnTime().toString());
                 dto.setPickupTime(bookings.getPickupTime().toString());
-                dto.setEquipments(bookings.getEquipments());
+//                dto.setEquipments(bookings.getEquipments());
                 dto.setVehicle(bookings.getVehicle());
                 dto.setBookingStatus(bookings.getBookingStatus());
 
