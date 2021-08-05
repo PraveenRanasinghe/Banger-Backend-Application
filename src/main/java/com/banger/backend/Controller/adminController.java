@@ -158,8 +158,8 @@ public class adminController {
     }
 
     @GetMapping("/viewEquipments")
-    public List<Equipment> viewAllEquipments() {
-        return equipService.getAllEquipments();
+    public List<equipmentDTO> viewAllEquipments() {
+        return equipService.getEquipmentsToList();
     }
 
     @GetMapping("getSingleEquipment/{equipId}")

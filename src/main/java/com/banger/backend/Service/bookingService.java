@@ -48,6 +48,8 @@ public class bookingService {
     public List<bookingDTO> getAllBookingsToList() {
          List<Booking> bookingList =  bookingRepo.findAll();
          List<bookingDTO> dtoList = new ArrayList<>();
+         List<equipmentDTO> dtoListEquip= new ArrayList<>();
+
 
          for(Booking bookings: bookingList){
              bookingDTO dto= new bookingDTO();
@@ -55,7 +57,7 @@ public class bookingService {
              dto.setBookingId(bookings.getBookingId());
              dto.setReturnTime(bookings.getReturnTime().toString());
              dto.setPickupTime(bookings.getPickupTime().toString());
-             dto.setEquipments(bookings.getEquipments());
+//             dto.setEquipments(bookings.getEquipments());
              dto.setVehicle(bookings.getVehicle());
 
              dtoList.add(dto);
@@ -94,7 +96,7 @@ public class bookingService {
                 dto.setBookingId(bookings.getBookingId());
                 dto.setReturnTime(bookings.getReturnTime().toString());
                 dto.setPickupTime(bookings.getPickupTime().toString());
-                dto.setEquipments(bookings.getEquipments());
+//                dto.setEquipments(bookings.getEquipments());
                 dto.setVehicle(bookings.getVehicle());
                 dto.setBookingStatus(bookings.getBookingStatus());
 
@@ -115,7 +117,7 @@ public class bookingService {
         booking.setVehicle(vehicleRepo.getOne(dto.getVehicleId()));
         booking.setPickupTime(LocalDateTime.parse(dto.getPickupTime()));
         booking.setReturnTime(LocalDateTime.parse(dto.getReturnTime()));
-        for(Equipment equipments:dto.getEquipments()){
+        for(equipmentDTO equipments:dto.getEquipments()){
             equipmentList.add(equipmentRepo.findById(equipments.getEquipmentId()).get());
         }
         booking.setEquipments(equipmentList);
@@ -136,6 +138,7 @@ public class bookingService {
         booking.setUser(userRepo.getOne(dto.getEmail()));
         booking.setBookingStatus("Pending");
         booking.setIsLateReturn("False");
+        booking.setPrice(dto.getPrice());
 
         bookingRepo.save(booking);
     }
@@ -146,7 +149,7 @@ public class bookingService {
         booking.setPickupTime(LocalDateTime.parse(dto.getPickupTime()));
         booking.setReturnTime(LocalDateTime.parse(dto.getReturnTime()));
         booking.setVehicle(dto.getVehicle());
-        booking.setEquipments(dto.getEquipments());
+//        booking.setEquipments(dto.getEquipments());
         booking.setUser(dto.getUser());
 
         return bookingRepo.save(booking);
