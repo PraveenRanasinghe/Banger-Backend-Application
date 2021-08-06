@@ -128,4 +128,10 @@ public class userController {
     }
 
 
+    @PostMapping("/searchVehicles")
+    public List<vehicleDTO> findAvailableVehicles(@RequestBody searchVehicleDTO searchDto){
+        return bookingService.searchAvailableVehiclesAccordingToThePickupTimeAndReturnTime(searchDto.getPickupTime(), searchDto.getReturnTime());
+    }
+
+
 }
