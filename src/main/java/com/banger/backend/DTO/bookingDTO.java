@@ -20,7 +20,7 @@ public class bookingDTO {
     private Vehicle vehicle;
     private int vehicleId;
     private String email;
-    private List<Equipment> equipments;
+    private List<equipmentDTO> equipments;
     private String bookingStatus;
     private String price;
 
@@ -75,11 +75,11 @@ public class bookingDTO {
         this.vehicle = vehicle;
     }
 
-    public List<Equipment> getEquipments() {
+    public List<equipmentDTO> getEquipments() {
         return equipments;
     }
 
-    public void setEquipments(List<Equipment> equipments) {
+    public void setEquipments(List<equipmentDTO> equipments) {
         this.equipments = equipments;
     }
 

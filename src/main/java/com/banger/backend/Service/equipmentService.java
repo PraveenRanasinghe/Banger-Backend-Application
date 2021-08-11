@@ -32,6 +32,7 @@ public class equipmentService {
         List<equipmentDTO> list = new ArrayList<>();
         for (Equipment equipment : equipmentRepo.findAll()) {
             equipmentDTO dtoEq = new equipmentDTO();
+            dtoEq.setEquipmentId(equipment.getEquipmentId());
             dtoEq.setItemName(equipment.getItemName());
             dtoEq.setPricePerDayEQ(equipment.getPricePerDayEQ());
             list.add(dtoEq);
@@ -39,9 +40,12 @@ public class equipmentService {
         return list;
     }
 
+    public List<equipmentDTO> getAvailableEquipmentsToList(){
+        List<equipmentDTO> list = new ArrayList<>();
+        for(Equipment equipment:equipmentRepo.findAll()){
 
-    public List<Equipment> getAllEquipments() {
-        return equipmentRepo.findAll();
+        }
+        return list;
     }
 
     public Equipment addEquipments(equipmentDTO dto) throws EquipNameExistsException {

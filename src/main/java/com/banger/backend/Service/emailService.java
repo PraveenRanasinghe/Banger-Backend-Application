@@ -73,20 +73,20 @@ public class emailService {
     }
 
 
-    public void EmailToNotifyAdminInNewUserRegistration(String adminEmail) {
+    public void EmailToNotifyUserInBookingAcceptance(String adminEmail) {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(companyEmail));
             message.setRecipients(
                     Message.RecipientType.TO, InternetAddress.parse(adminEmail));
             message.setSubject("----------" +
-                    "New User Registration On System !" +
+                    "Congratulations !" +
                     "----------");
 
-            String msg = "Dear Administrator,<br/><br/>" +
+            String msg = "Dear Customer,<br/><br/>" +
 
-                    "There is a new Registration on our Banger & Co Organization.<br/>" +
-                    "Please check the validity of the account and Accept the Account. <br/>" +
+                    "Your Booking has been Accepted by our Banger & Co Team! <br/>" +
+                    "Now you can collect the Booked Vehicle from our Place. <br/>" +
 
                     "----------------------------------------------------------------<br/><br/>" +
                     "Best Regards,<br/>" +

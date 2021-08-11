@@ -158,8 +158,8 @@ public class adminController {
     }
 
     @GetMapping("/viewEquipments")
-    public List<Equipment> viewAllEquipments() {
-        return equipService.getAllEquipments();
+    public List<equipmentDTO> viewAllEquipments() {
+        return equipService.getEquipmentsToList();
     }
 
     @GetMapping("getSingleEquipment/{equipId}")
@@ -183,6 +183,9 @@ public class adminController {
         return bookingService.getAllCollectedBookings();
     }
 
+
+    @GetMapping("/viewExtendRequestedBookings")
+    public List<bookingDTO> viewExtendRequestedBookings(){return bookingService.getAllExtendRequestedBookings();}
 
     @GetMapping("/viewCompletedBookings")
     public List<bookingDTO> viewCompletedBookings() {
