@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.*;
 
 @Service
@@ -91,6 +93,8 @@ public class userService implements UserDetailsService {
         user.setContactNum(dtoUser.getContactNum());
         user.setLicenceImg(dtoUser.getLicenceImg());
         user.setUtilityBill(dtoUser.getUtilityBill());
+
+
         return userRepo.save(user);
     }
 
@@ -106,6 +110,7 @@ public class userService implements UserDetailsService {
                 dto.setlName(user.getlName());
                 dto.setContactNum(user.getContactNum());
                 dto.setLicenceImg(user.getLicenceImg());
+
                 list.add(dto);
             }
         }
@@ -132,6 +137,11 @@ public class userService implements UserDetailsService {
                 dto.setfName(user.getfName());
                 dto.setlName(user.getlName());
                 dto.setContactNum(user.getContactNum());
+                dto.setDob(String.valueOf(user.getDob()));
+//                LocalDate date = user.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//                LocalDate present = LocalDate.now();
+//                Period difference = Period.between(date, present);
+//                System.out.println(String.valueOf(difference.getYears()));
                 list.add(dto);
             }
         }

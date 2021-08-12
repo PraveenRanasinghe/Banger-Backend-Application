@@ -35,6 +35,7 @@ public class equipmentService {
             dtoEq.setEquipmentId(equipment.getEquipmentId());
             dtoEq.setItemName(equipment.getItemName());
             dtoEq.setPricePerDayEQ(equipment.getPricePerDayEQ());
+            dtoEq.setQuantity(equipment.getQuantity());
             list.add(dtoEq);
         }
         return list;

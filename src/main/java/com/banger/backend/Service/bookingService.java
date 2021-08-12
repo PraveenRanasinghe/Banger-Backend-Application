@@ -369,8 +369,7 @@ public class bookingService {
             dto.setVehicleType(vehicle.getVehicleType());
 
             vehicleDTOS.add(dto);
-
-        }
+         }
 
         return vehicleDTOS;
     }
