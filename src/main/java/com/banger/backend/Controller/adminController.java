@@ -108,6 +108,12 @@ public class adminController {
     }
 
 
+    @GetMapping("/viewBlackListedUsers")
+    public List<userDTO> viewBlackListedUsers() {
+        return userService.getAllBlackListedUsersToList();
+    }
+
+
     @PutMapping("acceptUser/{email}")
     public User AcceptUser(@PathVariable(value = "email") String email, @RequestBody acceptUserDTO dtoUser) {
         return userService.acceptUserAccount(dtoUser);

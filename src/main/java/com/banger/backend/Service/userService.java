@@ -149,19 +149,29 @@ public class userService implements UserDetailsService {
     }
 
 
+    public List<userDTO> getAllBlackListedUsersToList() {
+        List<userDTO> list = new ArrayList<>();
+        for (User user : userRepo.findAll()) {
+            if (user.getUserRole().equals("Customer") && user.getIsBlackListed().equals("True") ) {
+                userDTO dto = new userDTO();
+                dto.setUserRole(user.getUserRole());
+                dto.setEmail(user.getEmail());
+                dto.setfName(user.getfName());
+                dto.setlName(user.getlName());
+                dto.setContactNum(user.getContactNum());
+                dto.setDob(String.valueOf(user.getDob()));
+
+                list.add(dto);
+            }
+        }
+        return list;
+    }
+
+
 
     public void removeUser(String email){
         userRepo.deleteById(email);
     }
 
-
-
-    public void blackListUser(acceptUserDTO dto)throws Exception{
-         User user= userRepo.findById(dto.getEmail()).orElseThrow(
-                 ()->new Exception("User Not Found!")
-         );
-         user.setIsBlackListed("True");
-         userRepo.save(user);
-    }
 
 }
