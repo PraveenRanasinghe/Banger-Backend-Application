@@ -316,6 +316,21 @@ public class bookingService {
         bookingRepo.save(booking);
     }
 
+    public void blackListUserWhenBookingStateChange(acceptBookingDTO dto) throws Exception {
+        Booking booking = bookingRepo.findById(dto.getBookingId()).orElseThrow(
+                () -> new Exception("Resource Not Found")
+        );
+        booking.setBookingStatus(dto.getStatus());
+
+        if(dto.getStatus().equals("Not-Collected")){
+            User user =userRepo.findUserByEmail(dto.getEmail());
+            user.setIsBlackListed("True");
+        }
+        bookingRepo.save(booking);
+    }
+
+
+
     public void requestLateReturn(acceptBookingDTO dto) throws Exception {
         Booking booking = bookingRepo.findById(dto.getBookingId()).orElseThrow(
                 () -> new Exception("Booking Id Not Found")

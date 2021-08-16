@@ -143,7 +143,7 @@ public class adminController {
 
     @PutMapping("updateBookingStatus")
     public void updateBookingStatus(@RequestBody acceptBookingDTO dto) throws Exception {
-        bookingService.updateBookingStatus(dto);
+        bookingService.blackListUserWhenBookingStateChange(dto);
     }
 
 
