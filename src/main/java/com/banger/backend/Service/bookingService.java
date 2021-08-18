@@ -308,13 +308,6 @@ public class bookingService {
         return "Id Not Found";
     }
 
-    public void updateBookingStatus(acceptBookingDTO dto) throws Exception {
-        Booking booking = bookingRepo.findById(dto.getBookingId()).orElseThrow(
-                () -> new Exception("Resource Not Found")
-        );
-        booking.setBookingStatus(dto.getStatus());
-        bookingRepo.save(booking);
-    }
 
     public void blackListUserWhenBookingStateChange(acceptBookingDTO dto) throws Exception {
         Booking booking = bookingRepo.findById(dto.getBookingId()).orElseThrow(
@@ -325,6 +318,7 @@ public class bookingService {
         if(dto.getStatus().equals("Not-Collected")){
             User user =userRepo.findUserByEmail(dto.getEmail());
             user.setIsBlackListed("True");
+            emailService.emailForBlackListUsers(dto.getEmail());
         }
         bookingRepo.save(booking);
     }
@@ -335,8 +329,12 @@ public class bookingService {
         Booking booking = bookingRepo.findById(dto.getBookingId()).orElseThrow(
                 () -> new Exception("Booking Id Not Found")
         );
-        booking.setIsLateReturn("True");
-        bookingRepo.save(booking);
+        if(bookingRepo.findById(dto.getBookingId()).isPresent()){
+            booking.setIsLateReturn("True");
+            bookingRepo.save(booking);
+        }
+        else throw new Exception("Booking Extend Request Cannot be Accepted!.");
+
     }
 
 
@@ -344,7 +342,7 @@ public class bookingService {
 
         List<vehicleDTO> vehicleDTOS = new ArrayList<>();
         List<Booking> bookingList = bookingRepo.findByBookingStatus("Accepted");
-        bookingList.addAll(bookingRepo.findByBookingStatus("Completed"));
+        bookingList.addAll(bookingRepo.findByBookingStatus("Collected"));
         List<Booking> filteredList = new ArrayList<>();
         //filtered list contains all the bookings which are between the pick up time and return time
 
@@ -394,6 +392,8 @@ public class bookingService {
 
         return vehicleDTOS;
     }
+
+
 
 
 }

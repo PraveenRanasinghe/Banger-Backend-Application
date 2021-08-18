@@ -2,6 +2,7 @@ package com.banger.backend.Repositary;
 
 import com.banger.backend.Entity.Booking;
 import com.banger.backend.Entity.User;
+import com.banger.backend.Entity.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
@@ -12,14 +13,9 @@ public interface BookingRepo extends JpaRepository<Booking,Integer> {
 
     Booking findBookingByBookingId(Integer id);
 
-//    List<Booking> findBookingByPickupTimeAndReturnTime(LocalDateTime dateTime);
-
     List<Booking> findBookingsByUserEmail(String email);
 
-//    Booking findBookingByBookingStatusAndUserEmail(String bookingStatus, String email);
-
     List<Booking> findBookingByPickupTimeAndReturnTime(LocalDateTime pickupTime, LocalDateTime returnTime);
-
 
     List<Booking> findByBookingStatus(String bookingStatus);
 }

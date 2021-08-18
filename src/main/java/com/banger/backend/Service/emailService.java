@@ -105,4 +105,37 @@ public class emailService {
         }
     }
 
+
+    public void  emailForBlackListUsers(String email) {
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(companyEmail));
+            message.setRecipients(
+                    Message.RecipientType.TO, InternetAddress.parse(email));
+            message.setSubject("----------" +
+                    "Oops !" +
+                    "----------");
+
+            String msg = "Dear Customer,<br/><br/>" +
+
+                    "Your Account has been BlackListed due to a non collection of Booked Vehicle! <br/>" +
+                    "Therefore, You will not be able to make bookings again in our Banger & Co Organization. <br/>" +
+
+                    "----------------------------------------------------------------<br/><br/>" +
+                    "Thank You!<br/>" +
+                    "Banger & Co Team";
+
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(msg, "text/html");
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mimeBodyPart);
+            message.setContent(multipart);
+            Transport.send(message);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Error");
+        }
+    }
+
 }
