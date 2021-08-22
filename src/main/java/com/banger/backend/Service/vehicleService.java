@@ -40,9 +40,9 @@ public class vehicleService {
     }
 
 
-    public List<vehicleDTO> getVehiclesAccordingToAge(userDTO dtoUser){
+    public List<vehicleDTO> getVehiclesAccordingToAge(String email){
 
-        User user = userRepo.findUserByEmail(dtoUser.getEmail());
+        User user = userRepo.findUserByEmail(email);
         LocalDate date = user.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate present = LocalDate.now();
         Period difference = Period.between(date, present);
@@ -65,13 +65,28 @@ public class vehicleService {
 
                     vehicleDTOS.add(dto);
                 }
-                return vehicleDTOS;
             }
+            return vehicleDTOS;
         }
         else {
+            List<vehicleDTO> vehicleDTOS = new ArrayList<>();
+            for(Vehicle vehicle:vehicleRepo.findAll()){
+                    vehicleDTO dto = new vehicleDTO();
+                    dto.setVehicleImg(vehicle.getVehicleImg());
+                    dto.setAc(vehicle.getAc());
+                    dto.setVehicleType(vehicle.getVehicleType());
+                    dto.setVehicleModel(vehicle.getVehicleModel());
+                    dto.setAirBag(vehicle.getAirBag());
+                    dto.setFuelType(vehicle.getFuelType());
+                    dto.setFuelType(vehicle.getFuelType());
+                    dto.setNumOfSeats(vehicle.getNumOfSeats());
+                    dto.setPricePerDay(vehicle.getPricePerDay());
+                    dto.setTransmissionType(vehicle.getTransmissionType());
+                    vehicleDTOS.add(dto);
+                }
 
+            return vehicleDTOS;
         }
-        return null;
     }
 
     public Vehicle addVehicle(vehicleDTO dtoVehicle){

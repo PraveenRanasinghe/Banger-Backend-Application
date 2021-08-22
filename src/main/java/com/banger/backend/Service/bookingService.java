@@ -393,7 +393,4 @@ public class bookingService {
         return vehicleDTOS;
     }
 
-
-
-
 }

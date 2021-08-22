@@ -5,6 +5,7 @@ import com.banger.backend.Entity.*;
 import com.banger.backend.Service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -74,8 +75,8 @@ public class userController {
 
     @PostMapping("/makeBooking")
     public ResponseEntity<String> makeBooking(@RequestBody bookingDTO dto) throws Exception {
-        this.bookingService.makeBooking(dto);
-        return new ResponseEntity("Booking Made Successfully...", OK);
+            this.bookingService.makeBooking(dto);
+            return new ResponseEntity("Booking Made Successfully...",OK);
     }
 
     @GetMapping("/getEquipmentList")
@@ -111,9 +112,9 @@ public class userController {
         return equipmentService.getEquipmentById(equipmentId);
     }
 
-    @GetMapping("/viewAllVehicles")
-    public List<Vehicle> viewAllVehicles() {
-        return vehicleService.getAllVehicles();
+    @GetMapping("/viewAllVehicles/{email}")
+    public List<vehicleDTO> viewAllVehicles(@PathVariable(value = "email")String email) {
+        return vehicleService.getVehiclesAccordingToAge(email);
     }
 
     @GetMapping("/viewMyBookings/{email}")

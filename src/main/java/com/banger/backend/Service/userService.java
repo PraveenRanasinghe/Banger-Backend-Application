@@ -138,10 +138,7 @@ public class userService implements UserDetailsService {
                 dto.setlName(user.getlName());
                 dto.setContactNum(user.getContactNum());
                 dto.setDob(String.valueOf(user.getDob()));
-//                LocalDate date = user.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//                LocalDate present = LocalDate.now();
-//                Period difference = Period.between(date, present);
-//                System.out.println(String.valueOf(difference.getYears()));
+
                 list.add(dto);
             }
         }
