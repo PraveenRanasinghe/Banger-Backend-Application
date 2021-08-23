@@ -11,6 +11,8 @@ import com.banger.backend.Repositary.UserRepo;
 import com.banger.backend.Repositary.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.yaml.snakeyaml.util.ArrayUtils;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -42,7 +44,7 @@ public class bookingService {
     public Booking getBookingById(Integer bookingId) {
         Optional<Booking> bookings = bookingRepo.findById(bookingId);
         Booking booking = null;
-        if (bookings.isPresent()) {
+        if (bookings.isPresent()){
             booking = bookings.get();
         }
         return booking;
@@ -112,7 +114,9 @@ public class bookingService {
     }
 
 
+    @Transactional
     public void makeBooking(bookingDTO dto) throws Exception {
+
         Booking booking = new Booking();
         List<Equipment> equipmentList = new ArrayList<>();
         User user = userRepo.findUserByEmail(dto.getEmail());
@@ -142,7 +146,6 @@ public class bookingService {
             booking.setBookingStatus("Pending");
             booking.setIsLateReturn("False");
             booking.setPrice(dto.getPrice());
-
             bookingRepo.save(booking);
         }
         else {
