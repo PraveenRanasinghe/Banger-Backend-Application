@@ -98,7 +98,7 @@ public class userController {
 
 
     @PutMapping("requestLateReturn")
-    public void requestLateReturn(@RequestBody acceptBookingDTO dto) throws Exception{
+    public void requestLateReturn(@RequestBody bookingDTO dto) throws Exception{
         bookingService.requestLateReturn(dto);
     }
 
