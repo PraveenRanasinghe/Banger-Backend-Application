@@ -5,6 +5,7 @@ import com.banger.backend.Config.JwtTokenUtil;
 import com.banger.backend.Entity.User;
 import com.banger.backend.ReqResp.JwtRequest;
 import com.banger.backend.ReqResp.JwtResponse;
+import com.banger.backend.Scraping.WebScrapingImplementation;
 import com.banger.backend.Service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,9 @@ public class authenticationController {
     @Autowired
     private userService userDetailsService;
 
+    @Autowired
+    WebScrapingImplementation webScrapingImplementation;
+
 
     @PreAuthorize("permitAll()")
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
@@ -40,6 +44,8 @@ public class authenticationController {
                 .loadUserByUsername(authenticationRequest.getUsername());
 
         User user = userDetailsService.getUserByID(authenticationRequest.getUsername());
+
+        webScrapingImplementation.webScrapper();
 
         final String token = jwtTokenUtil.generateToken(userDetails);
 
