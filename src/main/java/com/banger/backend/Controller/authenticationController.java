@@ -30,9 +30,6 @@ public class authenticationController {
     @Autowired
     private userService userDetailsService;
 
-    @Autowired
-    WebScrapingImplementation webScrapingImplementation;
-
 
     @PreAuthorize("permitAll()")
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
@@ -44,8 +41,6 @@ public class authenticationController {
                 .loadUserByUsername(authenticationRequest.getUsername());
 
         User user = userDetailsService.getUserByID(authenticationRequest.getUsername());
-
-        webScrapingImplementation.webScrapper();
 
         final String token = jwtTokenUtil.generateToken(userDetails);
 

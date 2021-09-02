@@ -3,6 +3,7 @@ package com.banger.backend.Controller;
 import com.banger.backend.DTO.*;
 import com.banger.backend.Entity.*;
 import com.banger.backend.Exception.EquipNameExistsException;
+import com.banger.backend.Scraping.WebScrapingImplementation;
 import com.banger.backend.Service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,6 +39,9 @@ public class adminController {
 
     @Autowired
     private inquiryService inqService;
+
+    @Autowired
+    private WebScrapingImplementation webScrapingImplementation;
 
 
     @PostMapping("/addVehicle")
@@ -212,6 +216,11 @@ public class adminController {
     @GetMapping("/getLoggedInUser/{email}")
     public User getLoggedInUser(@PathVariable(value = "email") String email) {
         return userService.getUserByID(email);
+    }
+
+    @GetMapping("/getScrappedResult")
+    public void scrappedResult() throws IOException {
+        webScrapingImplementation.webScrapper();
     }
 
 }
