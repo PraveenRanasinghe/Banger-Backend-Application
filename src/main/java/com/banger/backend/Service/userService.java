@@ -78,7 +78,6 @@ public class userService implements UserDetailsService {
             user.setLicenceImg(dto.getLicenceImg());
             user.setProfileImage(dto.getProfileImage());
             user.setUtilityBill(dto.getUtilityBill());
-//            emailService.EmailToNotifyAdminInNewUserRegistration("systemAdmin@gmail.com");
         return userRepo.save(user);
     }
 
@@ -99,7 +98,7 @@ public class userService implements UserDetailsService {
     }
 
     //Get All Pending Users to the List
-    public List<userDTO> getAllPendingUsersToList() {
+    public List<userDTO> getAllPendingUsersToList(){
         List<userDTO> list = new ArrayList<>();
         for (User user : userRepo.findAll()) {
             if (user.getUserRole().equals("Customer") && user.getStatus().equals("Pending")) {
@@ -121,7 +120,6 @@ public class userService implements UserDetailsService {
     public User acceptUserAccount(acceptUserDTO dto) {
         User user = userRepo.findUserByEmail(dto.getEmail());
         user.setStatus("Accepted");
-//        emailService.EmailForAccountAcceptance(dto.getEmail());
         return userRepo.save(user);
     }
 
