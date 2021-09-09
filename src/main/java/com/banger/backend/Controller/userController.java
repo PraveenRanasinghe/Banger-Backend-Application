@@ -122,6 +122,11 @@ public class userController {
         return bookingService.getBookingsByUserEmail(email);
     }
 
+    @GetMapping("/viewMyPendingBookings/{email}")
+    public List<bookingDTO> getMyPendingBookings(@PathVariable(value = "email")String email){
+        return bookingService.getMyPendingBookings(email);
+    }
+
     @GetMapping("/viewMyPreviousBookings/{email}")
     public List<bookingDTO> getMyPreviousBookings(@PathVariable(value = "email")String email){
         return bookingService.getCompletedBookingsByUserEmail(email);

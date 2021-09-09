@@ -30,6 +30,7 @@ public class WebScrapingImplementation {
                    scrapper.setRatePerMonth(td.get(j).text());
                    scrapper.setRatePerWeek(td.get(j).text());
                    scrapper.setExcessPrice(td.get(j).text());
+
                    scrapperList.add(scrapper);
                    System.out.println(td.get(j).text());
                }

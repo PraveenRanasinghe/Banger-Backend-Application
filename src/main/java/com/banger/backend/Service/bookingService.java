@@ -87,6 +87,27 @@ public class bookingService {
 
                 dtoList.add(dto);
             }
+        }
+        return dtoList;
+    }
+
+
+    public List<bookingDTO> getMyPendingBookings(String email) {
+        List<Booking> bookingList = bookingRepo.findBookingsByUserEmail(email);
+        List<bookingDTO> dtoList = new ArrayList<>();
+
+        for (Booking bookings : bookingList) {
+            if (bookings.getBookingStatus().equals("Pending")) {
+                bookingDTO dto = new bookingDTO();
+                dto.setBookingId(bookings.getBookingId());
+                dto.setReturnTime(bookings.getReturnTime().toString());
+                dto.setPickupTime(bookings.getPickupTime().toString());
+//                dto.setEquipments(bookings.getEquipments());
+                dto.setVehicle(bookings.getVehicle());
+                dto.setBookingStatus(bookings.getBookingStatus());
+
+                dtoList.add(dto);
+            }
 
         }
         return dtoList;

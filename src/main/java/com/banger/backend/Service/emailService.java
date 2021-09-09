@@ -92,7 +92,7 @@ public class emailService {
 
                     "----------------------------------------------------------------<br/><br/>" +
                     "Best Regards,<br/>" +
-                    "Development Team";
+                    "Banger & Co Team";
 
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
             mimeBodyPart.setContent(msg, "text/html");
