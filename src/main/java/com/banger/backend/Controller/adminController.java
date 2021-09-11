@@ -3,6 +3,7 @@ package com.banger.backend.Controller;
 import com.banger.backend.DTO.*;
 import com.banger.backend.Entity.*;
 import com.banger.backend.Exception.EquipNameExistsException;
+import com.banger.backend.Scraping.Scrapper;
 import com.banger.backend.Scraping.WebScrapingImplementation;
 import com.banger.backend.Service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -218,9 +219,13 @@ public class adminController {
         return userService.getUserByID(email);
     }
 
-    @GetMapping("/getScrappedResult")
-    public void scrappedResult() throws IOException {
-        webScrapingImplementation.webScrapper();
-    }
+//    @GetMapping("/getScrappedResult")
+//    public void scrappedResult() throws IOException {
+//        webScrapingImplementation.webScrapper();
+//    }
 
+    @GetMapping("/getScrappedResult")
+    public List<Scrapper> getScreappedResults() throws IOException {
+        return webScrapingImplementation.getScrapperList();
+    }
 }

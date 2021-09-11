@@ -314,6 +314,7 @@ public class bookingService {
             Booking book = booking.get();
             book.setBookingStatus("Accepted");
             bookingRepo.save(book);
+            emailService.EmailToNotifyUserInBookingAcceptance(dto.getEmail());
             return "Booking Accepted";
         }
         return "Id Not Found";
@@ -326,7 +327,7 @@ public class bookingService {
             book.setBookingStatus("Rejected");
             System.out.println(userRepo.findUserByEmail(dto.getEmail()));
             bookingRepo.save(book);
-//            emailService.EmailForRejectBooking(dto.getEmail());
+            emailService.EmailForRejectBooking(dto.getEmail());
             return "Booking Rejected";
         }
         return "Id Not Found";
