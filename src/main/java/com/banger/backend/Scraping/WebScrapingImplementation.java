@@ -26,7 +26,9 @@ public class WebScrapingImplementation {
 
             Scrapper scrapper = new Scrapper();
             scrapper.setVehicleType(element.text());
+
             scrapperList.add(scrapper);
+
         }
         return scrapperList;
     }

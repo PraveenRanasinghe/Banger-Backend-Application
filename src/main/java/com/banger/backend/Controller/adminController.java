@@ -67,6 +67,7 @@ public class adminController {
 
     }
 
+
     @GetMapping("/viewInquiries")
     public List<Inquiry> viewAllInquiries() {
         return inqService.getAllInquiries();
@@ -107,10 +108,10 @@ public class adminController {
         return vehicleService.getVehicleByID(vehicleId);
     }
 
-    @GetMapping("/viewPendingUsers")
-    public List<userDTO> viewPendingUsers() {
-        return userService.getAllPendingUsersToList();
-    }
+//    @GetMapping("/viewPendingUsers")
+//    public List<userDTO> viewPendingUsers() {
+//        return userService.getAllPendingUsersToList();
+//    }
 
 
     @GetMapping("/viewBlackListedUsers")

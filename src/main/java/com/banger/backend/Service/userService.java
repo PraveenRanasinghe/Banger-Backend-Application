@@ -128,7 +128,7 @@ public class userService implements UserDetailsService {
     public List<userDTO> getAllAcceptedUsersToList() {
         List<userDTO> list = new ArrayList<>();
         for (User user : userRepo.findAll()) {
-            if (user.getUserRole().equals("Customer") && user.getStatus().equals("Accepted") ) {
+            if (user.getUserRole().equals("Customer") && user.getStatus().equals("Accepted") && user.getIsBlackListed().equals("False")) {
                 userDTO dto = new userDTO();
                 dto.setUserRole(user.getUserRole());
                 dto.setEmail(user.getEmail());

@@ -1,8 +1,11 @@
 package com.banger.backend.CSV_Reader;
-
-import java.io.BufferedReader;
+import org.springframework.scheduling.annotation.Scheduled;
 
 
 public class Reader {
-    BufferedReader bufferedReader;
+
+    @Scheduled(cron = "0 0/01 12 * * *")
+    public void readRequest(){
+
+    }
 }

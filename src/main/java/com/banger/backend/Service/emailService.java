@@ -10,8 +10,9 @@ import java.util.Properties;
 @Service
 public class emailService {
 
-    private final String companyEmail = "bangerco480@gmail.com";
-    private final String password = "Ac1918@lms";
+
+    private final String companyEmail = "timetabler4@gmail.com";
+    private final String password = "timetabler@12345";
     private final String Host = "smtp.gmail.com";
     private Properties property;
     private Session session;
@@ -39,7 +40,7 @@ public class emailService {
         session = Session.getDefaultInstance(prop, theAuthenticator);
     }
 
-    public void EmailForRejectBooking(String recipientEmail) {
+    public void EmailForRejectBooking(String recipientEmail){
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(companyEmail));
@@ -52,8 +53,8 @@ public class emailService {
             String msg = "Dear Valuable Customer,<br/><br/>" +
 
                     "Your Booking has been Rejected by our Team!.<br/>" +
-                    "Please Check whether your Utility and Other Details are upto date.<br/>" +
-                    "If you are Upto-Date you can make bookings!<br/>" +
+                    "Please Check whether your Utility Bill and Other Details are upto date.<br/>" +
+                    "If they are Upto-Date you can make bookings!<br/>" +
                     "If you want any clarification please contact your team.<br/><br/>" +
                     "+94112-5889874 <br/><br/><br/>" +
 
@@ -75,38 +76,6 @@ public class emailService {
     }
 
 
-    public void EmailToNotifyUserInBookingAcceptance(String adminEmail) {
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(companyEmail));
-            message.setRecipients(
-                    Message.RecipientType.TO, InternetAddress.parse(adminEmail));
-            message.setSubject("----------" +
-                    "Congratulations !" +
-                    "----------");
-
-            String msg = "Dear Customer,<br/><br/>" +
-
-                    "Your Booking has been Accepted by our Banger & Co Team! <br/>" +
-                    "Now you can collect the Booked Vehicle from our Place. <br/>" +
-
-                    "----------------------------------------------------------------<br/><br/>" +
-                    "Best Regards,<br/>" +
-                    "Banger & Co Team";
-
-            MimeBodyPart mimeBodyPart = new MimeBodyPart();
-            mimeBodyPart.setContent(msg, "text/html");
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(mimeBodyPart);
-            message.setContent(multipart);
-            Transport.send(message);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("Error");
-        }
-    }
-
 
     public void  emailForBlackListUsers(String email) {
         try {
@@ -127,6 +96,36 @@ public class emailService {
                     "Thank You!<br/>" +
                     "Banger & Co Team";
 
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(msg, "text/html");
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mimeBodyPart);
+            message.setContent(multipart);
+            Transport.send(message);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Error");
+        }
+    }
+
+
+    public void EmailToNotifyUserInBookingAcceptance(String recepientEmail) {
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(companyEmail));
+            message.setRecipients(
+                    Message.RecipientType.TO, InternetAddress.parse(recepientEmail));
+            message.setSubject("Booking Accepted!");
+
+            String msg = "Dear Customer, <br/><br/>" +
+
+                    "Your Booking has been Accepted by our Banger & Co Team! <br/>" +
+                    "Now you can collect the Booked Vehicle from our Place. <br/>" +
+
+                    "----------------------------------------------------------------<br/><br/>" +
+                    "Best Regards,<br/>" +
+                    "Banger & Co Team";
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
             mimeBodyPart.setContent(msg, "text/html");
             Multipart multipart = new MimeMultipart();
