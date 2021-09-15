@@ -12,13 +12,12 @@ import com.banger.backend.Repositary.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.yaml.snakeyaml.util.ArrayUtils;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -149,44 +148,49 @@ public class bookingService {
         }
 
         User user1 = userRepo.findUserByEmail(dto.getEmail());
-        if (licenseNumber == user1.getNicNumber()) {
-            throw new Exception("Your booking cannot be completed !");
-        } else {
-            Booking booking = new Booking();
-            List<Equipment> equipmentList = new ArrayList<>();
-            User user = userRepo.findUserByEmail(dto.getEmail());
 
-            if (user.getIsBlackListed().equals("False") && user.getUserRole().equals("Customer")) {
-                booking.setVehicle(vehicleRepo.getOne(dto.getVehicleId()));
-                booking.setPickupTime(LocalDateTime.parse(dto.getPickupTime()));
-                booking.setReturnTime(LocalDateTime.parse(dto.getReturnTime()));
-                for (equipmentDTO equipments : dto.getEquipments()) {
-                    equipmentList.add(equipmentRepo.findById(equipments.getEquipmentId()).get());
-                }
-                booking.setEquipments(equipmentList);
-
-                List<Booking> bookingList = bookingRepo.findBookingByPickupTimeAndReturnTime(LocalDateTime.parse(dto.getPickupTime()),
-                        LocalDateTime.parse(dto.getReturnTime()));
-
-                for (Booking bookingInfo : bookingList) {
-                    if ((LocalDateTime.parse((dto.getPickupTime())).isAfter(bookingInfo.getPickupTime()))
-                            && (LocalDateTime.parse((dto.getPickupTime())).isBefore(bookingInfo.getReturnTime()))) {
-                        throw new Exception("You cannot Make the Booking at this moment.Because this vehicle is Already booked for selected Time Period!");
-                    } else if ((LocalDateTime.parse((dto.getPickupTime())).isAfter(bookingInfo.getPickupTime()))
-                            && (LocalDateTime.parse((dto.getReturnTime())).isBefore(bookingInfo.getReturnTime()))) {
-                        throw new Exception("You cannot Make the Booking at this moment.Because this vehicle is Already booked for selected Time Period!");
-                    }
-                }
-                booking.setUser(userRepo.getOne(dto.getEmail()));
-                booking.setBookingStatus("Pending");
-                booking.setIsLateReturn("False");
-                booking.setPrice(dto.getPrice());
-                bookingRepo.save(booking);
-            }
-            else {
-                throw new Exception("Your Account Has Been BlackListed! You will not be able to make booking again in Banger & Co Organization.!");
+        for (int i = 0; i < stringList.size(); i++) {
+            if (Objects.equals(stringList.get(i), user1.getNicNumber())) {
+                user1.setIsBlackListed("True");
+                emailService.sendEmailToDMV("praveenranasinghe43@gmail.com", user1.getProfileImage(), user1.getNicNumber());
+                throw new Exception("Your booking cannot be completed !");
             }
         }
+
+        Booking booking = new Booking();
+        List<Equipment> equipmentList = new ArrayList<>();
+        User user = userRepo.findUserByEmail(dto.getEmail());
+
+        if (user.getIsBlackListed().equals("False") && user.getUserRole().equals("Customer")) {
+            booking.setVehicle(vehicleRepo.getOne(dto.getVehicleId()));
+            booking.setPickupTime(LocalDateTime.parse(dto.getPickupTime()));
+            booking.setReturnTime(LocalDateTime.parse(dto.getReturnTime()));
+            for (equipmentDTO equipments : dto.getEquipments()) {
+                equipmentList.add(equipmentRepo.findById(equipments.getEquipmentId()).get());
+            }
+            booking.setEquipments(equipmentList);
+
+            List<Booking> bookingList = bookingRepo.findBookingByPickupTimeAndReturnTime(LocalDateTime.parse(dto.getPickupTime()),
+                    LocalDateTime.parse(dto.getReturnTime()));
+
+            for (Booking bookingInfo : bookingList) {
+                if ((LocalDateTime.parse((dto.getPickupTime())).isAfter(bookingInfo.getPickupTime()))
+                        && (LocalDateTime.parse((dto.getPickupTime())).isBefore(bookingInfo.getReturnTime()))) {
+                    throw new Exception("You cannot Make the Booking at this moment.Because this vehicle is Already booked for selected Time Period!");
+                } else if ((LocalDateTime.parse((dto.getPickupTime())).isAfter(bookingInfo.getPickupTime()))
+                        && (LocalDateTime.parse((dto.getReturnTime())).isBefore(bookingInfo.getReturnTime()))) {
+                    throw new Exception("You cannot Make the Booking at this moment.Because this vehicle is Already booked for selected Time Period!");
+                }
+            }
+            booking.setUser(userRepo.getOne(dto.getEmail()));
+            booking.setBookingStatus("Pending");
+            booking.setIsLateReturn("False");
+            booking.setPrice(dto.getPrice());
+            bookingRepo.save(booking);
+        } else {
+            throw new Exception("Your Account Has Been BlackListed! You will not be able to make booking again in Banger & Co Organization.!");
+        }
+
     }
 
 

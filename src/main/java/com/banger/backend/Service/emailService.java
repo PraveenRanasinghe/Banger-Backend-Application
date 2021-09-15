@@ -5,6 +5,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 @Service
@@ -126,6 +128,41 @@ public class emailService {
                     "----------------------------------------------------------------<br/><br/>" +
                     "Best Regards,<br/>" +
                     "Banger & Co Team";
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(msg, "text/html");
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mimeBodyPart);
+            message.setContent(multipart);
+            Transport.send(message);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Error");
+        }
+    }
+
+    public void sendEmailToDMV(String email, byte[] image, String licenseNumber){
+        try {
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(companyEmail));
+            message.setRecipients(
+                    Message.RecipientType.TO, InternetAddress.parse(email));
+            message.setSubject("Suspicious License Found!");
+
+            String msg = "Hello, <br/><br/>" +
+                    "Registration Number of Banger & Co with DMV : DMV085457 <br/>"+
+                    "We have identified a person, who was trying to make his booking using a suspicious license number."+
+                    "The booking was made at "+dtf.format(now)+
+                    "Suspicious licence number is :"+licenseNumber+ "<br/>"+
+                    "We have attached the image of that user with this email."+image+
+                    "----------------------------------------------------------------<br/><br/>" +
+                    "Thanking You,<br/>" +
+                    "Banger & Co Team";
+
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
             mimeBodyPart.setContent(msg, "text/html");
             Multipart multipart = new MimeMultipart();
