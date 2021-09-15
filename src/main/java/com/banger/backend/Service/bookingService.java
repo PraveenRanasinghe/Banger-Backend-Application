@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yaml.snakeyaml.util.ArrayUtils;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +45,7 @@ public class bookingService {
     public Booking getBookingById(Integer bookingId) {
         Optional<Booking> bookings = bookingRepo.findById(bookingId);
         Booking booking = null;
-        if (bookings.isPresent()){
+        if (bookings.isPresent()) {
             booking = bookings.get();
         }
         return booking;
@@ -137,39 +139,53 @@ public class bookingService {
     @Transactional
     public void makeBooking(bookingDTO dto) throws Exception {
 
-        Booking booking = new Booking();
-        List<Equipment> equipmentList = new ArrayList<>();
-        User user = userRepo.findUserByEmail(dto.getEmail());
+        String licenseNumber = "";
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("C:\\Users\\dell\\Desktop\\My Projects\\EIRLS\\Backend\\EIRLS-Backend\\src\\main\\java\\com\\banger\\backend\\FileWriter\\License.csv"));
 
-        if(user.getIsBlackListed().equals("False") && user.getUserRole().equals("Customer")){
-            booking.setVehicle(vehicleRepo.getOne(dto.getVehicleId()));
-            booking.setPickupTime(LocalDateTime.parse(dto.getPickupTime()));
-            booking.setReturnTime(LocalDateTime.parse(dto.getReturnTime()));
-            for (equipmentDTO equipments : dto.getEquipments()) {
-                equipmentList.add(equipmentRepo.findById(equipments.getEquipmentId()).get());
-            }
-            booking.setEquipments(equipmentList);
+        List<String> stringList = new ArrayList<>();
 
-            List<Booking> bookingList = bookingRepo.findBookingByPickupTimeAndReturnTime(LocalDateTime.parse(dto.getPickupTime()),
-                    LocalDateTime.parse(dto.getReturnTime()));
-
-            for (Booking bookingInfo : bookingList) {
-                if ((LocalDateTime.parse((dto.getPickupTime())).isAfter(bookingInfo.getPickupTime()))
-                        && (LocalDateTime.parse((dto.getPickupTime())).isBefore(bookingInfo.getReturnTime()))) {
-                    throw new Exception("You cannot Make the Booking at this moment.Because this vehicle is Already booked for selected Time Period!");
-                } else if ((LocalDateTime.parse((dto.getPickupTime())).isAfter(bookingInfo.getPickupTime()))
-                        && (LocalDateTime.parse((dto.getReturnTime())).isBefore(bookingInfo.getReturnTime()))) {
-                    throw new Exception("You cannot Make the Booking at this moment.Because this vehicle is Already booked for selected Time Period!");
-                }
-            }
-            booking.setUser(userRepo.getOne(dto.getEmail()));
-            booking.setBookingStatus("Pending");
-            booking.setIsLateReturn("False");
-            booking.setPrice(dto.getPrice());
-            bookingRepo.save(booking);
+        while ((licenseNumber = bufferedReader.readLine()) != null) {
+            stringList.add(licenseNumber);
         }
-        else {
-            throw new Exception("Your Account Has Been BlackListed! You will not be able to make booking again in Banger & Co Organization.!");
+
+        User user1 = userRepo.findUserByEmail(dto.getEmail());
+        if (licenseNumber == user1.getNicNumber()) {
+            throw new Exception("Your booking cannot be completed !");
+        } else {
+            Booking booking = new Booking();
+            List<Equipment> equipmentList = new ArrayList<>();
+            User user = userRepo.findUserByEmail(dto.getEmail());
+
+            if (user.getIsBlackListed().equals("False") && user.getUserRole().equals("Customer")) {
+                booking.setVehicle(vehicleRepo.getOne(dto.getVehicleId()));
+                booking.setPickupTime(LocalDateTime.parse(dto.getPickupTime()));
+                booking.setReturnTime(LocalDateTime.parse(dto.getReturnTime()));
+                for (equipmentDTO equipments : dto.getEquipments()) {
+                    equipmentList.add(equipmentRepo.findById(equipments.getEquipmentId()).get());
+                }
+                booking.setEquipments(equipmentList);
+
+                List<Booking> bookingList = bookingRepo.findBookingByPickupTimeAndReturnTime(LocalDateTime.parse(dto.getPickupTime()),
+                        LocalDateTime.parse(dto.getReturnTime()));
+
+                for (Booking bookingInfo : bookingList) {
+                    if ((LocalDateTime.parse((dto.getPickupTime())).isAfter(bookingInfo.getPickupTime()))
+                            && (LocalDateTime.parse((dto.getPickupTime())).isBefore(bookingInfo.getReturnTime()))) {
+                        throw new Exception("You cannot Make the Booking at this moment.Because this vehicle is Already booked for selected Time Period!");
+                    } else if ((LocalDateTime.parse((dto.getPickupTime())).isAfter(bookingInfo.getPickupTime()))
+                            && (LocalDateTime.parse((dto.getReturnTime())).isBefore(bookingInfo.getReturnTime()))) {
+                        throw new Exception("You cannot Make the Booking at this moment.Because this vehicle is Already booked for selected Time Period!");
+                    }
+                }
+                booking.setUser(userRepo.getOne(dto.getEmail()));
+                booking.setBookingStatus("Pending");
+                booking.setIsLateReturn("False");
+                booking.setPrice(dto.getPrice());
+                bookingRepo.save(booking);
+            }
+            else {
+                throw new Exception("Your Account Has Been BlackListed! You will not be able to make booking again in Banger & Co Organization.!");
+            }
         }
     }
 
@@ -339,14 +355,13 @@ public class bookingService {
         );
         booking.setBookingStatus(dto.getStatus());
 
-        if(dto.getStatus().equals("Not-Collected")){
-            User user =userRepo.findUserByEmail(dto.getEmail());
+        if (dto.getStatus().equals("Not-Collected")) {
+            User user = userRepo.findUserByEmail(dto.getEmail());
             user.setIsBlackListed("True");
             emailService.emailForBlackListUsers(dto.getEmail());
         }
         bookingRepo.save(booking);
     }
-
 
 
     public void requestLateReturn(bookingDTO dto) throws Exception {
@@ -362,11 +377,10 @@ public class bookingService {
 //        }
 //
 
-        if(bookingRepo.findById(dto.getBookingId()).isPresent()){
+        if (bookingRepo.findById(dto.getBookingId()).isPresent()) {
             booking.setIsLateReturn("True");
             bookingRepo.save(booking);
-        }
-        else throw new Exception("Booking Extend Request Cannot be Accepted!.");
+        } else throw new Exception("Booking Extend Request Cannot be Accepted!.");
 
     }
 
@@ -421,7 +435,7 @@ public class bookingService {
             dto.setVehicleType(vehicle.getVehicleType());
 
             vehicleDTOS.add(dto);
-         }
+        }
 
         return vehicleDTOS;
     }
