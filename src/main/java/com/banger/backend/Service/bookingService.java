@@ -140,7 +140,7 @@ public class bookingService {
         List<Insurance> insurances = insuranceRepo.findAll();
         for (int j=0; j<insurances.size(); j++){
             if (Objects.equals(user1.getNicNumber(), insurances.get(j).getLicenseNumber())) {
-                throw new Exception("CAUGHT FOR FRAUDULENT CLAIMS");
+                throw new Exception("Caught for Fraudulent Claims!");
             }
         }
 
