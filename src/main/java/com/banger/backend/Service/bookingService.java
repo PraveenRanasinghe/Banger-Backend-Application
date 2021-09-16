@@ -1,14 +1,8 @@
 package com.banger.backend.Service;
 
 import com.banger.backend.DTO.*;
-import com.banger.backend.Entity.Booking;
-import com.banger.backend.Entity.Equipment;
-import com.banger.backend.Entity.User;
-import com.banger.backend.Entity.Vehicle;
-import com.banger.backend.Repositary.BookingRepo;
-import com.banger.backend.Repositary.EquipmentRepo;
-import com.banger.backend.Repositary.UserRepo;
-import com.banger.backend.Repositary.VehicleRepo;
+import com.banger.backend.Entity.*;
+import com.banger.backend.Repositary.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +28,9 @@ public class bookingService {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private InsuranceRepo insuranceRepo;
 
     @Autowired
     private emailService emailService;
@@ -138,16 +135,22 @@ public class bookingService {
     @Transactional
     public void makeBooking(bookingDTO dto) throws Exception {
 
-        String licenseNumber = "";
+        User user1 = userRepo.findUserByEmail(dto.getEmail());
+
+        List<Insurance> insurances = insuranceRepo.findAll();
+        for (int j=0; j<insurances.size(); j++){
+            if (Objects.equals(user1.getNicNumber(), insurances.get(j).getLicenseNumber())) {
+                throw new Exception("CAUGHT FOR FRAUDULENT CLAIMS");
+            }
+        }
+
         BufferedReader bufferedReader = new BufferedReader(new FileReader("C:\\Users\\dell\\Desktop\\My Projects\\EIRLS\\Backend\\EIRLS-Backend\\src\\main\\java\\com\\banger\\backend\\FileWriter\\License.csv"));
+        String licenseNumber = "";
 
         List<String> stringList = new ArrayList<>();
-
         while ((licenseNumber = bufferedReader.readLine()) != null) {
             stringList.add(licenseNumber);
         }
-
-        User user1 = userRepo.findUserByEmail(dto.getEmail());
 
         for (int i = 0; i < stringList.size(); i++) {
             if (Objects.equals(stringList.get(i), user1.getNicNumber())) {

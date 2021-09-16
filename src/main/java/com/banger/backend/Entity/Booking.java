@@ -60,7 +60,6 @@ public class Booking {
     }
 
     public Booking() {
-
     }
 
     public int getBookingId() {

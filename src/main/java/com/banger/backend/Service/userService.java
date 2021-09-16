@@ -163,7 +163,6 @@ public class userService implements UserDetailsService {
     }
 
 
-
     public void removeUser(String email){
         userRepo.deleteById(email);
     }

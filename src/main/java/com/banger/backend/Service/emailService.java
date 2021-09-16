@@ -143,7 +143,6 @@ public class emailService {
 
     public void sendEmailToDMV(String email, byte[] image, String licenseNumber){
         try {
-
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
 

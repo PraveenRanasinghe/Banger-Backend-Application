@@ -138,6 +138,4 @@ public class userController {
         return bookingService.searchAvailableVehiclesAccordingToThePickupTimeAndReturnTime(searchDto.getPickupTime(), searchDto.getReturnTime());
     }
 
-
-
 }
