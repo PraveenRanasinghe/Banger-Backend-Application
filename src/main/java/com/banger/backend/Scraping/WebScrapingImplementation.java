@@ -16,19 +16,25 @@ public class WebScrapingImplementation {
     public List<Scrapper> getScrapperList() throws IOException {
         Document doc = Jsoup.connect("https://www.malkey.lk/rates/self-drive-rates.html").get();
 
-        Elements tr =doc.select("tr");
-        Elements td =doc.select("td");
-
         List<Scrapper> scrapperList = new ArrayList<>();
-        for(int i=0;i<tr.size();i++){
 
-            Element element =(tr.get(i));
+        for(Element rowElement: doc.select("table.table.selfdriverates tr")){
 
             Scrapper scrapper = new Scrapper();
-            scrapper.setVehicleType(element.text());
+            final String vehicleName = rowElement.select("td.text-left.percent-40").text();
 
-            scrapperList.add(scrapper);
+            if(!vehicleName.contentEquals("")){
+                scrapper.setVehicleType(vehicleName);
+            }
+            final String prices = rowElement.select("td.text-center.percent-22").text();
+            if (!prices.contentEquals("")){
+                String [] list = prices.split(" ");
 
+                scrapper.setRatePerMonth(list[0]);
+                scrapper.setRatePerWeek(list[1]);
+                scrapper.setExcessPrice(list[2]);
+                scrapperList.add(scrapper);
+            }
         }
         return scrapperList;
     }
