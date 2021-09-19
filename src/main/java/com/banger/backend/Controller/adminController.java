@@ -220,10 +220,6 @@ public class adminController {
         return userService.getUserByID(email);
     }
 
-//    @GetMapping("/getScrappedResult")
-//    public void scrappedResult() throws IOException {
-//        webScrapingImplementation.webScrapper();
-//    }
 
     @GetMapping("/getScrappedResult")
     public List<Scrapper> getScreappedResults() throws IOException {
