@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.AbstractMap;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -63,7 +65,7 @@ public class userController {
     @PutMapping("/userUpdateProfile")
     public ResponseEntity<?> updateProfile(@RequestParam("updatedInfo") String updatedInfo,
                                            @RequestParam("utilityBill") MultipartFile utilityBill,
-                                           @RequestParam("licenceImg") MultipartFile licenceImg ) throws Exception {
+                                           @RequestParam("licenceImg") MultipartFile licenceImg) throws Exception {
         ObjectMapper mp = new ObjectMapper();
         userDTO dtoUser = mp.readValue(updatedInfo, userDTO.class);
         dtoUser.setUtilityBill(utilityBill.getBytes());
@@ -74,9 +76,11 @@ public class userController {
 
 
     @PostMapping("/makeBooking")
-    public ResponseEntity<String> makeBooking(@RequestBody bookingDTO dto) throws Exception {
-            this.bookingService.makeBooking(dto);
-            return new ResponseEntity("Booking Made Successfully...",OK);
+    public ResponseEntity<HashMap<String, String>> makeBooking(@RequestBody bookingDTO dto) throws Exception {
+        this.bookingService.makeBooking(dto);
+        HashMap<String, String> bookingInfo = new HashMap<>();
+        bookingInfo.put("bookingInfo","success");
+        return new ResponseEntity<HashMap<String, String>>(bookingInfo, OK);
     }
 
     @GetMapping("/getEquipmentList")
@@ -98,7 +102,7 @@ public class userController {
 
 
     @PutMapping("requestLateReturn")
-    public void requestLateReturn(@RequestBody bookingDTO dto) throws Exception{
+    public void requestLateReturn(@RequestBody bookingDTO dto) throws Exception {
         bookingService.requestLateReturn(dto);
     }
 
@@ -108,33 +112,33 @@ public class userController {
     }
 
     @GetMapping("/getEquipment/{equipmentId}")
-    public Equipment getSelectedEquipment(@PathVariable(value = "equipmentId") int equipmentId){
+    public Equipment getSelectedEquipment(@PathVariable(value = "equipmentId") int equipmentId) {
         return equipmentService.getEquipmentById(equipmentId);
     }
 
     @GetMapping("/viewAllVehicles/{email}")
-    public List<vehicleDTO> viewAllVehicles(@PathVariable(value = "email")String email) {
+    public List<vehicleDTO> viewAllVehicles(@PathVariable(value = "email") String email) {
         return vehicleService.getVehiclesAccordingToAge(email);
     }
 
     @GetMapping("/viewMyBookings/{email}")
-    public List<bookingDTO> getMyBookings(@PathVariable(value = "email")String email){
+    public List<bookingDTO> getMyBookings(@PathVariable(value = "email") String email) {
         return bookingService.getBookingsByUserEmail(email);
     }
 
     @GetMapping("/viewMyPendingBookings/{email}")
-    public List<bookingDTO> getMyPendingBookings(@PathVariable(value = "email")String email){
+    public List<bookingDTO> getMyPendingBookings(@PathVariable(value = "email") String email) {
         return bookingService.getMyPendingBookings(email);
     }
 
     @GetMapping("/viewMyPreviousBookings/{email}")
-    public List<bookingDTO> getMyPreviousBookings(@PathVariable(value = "email")String email){
+    public List<bookingDTO> getMyPreviousBookings(@PathVariable(value = "email") String email) {
         return bookingService.getCompletedBookingsByUserEmail(email);
     }
 
 
     @PostMapping("/searchVehicles")
-    public List<vehicleDTO> findAvailableVehicles(@RequestBody searchVehicleDTO searchDto){
+    public List<vehicleDTO> findAvailableVehicles(@RequestBody searchVehicleDTO searchDto) {
         return bookingService.searchAvailableVehiclesAccordingToThePickupTimeAndReturnTime(searchDto.getPickupTime(), searchDto.getReturnTime());
     }
 
