@@ -335,8 +335,8 @@ public class bookingService {
         if (booking.isPresent()) {
             Booking book = booking.get();
             book.setBookingStatus("Accepted");
-            bookingRepo.save(book);
             emailService.EmailToNotifyUserInBookingAcceptance(dto.getEmail());
+            bookingRepo.save(book);
             return "Booking Accepted";
         }
         return "Id Not Found";
@@ -364,8 +364,8 @@ public class bookingService {
 
         if (dto.getStatus().equals("Not-Collected")) {
             User user = userRepo.findUserByEmail(dto.getEmail());
-            user.setIsBlackListed("True");
             emailService.emailForBlackListUsers(dto.getEmail());
+            user.setIsBlackListed("True");
         }
         bookingRepo.save(booking);
     }

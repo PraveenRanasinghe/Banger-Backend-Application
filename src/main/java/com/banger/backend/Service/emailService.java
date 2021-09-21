@@ -94,7 +94,6 @@ public class emailService {
                     "Your Account has been BlackListed due to a non collection of Booked Vehicle! <br/>" +
                     "Therefore, You will not be able to make bookings again in our Banger & Co Organization. <br/>" +
 
-                    "----------------------------------------------------------------<br/><br/>" +
                     "Thank You!<br/>" +
                     "Banger & Co Team";
 
@@ -112,22 +111,23 @@ public class emailService {
     }
 
 
-    public void EmailToNotifyUserInBookingAcceptance(String recepientEmail) {
+    public void  EmailToNotifyUserInBookingAcceptance(String email) {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(companyEmail));
             message.setRecipients(
-                    Message.RecipientType.TO, InternetAddress.parse(recepientEmail));
+                    Message.RecipientType.TO, InternetAddress.parse(email));
             message.setSubject("Booking Accepted!");
 
             String msg = "Dear Customer, <br/><br/>" +
 
                     "Your Booking has been Accepted by our Banger & Co Team! <br/>" +
-                    "Now you can collect the Booked Vehicle from our Place. <br/>" +
+                    "Now you can collect the Booked Vehicle from our Place. <br/><br/><br/>" +
 
-                    "----------------------------------------------------------------<br/><br/>" +
-                    "Best Regards,<br/>" +
+
+                    "Thank You!<br/>" +
                     "Banger & Co Team";
+
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
             mimeBodyPart.setContent(msg, "text/html");
             Multipart multipart = new MimeMultipart();
@@ -140,6 +140,36 @@ public class emailService {
             System.out.println("Error");
         }
     }
+
+
+//    public void EmailToNotifyUserInBookingAcceptance(String Email) {
+//        try {
+//            Message message = new MimeMessage(session);
+//            message.setFrom(new InternetAddress(companyEmail));
+//            message.setRecipients(
+//                    Message.RecipientType.TO, InternetAddress.parse(Email));
+//            message.setSubject("Booking Accepted!");
+//
+//            String msg = "Dear Customer, <br/><br/>" +
+//
+//                    "Your Booking has been Accepted by our Banger & Co Team! <br/>" +
+//                    "Now you can collect the Booked Vehicle from our Place. <br/>" +
+//
+//                    "----------------------------------------------------------------<br/><br/>" +
+//                    "Best Regards,<br/>" +
+//                    "Banger & Co Team";
+//            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+//            mimeBodyPart.setContent(msg, "text/html");
+//            Multipart multipart = new MimeMultipart();
+//            multipart.addBodyPart(mimeBodyPart);
+//            message.setContent(multipart);
+//            Transport.send(message);
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            System.out.println("Error");
+//        }
+//    }
 
     public void sendEmailToDMV(String email, byte[] image, String licenseNumber){
         try {
@@ -157,8 +187,8 @@ public class emailService {
                     "We have identified a person, who was trying to make his booking using a suspicious license number."+
                     "The booking was made at "+dtf.format(now)+
                     "Suspicious licence number is :"+licenseNumber+ "<br/>"+
-                    "We have attached the image of that user with this email."+image+
-                    "----------------------------------------------------------------<br/><br/>" +
+                    "We have attached the image of that user with this email."+
+
                     "Thanking You,<br/>" +
                     "Banger & Co Team";
 
@@ -166,6 +196,7 @@ public class emailService {
             mimeBodyPart.setContent(msg, "text/html");
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(mimeBodyPart);
+
             message.setContent(multipart);
             Transport.send(message);
 
