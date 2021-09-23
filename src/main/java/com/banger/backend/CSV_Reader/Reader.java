@@ -1,4 +1,6 @@
 package com.banger.backend.CSV_Reader;
+import com.banger.backend.Service.userService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;

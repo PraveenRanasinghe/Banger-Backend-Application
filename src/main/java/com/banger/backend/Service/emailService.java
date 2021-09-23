@@ -142,34 +142,7 @@ public class emailService {
     }
 
 
-//    public void EmailToNotifyUserInBookingAcceptance(String Email) {
-//        try {
-//            Message message = new MimeMessage(session);
-//            message.setFrom(new InternetAddress(companyEmail));
-//            message.setRecipients(
-//                    Message.RecipientType.TO, InternetAddress.parse(Email));
-//            message.setSubject("Booking Accepted!");
-//
-//            String msg = "Dear Customer, <br/><br/>" +
-//
-//                    "Your Booking has been Accepted by our Banger & Co Team! <br/>" +
-//                    "Now you can collect the Booked Vehicle from our Place. <br/>" +
-//
-//                    "----------------------------------------------------------------<br/><br/>" +
-//                    "Best Regards,<br/>" +
-//                    "Banger & Co Team";
-//            MimeBodyPart mimeBodyPart = new MimeBodyPart();
-//            mimeBodyPart.setContent(msg, "text/html");
-//            Multipart multipart = new MimeMultipart();
-//            multipart.addBodyPart(mimeBodyPart);
-//            message.setContent(multipart);
-//            Transport.send(message);
-//
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            System.out.println("Error");
-//        }
-//    }
+
 
     public void sendEmailToDMV(String email, byte[] image, String licenseNumber){
         try {

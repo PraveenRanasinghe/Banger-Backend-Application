@@ -3,12 +3,11 @@ package com.banger.backend.Service;
 import com.banger.backend.Config.ApplicationUser;
 import com.banger.backend.DTO.*;
 import com.banger.backend.Entity.Booking;
-import com.banger.backend.Entity.Equipment;
 import com.banger.backend.Entity.User;
-import com.banger.backend.Entity.Vehicle;
 import com.banger.backend.Repositary.BookingRepo;
 import com.banger.backend.Repositary.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,9 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -161,7 +159,18 @@ public class userService implements UserDetailsService {
         }
         return list;
     }
+    @Scheduled(cron="0 0 0 * * *", zone = "Asia/Calcutta")
+    public void blackListUser(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        List<Booking> bookingList = bookingRepo.findByBookingStatus("Accepted");
 
+        for (Booking bookingInfo : bookingList) {
+            if ((LocalDateTime.parse((dtf.format(now))).isAfter(bookingInfo.getReturnTime()))) {
+                bookingInfo.getUser().setIsBlackListed("True");
+            }
+        }
+    }
 
     public void removeUser(String email){
         userRepo.deleteById(email);
