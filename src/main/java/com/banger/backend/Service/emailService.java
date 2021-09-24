@@ -1,10 +1,18 @@
 package com.banger.backend.Service;
 import org.springframework.stereotype.Service;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.imageio.ImageIO;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
@@ -148,7 +156,7 @@ public class emailService {
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
-
+            DataSource source=new ByteArrayDataSource(image,"image");
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(companyEmail));
             message.setRecipients(
@@ -166,13 +174,13 @@ public class emailService {
                     "Banger & Co Team";
 
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setDataHandler(new DataHandler(source));
             mimeBodyPart.setContent(msg, "text/html");
+
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(mimeBodyPart);
-
             message.setContent(multipart);
             Transport.send(message);
-
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Error");

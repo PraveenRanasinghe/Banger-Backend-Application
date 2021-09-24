@@ -168,6 +168,7 @@ public class userService implements UserDetailsService {
         for (Booking bookingInfo : bookingList) {
             if ((LocalDateTime.parse((dtf.format(now))).isAfter(bookingInfo.getReturnTime()))) {
                 bookingInfo.getUser().setIsBlackListed("True");
+                emailService.emailForBlackListUsers(bookingInfo.getUser().getEmail());
             }
         }
     }
@@ -175,6 +176,5 @@ public class userService implements UserDetailsService {
     public void removeUser(String email){
         userRepo.deleteById(email);
     }
-
 
 }
