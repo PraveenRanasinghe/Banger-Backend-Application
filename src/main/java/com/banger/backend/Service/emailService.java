@@ -156,28 +156,32 @@ public class emailService {
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
-            DataSource source=new ByteArrayDataSource(image,"image");
+
+            ByteArrayDataSource source=new ByteArrayDataSource(image,"image/JPEG");
+
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(companyEmail));
             message.setRecipients(
                     Message.RecipientType.TO, InternetAddress.parse(email));
             message.setSubject("Suspicious License Found!");
 
-            String msg = "Hello, <br/><br/>" +
-                    "Registration Number of Banger & Co with DMV : DMV085457 <br/>"+
+            String msg = "Hello,\n\n" +
+                    "Registration Number of Banger & Co with DMV : DMV085457 \n"+
                     "We have identified a person, who was trying to make his booking using a suspicious license number."+
-                    "The booking was made at "+dtf.format(now)+
-                    "Suspicious licence number is :"+licenseNumber+ "<br/>"+
+                    " The booking was made at \t"+dtf.format(now)+
+                    "\nSuspicious licence number is : "+licenseNumber+ "\n"+
                     "We have attached the image of that user with this email."+
 
-                    "Thanking You,<br/>" +
+                    "Thanking You,\n" +
                     "Banger & Co Team";
 
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
             mimeBodyPart.setDataHandler(new DataHandler(source));
-            mimeBodyPart.setContent(msg, "text/html");
+            BodyPart bodyPart = new MimeBodyPart();
+            bodyPart.setText(msg);
 
             Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(bodyPart);
             multipart.addBodyPart(mimeBodyPart);
             message.setContent(multipart);
             Transport.send(message);
