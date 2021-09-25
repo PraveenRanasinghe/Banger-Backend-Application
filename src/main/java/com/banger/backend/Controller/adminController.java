@@ -65,9 +65,7 @@ public class adminController {
             System.out.println(ex);
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
-
 
     @GetMapping("/viewInquiries")
     public List<Inquiry> viewAllInquiries() {
@@ -108,12 +106,6 @@ public class adminController {
     public Vehicle getVehicleById(@PathVariable(value = "vehicleId") int vehicleId) {
         return vehicleService.getVehicleByID(vehicleId);
     }
-
-//    @GetMapping("/viewPendingUsers")
-//    public List<userDTO> viewPendingUsers() {
-//        return userService.getAllPendingUsersToList();
-//    }
-
 
     @GetMapping("/viewBlackListedUsers")
     public List<userDTO> viewBlackListedUsers() {
@@ -158,7 +150,6 @@ public class adminController {
     public void updateBookingStatus(@RequestBody acceptBookingDTO dto) throws Exception {
         bookingService.blackListUserWhenBookingStateChange(dto);
     }
-
 
     @GetMapping("/viewAllUsers")
     public List<userDTO> viewAllUsers() {

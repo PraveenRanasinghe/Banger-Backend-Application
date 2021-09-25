@@ -78,7 +78,14 @@ public class bookingService {
                 dto.setBookingId(bookings.getBookingId());
                 dto.setReturnTime(bookings.getReturnTime().toString());
                 dto.setPickupTime(bookings.getPickupTime().toString());
-//                dto.setEquipments(bookings.getEquipments());
+                List<equipmentDTO> dtos = new ArrayList<>();
+                for (Equipment eq : bookings.getEquipments()){
+                    equipmentDTO dto1 = new equipmentDTO();
+                    dto1.setItemName(eq.getItemName());
+                    dto1.setPricePerDayEQ(eq.getPricePerDayEQ());
+                    dtos.add(dto1);
+                }
+                dto.setEquipments(dtos);
                 dto.setVehicle(bookings.getVehicle());
                 dto.setBookingStatus(bookings.getBookingStatus());
 
@@ -219,15 +226,24 @@ public class bookingService {
 
         for (Booking bookings : bookingList) {
             if (bookings.getBookingStatus().equals("Pending")) {
+
                 bookingDTO dto = new bookingDTO();
                 dto.setEmail(bookings.getUser().getEmail());
                 dto.setBookingId(bookings.getBookingId());
                 dto.setReturnTime(bookings.getReturnTime().toString());
                 dto.setPickupTime(bookings.getPickupTime().toString());
                 dto.setPrice(bookings.getPrice());
-//                dto.setEquipments(bookings.getEquipments());
-                dto.setVehicle(bookings.getVehicle());
 
+                List<equipmentDTO> dtos = new ArrayList<>();
+
+                for (Equipment eq : bookings.getEquipments()){
+                    equipmentDTO dto1 = new equipmentDTO();
+                    dto1.setItemName(eq.getItemName());
+                    dto1.setPricePerDayEQ(eq.getPricePerDayEQ());
+                    dtos.add(dto1);
+                }
+                dto.setEquipments(dtos);
+                dto.setVehicle(bookings.getVehicle());
                 dtoList.add(dto);
             }
         }
@@ -245,7 +261,14 @@ public class bookingService {
                 dto.setBookingId(bookings.getBookingId());
                 dto.setReturnTime(bookings.getReturnTime().toString());
                 dto.setPickupTime(bookings.getPickupTime().toString());
-//                dto.setEquipments(bookings.getEquipments());
+                List<equipmentDTO> dtos = new ArrayList<>();
+                for (Equipment eq : bookings.getEquipments()){
+                    equipmentDTO dto1 = new equipmentDTO();
+                    dto1.setItemName(eq.getItemName());
+                    dto1.setPricePerDayEQ(eq.getPricePerDayEQ());
+                    dtos.add(dto1);
+                }
+                dto.setEquipments(dtos);
                 dto.setVehicle(bookings.getVehicle());
 
                 dtoList.add(dto);
