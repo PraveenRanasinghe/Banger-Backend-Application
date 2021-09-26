@@ -2,6 +2,7 @@ package com.banger.backend.Controller;
 
 import com.banger.backend.DTO.*;
 import com.banger.backend.Entity.*;
+import com.banger.backend.Exception.LicenseNumberExistException;
 import com.banger.backend.Service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class userController {
     @PostMapping("/createAccount")
     @PreAuthorize("permitAll()")
     public ResponseEntity<?> registerUser(@RequestParam("signUpInfo") String signUpInfo, @RequestParam("licenceImg") MultipartFile licence,
-                                          @RequestParam("profileImage") MultipartFile profileImg, @RequestParam("utilityBill") MultipartFile utilityBill) throws IOException, ParseException {
+                                          @RequestParam("profileImage") MultipartFile profileImg, @RequestParam("utilityBill") MultipartFile utilityBill) throws IOException, ParseException, LicenseNumberExistException {
         ObjectMapper mp = new ObjectMapper();
         userDTO dtoUser = mp.readValue(signUpInfo, userDTO.class);
         dtoUser.setProfileImage(profileImg.getBytes());

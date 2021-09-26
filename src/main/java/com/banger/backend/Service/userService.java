@@ -4,6 +4,7 @@ import com.banger.backend.Config.ApplicationUser;
 import com.banger.backend.DTO.*;
 import com.banger.backend.Entity.Booking;
 import com.banger.backend.Entity.User;
+import com.banger.backend.Exception.LicenseNumberExistException;
 import com.banger.backend.Repositary.BookingRepo;
 import com.banger.backend.Repositary.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +62,12 @@ public class userService implements UserDetailsService {
     }
 
 
-    public User userRegistration(userDTO dto) throws ParseException {
+    public User userRegistration(userDTO dto) throws ParseException, LicenseNumberExistException {
         User user = new User();
+        if(userRepo.findByNicNumber(dto.getNicNumber()).isPresent()){
+            throw new LicenseNumberExistException("Entered License Number is Already in Use.");
+        }
+        else{
             user.setfName(dto.getfName());
             user.setlName(dto.getlName());
             user.setEmail(dto.getEmail());
@@ -76,6 +81,7 @@ public class userService implements UserDetailsService {
             user.setLicenceImg(dto.getLicenceImg());
             user.setProfileImage(dto.getProfileImage());
             user.setUtilityBill(dto.getUtilityBill());
+        }
         return userRepo.save(user);
     }
 
