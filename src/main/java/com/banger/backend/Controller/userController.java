@@ -126,7 +126,7 @@ public class userController {
         return bookingService.getBookingsByUserEmail(email);
     }
 
-    @GetMapping("/viewMyPendingBookings/{email}")
+    @GetMapping("/viewMyPBookings/{email}")
     public List<bookingDTO> getMyPendingBookings(@PathVariable(value = "email") String email) {
         return bookingService.getMyPendingBookings(email);
     }
@@ -140,6 +140,11 @@ public class userController {
     @PostMapping("/searchVehicles")
     public List<vehicleDTO> findAvailableVehicles(@RequestBody searchVehicleDTO searchDto) {
         return bookingService.searchAvailableVehiclesAccordingToThePickupTimeAndReturnTime(searchDto.getPickupTime(), searchDto.getReturnTime());
+    }
+
+    @DeleteMapping("cancelBooking/{bookingId}")
+    public void cancelBooking(@PathVariable(name = "bookingId") int bookingId) {
+        bookingService.removeBookings(bookingId);
     }
 
 }

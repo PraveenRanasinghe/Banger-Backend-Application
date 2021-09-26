@@ -215,10 +215,9 @@ public class bookingService {
         return bookingRepo.save(booking);
     }
 
-    public void removeBookings(Booking booking) {
-        bookingRepo.delete(booking);
+    public void removeBookings(int bookingId) {
+        bookingRepo.deleteById(bookingId);
     }
-
 
     public List<bookingDTO> getAllPendingBookings() {
         List<Booking> bookingList = bookingRepo.findAll();
