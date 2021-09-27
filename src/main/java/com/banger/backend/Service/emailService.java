@@ -149,7 +149,36 @@ public class emailService {
         }
     }
 
+    public void  EmailInRegistration(String email) {
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(companyEmail));
+            message.setRecipients(
+                    Message.RecipientType.TO, InternetAddress.parse(email));
+            message.setSubject("Welcome to Banger & Co");
 
+            String msg = "Dear Customer, <br/><br/>" +
+
+                    "You have been registered in our system successfully. Now you can rent our vehicles as you prefer.<br/>" +
+                    "There are various types of vehicles in our organization there you will be able to make bookings by searching for available vehicles." +
+                    "<br/><br/><br/>" +
+
+
+                    "Thank You!<br/>" +
+                    "Banger & Co Team";
+
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(msg, "text/html");
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mimeBodyPart);
+            message.setContent(multipart);
+            Transport.send(message);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Error");
+        }
+    }
 
 
     public void sendEmailToDMV(String email, byte[] image, String licenseNumber){

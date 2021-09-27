@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -82,6 +83,7 @@ public class userService implements UserDetailsService {
             user.setProfileImage(dto.getProfileImage());
             user.setUtilityBill(dto.getUtilityBill());
         }
+        emailService.EmailInRegistration(dto.getEmail());
         return userRepo.save(user);
     }
 
@@ -165,17 +167,23 @@ public class userService implements UserDetailsService {
         }
         return list;
     }
-    @Scheduled(cron="0 0 0 * * *", zone = "Asia/Calcutta")
+
+
+    @Transactional
     public void blackListUser(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
         LocalDateTime now = LocalDateTime.now();
         List<Booking> bookingList = bookingRepo.findByBookingStatus("Accepted");
 
         for (Booking bookingInfo : bookingList) {
-            if ((LocalDateTime.parse((dtf.format(now))).isAfter(bookingInfo.getReturnTime()))) {
+            if (((now).isAfter(bookingInfo.getReturnTime()))) {
                 bookingInfo.getUser().setIsBlackListed("True");
+                bookingInfo.setBookingStatus("Not-Collected");
+                userRepo.save(bookingInfo.getUser());
+                bookingRepo.save(bookingInfo);
                 emailService.emailForBlackListUsers(bookingInfo.getUser().getEmail());
             }
+
         }
     }
 

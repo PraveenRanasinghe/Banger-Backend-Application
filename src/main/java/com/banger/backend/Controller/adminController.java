@@ -16,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -216,5 +217,10 @@ public class adminController {
     @GetMapping("/getScrappedResult")
     public List<Scrapper> getScreappedResults() throws IOException {
         return webScrapingImplementation.getScrapperList();
+    }
+
+    @Scheduled(cron="0 0 0 * * *", zone = "Asia/Calcutta")
+    public void blackListUsers(){
+        userService.blackListUser();
     }
 }
